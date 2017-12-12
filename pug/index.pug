@@ -1,0 +1,42 @@
+- var testing = "true"
+
+doctype html
+html(lang="en")
+  head
+    title WIGC
+    //link(href="https://fonts.googleapis.com/css?family=Catamaran:400,700|Libre+Baskerville:700" rel="stylesheet")
+    link(href="css/wigc.css" rel="stylesheet")
+    meta(http-equiv="Content-Security-Policy" content="default-src * gap://ready file:; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; img-src * data:;")
+    meta(name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover")
+    meta(name="format-detection" content="telephone=no")
+    //
+  body
+    main#app
+
+      .backgrounds
+        .bg-photo
+        .bg
+        .bg.bg2
+        .bg.bg3
+
+
+      include partials/_header
+      include partials/_sidebar.pug
+      include partials/_footer.pug
+
+      include partials/sections/_loading.pug
+      include partials/sections/_home.pug
+      include partials/sections/_my.pug
+      include partials/sections/_schedule.pug
+      include partials/sections/_sessions.pug
+      include partials/sections/_parties.pug
+      include partials/sections/_vendors.pug
+      include partials/sections/_people.pug
+      include partials/sections/_sponsors.pug
+      include partials/sections/_map.pug
+      include partials/sections/_meetoo.pug
+      include partials/sections/_social.pug
+      include partials/sections/_contact.pug
+      include partials/sections/_exhibitors.pug
+
+    include partials/_javascripts.pug

@@ -1,0 +1,10 @@
+.social-wrapper{
+  &.twitter{
+    padding: $padding;
+  }
+}
+#twitter-widget-0{
+  background-color: $gray;
+  border-radius: $radius;
+  width: 100%!important;
+}
