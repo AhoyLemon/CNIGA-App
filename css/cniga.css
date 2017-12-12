@@ -1,0 +1,321 @@
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+dialog,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+hr,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+main,
+mark,
+menu,
+meter,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+progress,
+q,
+rp,
+rt,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video,
+xmp {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100%; }
+
+html,
+body {
+  height: 100%; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
+  display: block; }
+
+b,
+strong {
+  font-weight: bold; }
+
+img {
+  color: transparent;
+  font-size: 0;
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic; }
+
+ul,
+ol {
+  list-style: none; }
+
+li {
+  display: list-item; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+th,
+td,
+caption {
+  font-weight: normal;
+  vertical-align: top;
+  text-align: left; }
+
+q {
+  quotes: none; }
+
+q:before,
+q:after {
+  content: "";
+  content: none; }
+
+sub,
+sup,
+small {
+  font-size: 75%; }
+
+sub,
+sup {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+svg {
+  overflow: hidden; }
+
+@font-face {
+  font-family: 'DejaVu';
+  src: url("../fonts/DejaVuSerif.woff") format("woff"); }
+
+@font-face {
+  font-family: 'DejaVu';
+  src: url("../fonts/DejaVuSerif-Bold.woff") format("woff");
+  font-weight: 600; }
+
+@font-face {
+  font-family: 'Sen';
+  src: url("../fonts/Sen.woff") format("woff"); }
+
+@font-face {
+  font-family: 'Sen';
+  src: url("../fonts/Sen-Bold.woff") format("woff");
+  font-weight: 600; }
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html {
+  font-size: 18px; }
+
+html, body {
+  overflow: hidden; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
+svg * {
+  fill: currentColor; }
+
+a {
+  cursor: pointer;
+  color: #F86C4F; }
+
+b, strong {
+  font-weight: 600; }
+
+h1 {
+  font-size: 2.5em; }
+
+h2 {
+  font-size: 2em; }
+
+h3 {
+  font-size: 1.75em; }
+
+h4 {
+  font-size: 1.5em; }
+
+h5 {
+  font-size: 1.25em; }
+
+h6 {
+  font-size: 1em; }
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 105%; }
+
+ul {
+  padding-left: 1.5em; }
+  ul li {
+    list-style-type: disc; }
+
+[v-cloak] {
+  display: none; }
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none; } }
+
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none; } }
+
+body {
+  background: #494949;
+  font-family: "Sen", "Comic Sans MS", "Comic Sans", cursive; }
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #eee;
+  height: 64px; }
+  footer nav {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding-top: 10px; }
+    footer nav a {
+      width: 64px;
+      -ms-flex-preferred-size: 64px;
+      flex-basis: 64px;
+      -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+      flex-grow: 0;
+      -ms-flex-negative: 1;
+      flex-shrink: 1;
+      -ms-flex-item-align: auto;
+      align-self: auto;
+      text-align: center;
+      font-size: 10px; }
+    footer nav .icon {
+      display: inline-block;
+      height: 36px;
+      width: 36px;
+      border: 2px solid #F86C4F;
+      border-radius: 50%;
+      margin-bottom: 0;
+      padding-bottom: 0; }

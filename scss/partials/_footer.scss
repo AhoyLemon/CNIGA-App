@@ -1,0 +1,6 @@
+footer { @include position(absolute,null,0,0,0); background:$white; height: 64px;
+  nav { @include flex-container(); justify-content: space-between; padding-top: 10px;
+    a { @include flex-item(64px,0); text-align: center; font-size:10px; }
+    .icon { display: inline-block; height: 36px; width:36px;border:2px solid $orange; border-radius: 50%; margin-bottom: 0; padding-bottom: 0; }
+  }
+}

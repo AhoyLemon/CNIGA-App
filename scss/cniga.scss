@@ -1,0 +1,16 @@
+// VARIABLES
+@import "globals/_variables";
+@import "partials/_variables";
+@import "partials/_z-index";
+@import "globals/_animations";
+@import "globals/_mixins";
+@import "globals/_extends";
+
+// DEFAULT
+@import "globals/_reset";
+@import "partials/_fonts";
+@import "globals/_defaults";
+
+/// BEGIN
+@import "partials/_main";
+@import "partials/_footer";
