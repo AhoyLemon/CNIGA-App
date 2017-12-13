@@ -1,0 +1,6 @@
+section.news { padding: 20px 20px 0 20px;
+  .inner { background: $white; min-height:calc(100vh - 100px); }
+  dl { padding: 12px; border-bottom: 1px solid $black; }
+  dt { cursor: pointer; font-weight: $bold; color:$orange; }
+  dd { margin-top:10px; font-size:0.85em; }
+}

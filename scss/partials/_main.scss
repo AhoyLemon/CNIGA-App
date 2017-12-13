@@ -1,1 +1,6 @@
 body { background:$black; font-family:$sans; }
+main { height: 100%; overflow-y: scroll; padding-bottom: 76px; }
+
+section { padding: 20px 20px 0 20px;
+  .inner { background: $white; min-height:calc(100vh - 100px); padding: 12px; }
+}

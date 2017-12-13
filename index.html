@@ -9,16 +9,35 @@
   </head>
   <body>
     <main id="app">
+      <section class="news" v-if="my.view == 'news'" v-cloak>
+        <div class="inner">
+          <dl v-for="item in news">
+            <dt v-html="item.title" v-on:click="item.expand = !item.expand"></dt>
+            <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
+              <dd v-if="item.expand" v-html="item.body"></dd>
+            </transition>
+          </dl>
+        </div>
+      </section>
+      <section class="contact" v-show="my.view == 'contact'">
+        <div class="inner">
+          <form>
+            <select>
+              <option>Question</option>
+            </select>
+          </form>
+        </div>
+      </section>
       <footer>
         <nav><a>
-            <div class="icon"></div><span>NEWS</span></a><a>
+            <div class="icon"></div>
+            <div class="badge" v-text="news.length"></div><span>NEWS</span></a><a>
             <div class="icon"></div><span>QUESTIONS</span></a><a>
             <div class="icon"></div><span>BILLS</span></a></nav>
       </footer>
     </main>
     <div class="javascripts">
-      <script src="cordova.js"></script>
-      <script src="js/libraries/jquery-3.2.1.min.js"></script>
+      <script src="js/libraries/velocity.min.js"></script>
       <script src="js/libraries/vue.js"></script>
       <script src="js/cniga.min.js"></script>
     </div>

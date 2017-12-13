@@ -7,8 +7,14 @@ html(lang="en")
   
   body
     main#app
-
-      //-include partials/_header
+        
+      include partials/sections/_news
+      
+      section.contact(v-show="my.view == 'contact'")
+        .inner
+          form
+            select
+              option Question
       
       include partials/_footer
 

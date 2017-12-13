@@ -1,6 +1,7 @@
-footer { @include position(absolute,null,0,0,0); background:$white; height: 64px;
+footer { @include position(absolute,null,0,0,0); background:$white; height: 64px; z-index: $z-footer; border-top:2px solid $orange;
   nav { @include flex-container(); justify-content: space-between; padding-top: 10px;
-    a { @include flex-item(64px,0); text-align: center; font-size:10px; }
-    .icon { display: inline-block; height: 36px; width:36px;border:2px solid $orange; border-radius: 50%; margin-bottom: 0; padding-bottom: 0; }
+    a { @include flex-item(64px,0); text-align: center; font-size:10px; position: relative; }
+    .icon { display: inline-block; height: 36px; width:36px;border:2px solid $orange; border-radius: 50%; margin-bottom: 0; padding-bottom: 0; position: relative; }
+    .badge { width:20px; height: 20px; background:$red; border-radius:50%; color:$white; font-weight: $bold; line-height: 180%; @include position(absolute,-5px,null,null,55%); }
   }
 }
