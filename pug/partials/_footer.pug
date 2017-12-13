@@ -3,12 +3,16 @@ footer
     a(v-on:click="my.view = 'news'")
       .icon
         .fill(v-bind:class="{active: my.view == 'news'}")
-      .badge(v-text="news.length")
+      .badge(v-if="my.unreadItems > 0" v-text="my.unreadItems")
       span NEWS
     a(v-on:click="my.view = 'contact'")
       .icon
         .fill(v-bind:class="{active: my.view == 'contact'}")
       span Contact
-    a(v-on:click="my.view = false")
+    //-a(v-on:click="my.view = false")
       .icon
       span BILLS
+    a(v-on:click="my.view = 'iframe'")
+      .icon
+        .fill(v-bind:class="{active: my.view == 'iframe'}")
+      span Information

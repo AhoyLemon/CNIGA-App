@@ -9,19 +9,22 @@ var app = new Vue({
   el: '#app',
   data: {
     my: {
-      view: 'news',
-      contactChoice: false
+      view: 'iframe',
+      contactChoice: false,
+      unreadItems: 0
     },
     news: [
       {
         title: 'Here is an urgent piece of news',
         body:  "Morbi posuere enim non ligula congue posuere. Morbi augue sem, interdum vitae ligula ac, cursus ultrices mi. Aenean ornare diam in erat gravida, ac interdum sapien varius. In sit amet volutpat arcu, in feugiat elit. Etiam dictum, risus sit amet cursus molestie, nibh elit tincidunt dui, in eleifend mauris odio nec magna. Nulla ultrices velit ac magna gravida imperdiet. In erat mauris, dapibus ac sem a, posuere consectetur neque. Integer finibus mi id sem tempor interdum. Sed vestibulum, turpis quis sagittis malesuada, odio libero pellentesque odio, sed interdum augue odio ac nisi.",
-        expand: false
+        expand: false,
+        read: false
       },
       {
         title: 'Another piece of news',
         body:  "Sed ullamcorper dui condimentum, lacinia turpis quis, iaculis quam. Duis nec augue aliquet, vehicula ligula nec, faucibus leo.",
-        expand: false
+        expand: false,
+        read: false
       }
     ]
   },
@@ -42,7 +45,7 @@ var app = new Vue({
       Velocity(el, 'slideUp', {duration: 300})
     },
     
-    
+    /*
     beforeFromBottom: function (el) {
       el.style.translateY = windowHeight
     },
@@ -52,5 +55,23 @@ var app = new Vue({
     toBottom: function (el, done) {
       Velocity(el, { translateY: windowHeight, opacity:0 }, { duration: 400 })
     }
+    */
+    
+    countUnreadNews: function(){
+      var self = this;
+      self.my.unreadItems = 0;
+      self.news.forEach(function(element) {
+        if (!element.read) {
+          self.my.unreadItems++;
+        }
+      });
+    }
+    
+    
+    
+  },
+  mounted: function () {
+    var self = this;
+    self.countUnreadNews();
   }
 });

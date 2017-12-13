@@ -2,6 +2,8 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
   section.news(v-if="my.view == 'news'" v-cloak)
     .inner
       dl(v-for="item in news")
-        dt(v-html="item.title" v-on:click="item.expand = !item.expand")
+        dt(v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()")
+          span.unread(v-if="!item.read") !
+          span.title(v-html="item.title")
         transition(v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false")
           dd(v-if="item.expand" v-html="item.body")

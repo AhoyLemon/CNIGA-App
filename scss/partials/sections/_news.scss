@@ -1,6 +1,9 @@
-section.news { padding: 20px 20px 0 20px;
-  .inner { background: $white; min-height:calc(100vh - 100px); }
-  dl { padding: 12px; border-bottom: 1px solid $black; }
-  dt { cursor: pointer; font-weight: $bold; color:$orange; }
+section.news {
+  dl { padding: 12px; border-bottom: 1px solid $black;
+    &:last-child { border-bottom: none; }
+  }
+  dt { cursor: pointer; font-weight: $bold; color:$orange;
+    .unread { width:1em; height: 1em; display: inline-block; background-color:$red; border-radius: 50%; color:$white; margin-right: 0.5em; text-align: center; }
+  }
   dd { margin-top:10px; font-size:0.85em; }
 }
