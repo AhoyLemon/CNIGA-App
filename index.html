@@ -4,35 +4,58 @@
     <meta charset="utf-8">
     <title>CNIGA</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/cniga.css?v=undefined">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <main id="app">
-      <section class="news" v-if="my.view == 'news'" v-cloak>
-        <div class="inner">
-          <dl v-for="item in news">
-            <dt v-html="item.title" v-on:click="item.expand = !item.expand"></dt>
-            <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
-              <dd v-if="item.expand" v-html="item.body"></dd>
-            </transition>
-          </dl>
-        </div>
-      </section>
-      <section class="contact" v-show="my.view == 'contact'">
-        <div class="inner">
-          <form>
-            <select>
-              <option>Question</option>
-            </select>
-          </form>
-        </div>
-      </section>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="news" v-if="my.view == 'news'" v-cloak>
+          <div class="inner">
+            <dl v-for="item in news">
+              <dt v-html="item.title" v-on:click="item.expand = !item.expand"></dt>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false">
+                <dd v-if="item.expand" v-html="item.body"></dd>
+              </transition>
+            </dl>
+          </div>
+        </section>
+      </transition>
+      <transition enter-active-class="animated animated-entrance bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="contact" v-if="my.view == 'contact'" v-cloak>
+          <div class="inner">
+            <form>
+              <label><span v-if="!my.contactChoice">What can we do for you?</span>
+                <select v-model="my.contactChoice">
+                  <option></option>
+                  <option>Ask a question</option>
+                  <option>Request a Form</option>
+                </select>
+              </label>
+              <transition enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut">
+                <label v-if="my.contactChoice">
+                  <textarea placeholder="What's your question?"></textarea>
+                </label>
+              </transition>
+              <transition enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut">
+                <div class="button-holder" v-if="my.contactChoice">
+                  <button type="submit">Submit</button>
+                </div>
+              </transition>
+            </form>
+          </div>
+        </section>
+      </transition>
       <footer>
-        <nav><a>
-            <div class="icon"></div>
-            <div class="badge" v-text="news.length"></div><span>NEWS</span></a><a>
-            <div class="icon"></div><span>QUESTIONS</span></a><a>
+        <nav><a v-on:click="my.view = 'news'">
+            <div class="icon">
+              <div class="fill" v-bind:class="{active: my.view == 'news'}"></div>
+            </div>
+            <div class="badge" v-text="news.length"></div><span>NEWS</span></a><a v-on:click="my.view = 'contact'">
+            <div class="icon">
+              <div class="fill" v-bind:class="{active: my.view == 'contact'}"></div>
+            </div><span>Contact</span></a><a v-on:click="my.view = false">
             <div class="icon"></div><span>BILLS</span></a></nav>
       </footer>
     </main>

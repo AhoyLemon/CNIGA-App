@@ -1,6 +1,7 @@
-section.news(v-if="my.view == 'news'" v-cloak)
-  .inner
-    dl(v-for="item in news")
-      dt(v-html="item.title" v-on:click="item.expand = !item.expand")
-      transition(v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false")
-        dd(v-if="item.expand" v-html="item.body")
+transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
+  section.news(v-if="my.view == 'news'" v-cloak)
+    .inner
+      dl(v-for="item in news")
+        dt(v-html="item.title" v-on:click="item.expand = !item.expand")
+        transition(v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false")
+          dd(v-if="item.expand" v-html="item.body")

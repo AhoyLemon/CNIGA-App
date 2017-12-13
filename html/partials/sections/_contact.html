@@ -1,0 +1,20 @@
+
+<section class="contact" v-show="my.view == 'contact'">
+  <div class="inner">
+    <form>
+      <label><span v-if="!my.contactChoice">What can we do for you?</span>
+        <select v-model="my.contactChoice">
+          <option></option>
+          <option>Ask a question</option>
+          <option>Request a Form</option>
+        </select>
+      </label>
+      <label v-if="my.contactChoice">
+        <textarea placeholder="What's your question?"></textarea>
+      </label>
+      <div class="button-holder" v-if="my.contactChoice">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</section>

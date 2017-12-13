@@ -272,14 +272,18 @@ body {
 
 main {
   height: 100%;
-  overflow-y: scroll;
   padding-bottom: 76px; }
 
 section {
-  padding: 20px 20px 0 20px; }
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 65px;
+  left: 0;
+  overflow-y: auto; }
   section .inner {
     background: #eee;
-    min-height: calc(100vh - 100px);
     padding: 12px; }
 
 footer {
@@ -335,6 +339,31 @@ footer {
       margin-bottom: 0;
       padding-bottom: 0;
       position: relative; }
+      footer nav .icon .fill {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #F86C4F;
+        -webkit-transform: scale(2);
+        -ms-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
+        border-radius: 50%;
+        -webkit-transition: all 0.3s linear;
+        -o-transition: all 0.3s linear;
+        transition: all 0.3s linear; }
+        footer nav .icon .fill.active {
+          -webkit-transform: scale(1.05);
+          -ms-transform: scale(1.05);
+          transform: scale(1.05);
+          opacity: 1;
+          -webkit-transition: -webkit-transform 0.3s linear;
+          transition: -webkit-transform 0.3s linear;
+          -o-transition: transform 0.3s linear;
+          transition: transform 0.3s linear;
+          transition: transform 0.3s linear, -webkit-transform 0.3s linear; }
     footer nav .badge {
       width: 20px;
       height: 20px;
@@ -367,6 +396,30 @@ section.contact select {
   display: block;
   width: 100%;
   font-family: "DejaVu", "Papyrus", serif;
+  padding: 0.5em 1em;
+  margin-bottom: 1em; }
+
+section.contact textarea {
+  font-family: "DejaVu", "Papyrus", serif;
+  width: 100%;
+  padding: 0.5em 1em; }
+
+section.contact label {
+  display: block;
+  width: 100%; }
+
+section.contact .button-holder {
+  text-align: center;
+  padding-top: 0.5em; }
+
+section.contact button {
+  background: #F86C4F;
+  color: #494949;
+  border: 0;
+  font-family: "Sen", "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 600;
   padding: 0.5em 1em; }
 
 /*# sourceMappingURL=cniga.css.map */

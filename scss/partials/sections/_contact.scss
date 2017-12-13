@@ -1,3 +1,7 @@
 section.contact {
-  select { display: block; width:100%; font-family: $serif; padding: 0.5em 1em; }
+  select { display: block; width:100%; font-family: $serif; padding: 0.5em 1em; margin-bottom: 1em; }
+  textarea { font-family:$serif; width: 100%; padding: 0.5em 1em; }
+  label { display: block; width: 100%; }
+  .button-holder { text-align: center; padding-top: 0.5em; }
+  button { background:$orange; color:$black;  border:0; font-family: $sans; font-size:0.9rem; text-transform: uppercase; font-weight: $bold; padding:0.5em 1em; }
 }

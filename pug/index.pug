@@ -9,12 +9,7 @@ html(lang="en")
     main#app
         
       include partials/sections/_news
-      
-      section.contact(v-show="my.view == 'contact'")
-        .inner
-          form
-            select
-              option Question
+      include partials/sections/_contact
       
       include partials/_footer
 

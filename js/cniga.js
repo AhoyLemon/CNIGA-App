@@ -3,11 +3,14 @@
 
 //@prepros-prepend partials/_functions.js
 
+var windowHeight = window.innerHeight;
+
 var app = new Vue({
   el: '#app',
   data: {
     my: {
-      view: 'contact'
+      view: 'news',
+      contactChoice: false
     },
     news: [
       {
@@ -27,16 +30,27 @@ var app = new Vue({
   },
   methods: {
     beforeEnter: function (el) {
-      //el.style.opacity = 0
+      el.style.opacity = 0
     },
-    enter: function (el, done) {
+    slideDown: function (el, done) {
       Velocity(el, 'slideDown', {duration: 500})
       //-Velocity(el, 'fadeIn', {duration: 300})
       //Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
       //Velocity(el, { fontSize: '1em' }, { complete: done })
     },
-    leave: function (el, done) {
+    slideUp: function (el, done) {
       Velocity(el, 'slideUp', {duration: 300})
+    },
+    
+    
+    beforeFromBottom: function (el) {
+      el.style.translateY = windowHeight
+    },
+    fromBottom: function (el, done) {
+      Velocity(el, { translateY: "1px", opacity:1 }, { duration: 900 })
+    },
+    toBottom: function (el, done) {
+      Velocity(el, { translateY: windowHeight, opacity:0 }, { duration: 400 })
     }
   }
 });

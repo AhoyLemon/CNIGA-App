@@ -1,12 +1,14 @@
 footer
   nav
-    a
+    a(v-on:click="my.view = 'news'")
       .icon
+        .fill(v-bind:class="{active: my.view == 'news'}")
       .badge(v-text="news.length")
       span NEWS
-    a
+    a(v-on:click="my.view = 'contact'")
       .icon
-      span QUESTIONS
-    a
+        .fill(v-bind:class="{active: my.view == 'contact'}")
+      span Contact
+    a(v-on:click="my.view = false")
       .icon
       span BILLS
