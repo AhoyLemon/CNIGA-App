@@ -291,10 +291,9 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  background: #eee;
   height: 64px;
   z-index: 5;
-  border-top: 2px solid #F86C4F; }
+  background: #F86C4F; }
   footer nav {
     display: -webkit-box;
     display: -webkit-flex;
@@ -315,7 +314,7 @@ footer {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding-top: 10px; }
+    padding: 10px 10px 0 10px; }
     footer nav a {
       width: 64px;
       -ms-flex-preferred-size: 64px;
@@ -329,12 +328,13 @@ footer {
       align-self: auto;
       text-align: center;
       font-size: 10px;
-      position: relative; }
+      position: relative;
+      color: #eee; }
     footer nav .icon {
       display: inline-block;
       height: 36px;
       width: 36px;
-      border: 2px solid #F86C4F;
+      border: 2px solid currentColor;
       border-radius: 50%;
       margin-bottom: 0;
       padding-bottom: 0;
@@ -345,7 +345,7 @@ footer {
         right: 0;
         bottom: 0;
         left: 0;
-        background: #F86C4F;
+        background: currentColor;
         -webkit-transform: scale(2);
         -ms-transform: scale(2);
         transform: scale(2);
@@ -364,6 +364,8 @@ footer {
           -o-transition: transform 0.3s linear;
           transition: transform 0.3s linear;
           transition: transform 0.3s linear, -webkit-transform 0.3s linear; }
+    footer nav span {
+      display: block; }
     footer nav .badge {
       width: 20px;
       height: 20px;
@@ -376,6 +378,17 @@ footer {
       top: -5px;
       left: 55%; }
 
+/*
+footer { background-color:$orange;
+  nav {
+    a { color:$white; }
+    .icon { border-color: $white;
+      .fill { background-color:$white; }
+    }
+    span { color:$white; }
+  }
+}
+*/
 section.news dl {
   padding: 12px;
   border-bottom: 1px solid #494949; }

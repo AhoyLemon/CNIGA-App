@@ -1,11 +1,27 @@
-footer { @include position(absolute,null,0,0,0); background:$white; height: 64px; z-index: $z-footer; border-top:2px solid $orange;
-  nav { @include flex-container(); justify-content: space-between; padding-top: 10px;
-    a { @include flex-item(64px,0); text-align: center; font-size:10px; position: relative; }
-    .icon { display: inline-block; height: 36px; width:36px;border:2px solid $orange; border-radius: 50%; margin-bottom: 0; padding-bottom: 0; position: relative;
-      .fill { @include position(absolute,0,0,0,0); background:$orange; transform: scale(2); opacity: 0;  border-radius: 50%; transition:all 0.3s linear;
+$footerBG: $orange;
+$footerFG: $white;
+
+footer { @include position(absolute,null,0,0,0); height: 64px; z-index: $z-footer; background: $footerBG;
+  nav { @include flex-container(); justify-content: space-between; padding:10px 10px 0 10px;
+    a { @include flex-item(64px,0); text-align: center; font-size:10px; position: relative; color:$footerFG; }
+    .icon { display: inline-block; height: 36px; width:36px;border:2px solid currentColor; border-radius: 50%; margin-bottom: 0; padding-bottom: 0; position: relative;
+      .fill { @include position(absolute,0,0,0,0); background:currentColor; transform: scale(2); opacity: 0;  border-radius: 50%; transition:all 0.3s linear;
         &.active { transform: scale(1.05); opacity: 1; transition:transform 0.3s linear; }
       }
     }
+    span { display: block; }
     .badge { width:20px; height: 20px; background:$red; border-radius:50%; color:$white; font-weight: $bold; line-height: 180%; @include position(absolute,-5px,null,null,55%); }
   }
 }
+
+/*
+footer { background-color:$orange;
+  nav {
+    a { color:$white; }
+    .icon { border-color: $white;
+      .fill { background-color:$white; }
+    }
+    span { color:$white; }
+  }
+}
+*/

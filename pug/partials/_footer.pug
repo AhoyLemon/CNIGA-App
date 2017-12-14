@@ -4,7 +4,7 @@ footer
       .icon
         .fill(v-bind:class="{active: my.view == 'news'}")
       .badge(v-if="my.unreadItems > 0" v-text="my.unreadItems")
-      span NEWS
+      span News
     a(v-on:click="my.view = 'contact'")
       .icon
         .fill(v-bind:class="{active: my.view == 'contact'}")

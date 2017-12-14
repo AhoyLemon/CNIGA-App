@@ -9,7 +9,7 @@ var app = new Vue({
   el: '#app',
   data: {
     my: {
-      view: 'iframe',
+      view: 'news',
       contactChoice: false,
       unreadItems: 0
     },

@@ -14,7 +14,9 @@
         <section class="news" v-if="my.view == 'news'" v-cloak>
           <div class="inner">
             <dl v-for="item in news">
-              <dt v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()"><span class="unread" v-if="!item.read">!</span><span class="title" v-html="item.title"></span></dt>
+              <dt v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()">
+                <transition leave-active-class="animated bounceOut"><span class="unread" v-if="!item.read">!</span></transition><span class="title" v-html="item.title"></span>
+              </dt>
               <transition v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false">
                 <dd v-if="item.expand" v-html="item.body"></dd>
               </transition>
@@ -59,7 +61,7 @@
             <div class="icon">
               <div class="fill" v-bind:class="{active: my.view == 'news'}"></div>
             </div>
-            <div class="badge" v-if="my.unreadItems &gt; 0" v-text="my.unreadItems"></div><span>NEWS</span></a><a v-on:click="my.view = 'contact'">
+            <div class="badge" v-if="my.unreadItems &gt; 0" v-text="my.unreadItems"></div><span>News</span></a><a v-on:click="my.view = 'contact'">
             <div class="icon">
               <div class="fill" v-bind:class="{active: my.view == 'contact'}"></div>
             </div><span>Contact</span></a><a v-on:click="my.view = 'iframe'">
