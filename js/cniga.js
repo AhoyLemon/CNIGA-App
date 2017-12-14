@@ -44,7 +44,7 @@ var app = new Vue({
     slideUp: function (el, done) {
       Velocity(el, 'slideUp', {duration: 300})
     },
-    
+
     /*
     beforeFromBottom: function (el) {
       el.style.translateY = windowHeight
@@ -56,7 +56,7 @@ var app = new Vue({
       Velocity(el, { translateY: windowHeight, opacity:0 }, { duration: 400 })
     }
     */
-    
+
     countUnreadNews: function(){
       var self = this;
       self.my.unreadItems = 0;
@@ -65,13 +65,64 @@ var app = new Vue({
           self.my.unreadItems++;
         }
       });
+    },
+    bindEvents: function() {
+        console.log('Bind Events');
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    onDeviceReady: function() {
+        var self = this;
+        self.deviceready = true;
+        console.log('Received Device Ready Event');
+        console.log('calling setup push');
+        app.setupPush();
+    },
+    setupPush: function() {
+        var self = this;
+        console.log('calling push init');
+        var push = PushNotification.init({
+            "android": {
+                "senderID": "XXXXXXXX"
+            },
+            "browser": {},
+            "ios": {
+                "sound": true,
+                "vibration": true,
+                "badge": true
+            },
+            "windows": {}
+        });
+        console.log('after init');
+
+        push.on('registration', function(data) {
+            console.log('registration event: ' + data.registrationId);
+            document.getElementById("regId").innerHTML = data.registrationId;
+            var oldRegId = localStorage.getItem('registrationId');
+            if (oldRegId !== data.registrationId) {
+                // Save new registration ID
+                localStorage.setItem('registrationId', data.registrationId);
+                // Post registrationId to your app server as the value has changed
+            }
+        });
+
+        push.on('error', function(e) {
+            console.log("push error = " + e.message);
+        });
+
+        push.on('notification', function(data) {
+            console.log('notification event');
+            navigator.notification.alert(
+                data.message,         // message
+                null,                 // callback
+                data.title,           // title
+                'Ok'                  // buttonName
+            );
+       });
     }
-    
-    
-    
   },
   mounted: function () {
     var self = this;
     self.countUnreadNews();
+    self.bindEvents();
   }
 });
