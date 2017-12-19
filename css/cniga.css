@@ -389,6 +389,32 @@ footer { background-color:$orange;
   }
 }
 */
+button, .button {
+  font-size: 0.8em;
+  color: #eee;
+  background: #F86C4F;
+  border: none;
+  border-radius: 2px;
+  padding: 0.6em 2em;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: "Sen", "Comic Sans MS", "Comic Sans", cursive;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  button:hover, .button:hover {
+    background: #ff6748; }
+  button .icon, .button .icon {
+    display: inline-block;
+    height: 1em;
+    line-height: 1em;
+    margin: 0 0.5em 0 0;
+    width: 1em; }
+
 section.news dl {
   padding: 12px;
   border-bottom: 1px solid #494949; }
@@ -450,5 +476,44 @@ section.iframe .inner {
 section.iframe iframe {
   width: 100%;
   height: 100%; }
+
+.bill {
+  border-bottom: 1px solid #494949;
+  padding: 1em 0; }
+  .bill .email-button {
+    margin-top: 0.5em; }
+
+.bills-heading {
+  color: #F86C4F;
+  cursor: pointer;
+  margin: 1em 0 0; }
+  .bills-heading:first-of-type {
+    margin-top: 0; }
+
+.bill-custom-name {
+  margin-left: 1em; }
+
+.bill-author {
+  margin: 0.25em 0 0.5em; }
+
+.bill-author--party {
+  border-radius: 50%;
+  color: white;
+  margin-left: 1em;
+  padding: 0 0.25em; }
+  .bill-author--party.D {
+    background-color: #005CAF; }
+  .bill-author--party.R {
+    background-color: #E83015; }
+
+.schedule {
+  border-top: 1em solid #494949; }
+
+.schedule-heading {
+  color: #F86C4F;
+  cursor: pointer; }
+
+.schedule-item {
+  margin: 1em 0; }
 
 /*# sourceMappingURL=cniga.css.map */

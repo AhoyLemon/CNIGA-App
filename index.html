@@ -49,6 +49,54 @@
           </div>
         </section>
       </transition>
+      <transition-group name="members" tag="section" enter-active-class="animated animated-entrance bounceInUp" leave-active-class="animated bounceOutUp">
+        <div class="bills" v-if="my.view == 'members'" v-cloak v-bind:key="0">
+          <div class="inner">
+            <h4 class="bills-heading" v-on:click="stateSupportShow = !stateSupportShow;">State Legislation we are Supporting</h4>
+            <transition v-on:enter="slideDown" v-on:leave="slideUp">
+              <div class="bill-list" v-if="stateSupportShow">
+                <div class="bill" v-for="bill in stateSupport"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><span class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</span>
+                  <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                  <p>{{bill.description}}</p><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)" v-if="bill.emailBody">Email Congress about this bill</a>
+                </div>
+              </div>
+            </transition>
+            <h4 class="bills-heading" v-on:click="stateOpposeShow = !stateOpposeShow;">State Legislation we are Opposing</h4>
+            <transition v-on:enter="slideDown" v-on:leave="slideUp">
+              <div class="bill-list" v-if="stateOpposeShow">
+                <div class="bill" v-for="bill in stateOppose"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><span class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</span>
+                  <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                  <p>{{bill.description}}</p><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)" v-if="bill.emailBody">Email Congress about this bill</a>
+                </div>
+              </div>
+            </transition>
+            <h4 class="bills-heading" v-on:click="stateMonitorShow = !stateMonitorShow;">State Legislation we are Monitoring</h4>
+            <transition v-on:enter="slideDown" v-on:leave="slideUp">
+              <div class="bill-list" v-if="stateMonitorShow">
+                <div class="bill" v-for="bill in stateMonitor"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><span class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</span>
+                  <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                  <p>{{bill.description}}</p><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)" v-if="bill.emailBody">Email Congress about this bill</a>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </div>
+        <div class="schedule" v-if="my.view == 'members'" v-cloak v-bind:key="1">
+          <div class="inner">
+            <h4 class="schedule-heading" v-on:click="scheduleShow = !scheduleShow">2018 CNIGA Schedule</h4>
+            <transition v-on:enter="slideDown" v-on:leave="slideUp">
+              <div class="schedule-items" v-if="scheduleShow">
+                <div class="schedule-item" v-for="item in schedule">
+                  <h5>{{item.title}}</h5>
+                  <date>{{item.datetime}}</date>
+                  <p v-if="item.location">Location: {{item.location}} <span v-if="item.street_address">- {{item.street_address}} </span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></p>
+                  <p v-if="item.description">{{item.description}}</p>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </div>
+      </transition-group>
       <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
         <section class="iframe" v-if="my.view == 'iframe'" v-cloak>
           <div class="inner">
@@ -64,7 +112,10 @@
             <div class="badge" v-if="my.unreadItems &gt; 0" v-text="my.unreadItems"></div><span>News</span></a><a v-on:click="my.view = 'contact'">
             <div class="icon">
               <div class="fill" v-bind:class="{active: my.view == 'contact'}"></div>
-            </div><span>Contact</span></a><a v-on:click="my.view = 'iframe'">
+            </div><span>Contact</span></a><a v-on:click="my.view = 'members'">
+            <div class="icon">
+              <div class="fill" v-bind:class="{active: my.view == 'members'}"></div>
+            </div><span>Member Info</span></a><a v-on:click="my.view = 'iframe'">
             <div class="icon">
               <div class="fill" v-bind:class="{active: my.view == 'iframe'}"></div>
             </div><span>Information</span></a></nav>

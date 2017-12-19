@@ -9,9 +9,10 @@ footer
       .icon
         .fill(v-bind:class="{active: my.view == 'contact'}")
       span Contact
-    //-a(v-on:click="my.view = false")
+    a(v-on:click="my.view = 'members'")
       .icon
-      span BILLS
+        .fill(v-bind:class="{active: my.view == 'members'}")
+      span Member Info
     a(v-on:click="my.view = 'iframe'")
       .icon
         .fill(v-bind:class="{active: my.view == 'iframe'}")

@@ -11,7 +11,7 @@ var app = new Vue({
     my: {
       view: 'news',
       contactChoice: false,
-      unreadItems: 0
+      unreadItems: 0,
     },
     news: [
       {
@@ -26,10 +26,18 @@ var app = new Vue({
         expand: false,
         read: false
       }
-    ]
+    ],
+    stateSupport: {},
+    stateSupportShow: false,
+    stateOppose: {},
+    stateOpposeShow: false,
+    stateMonitor: {},
+    stateMonitorShow:false,
+    schedule: {},
+    scheduleShow: false
   },
   computed: {
-    // Nothing yet
+
   },
   methods: {
     beforeEnter: function (el) {
@@ -56,6 +64,15 @@ var app = new Vue({
       Velocity(el, { translateY: windowHeight, opacity:0 }, { duration: 400 })
     }
     */
+    openLink: function(destination, target){
+      if(typeof(cordova.InAppBrowser) !== 'undefined'){
+          window.open = cordova.InAppBrowser.open;
+      }
+      window.open(destination, target)
+    },
+    emailLink: function(emailTitle,emailBody){
+      return "mailto:?subject=" + emailTitle + "&body=" + emailBody;
+    },
 
     countUnreadNews: function(){
       var self = this;
@@ -118,11 +135,24 @@ var app = new Vue({
                 'Ok'                  // buttonName
             );
        });
+    },
+    getContent: function(){
+      var self = this;
+      fetch('http://localhost/cniga-content/')
+      //fetch('https://circle.red/cniga/')
+        .then(function(res){ return res.json()})
+        .then(function(content){
+          self.stateSupport = content.billssupporting
+          self.stateOppose = content.billsopposing
+          self.stateMonitor = content.billsmonitoring
+          self.schedule = content.schedule
+        })
     }
   },
   mounted: function () {
     var self = this;
     self.countUnreadNews();
     self.bindEvents();
+    self.getContent();
   }
 });

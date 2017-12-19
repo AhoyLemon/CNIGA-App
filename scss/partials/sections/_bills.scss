@@ -1,0 +1,38 @@
+.bill{
+  border-bottom: 1px solid #494949;
+  padding: 1em 0;
+  .email-button{
+    margin-top: 0.5em;
+  }
+}
+
+.bills-heading{
+  color: $orange;
+  cursor: pointer;
+  margin: 1em 0 0;
+  &:first-of-type{
+    margin-top: 0;
+  }
+}
+
+
+.bill-custom-name{
+  margin-left: 1em;
+}
+
+.bill-author{
+  margin: 0.25em 0 0.5em;
+}
+
+.bill-author--party{
+  border-radius: 50%;
+  color: white;
+  margin-left: 1em;
+  padding: 0 0.25em;
+  &.D{
+    background-color: #005CAF;
+  }
+  &.R{
+    background-color: #E83015;
+  }
+}
