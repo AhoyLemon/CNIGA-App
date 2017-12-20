@@ -480,8 +480,6 @@ section.iframe iframe {
 .bill {
   border-bottom: 1px solid #494949;
   padding: 1em 0; }
-  .bill .email-button {
-    margin-top: 0.5em; }
 
 .bills-heading {
   color: #F86C4F;
@@ -489,6 +487,33 @@ section.iframe iframe {
   margin: 1em 0 0; }
   .bills-heading:first-of-type {
     margin-top: 0; }
+  .bills-heading .indicator {
+    margin-left: 0.75em;
+    position: relative; }
+    .bills-heading .indicator.loading .bar {
+      -webkit-animation: spin 3s linear infinite;
+      animation: spin 3s linear infinite; }
+    .bills-heading .indicator.expanded .bar {
+      background-color: #F86C4F; }
+      .bills-heading .indicator.expanded .bar.v {
+        -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg); }
+    .bills-heading .indicator .bar {
+      background-color: #494949;
+      display: inline-block;
+      position: absolute;
+      -webkit-transition: 0.3s all;
+      -o-transition: 0.3s all;
+      transition: 0.3s all; }
+      .bills-heading .indicator .bar.v {
+        height: 1em;
+        width: 5px; }
+      .bills-heading .indicator .bar.h {
+        width: 1em;
+        height: 5px;
+        top: 13px;
+        left: -11px; }
 
 .bill-custom-name {
   margin-left: 1em; }
@@ -505,6 +530,58 @@ section.iframe iframe {
     background-color: #005CAF; }
   .bill-author--party.R {
     background-color: #E83015; }
+
+.email-congress {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.email-sent {
+  margin-left: 1em;
+  -webkit-transition: 0.3s all;
+  -o-transition: 0.3s all;
+  transition: 0.3s all;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .email-sent.checked {
+    color: green; }
+    .email-sent.checked .checkbox svg {
+      color: green;
+      border: 3px solid green; }
+      .email-sent.checked .checkbox svg path {
+        opacity: 1; }
+  .email-sent .checkbox {
+    padding-top: 6px;
+    margin-right: 1em; }
+    .email-sent .checkbox svg {
+      width: 1.5em;
+      padding: 2px;
+      border: 3px solid #494949; }
+      .email-sent .checkbox svg path {
+        opacity: 0;
+        -webkit-transition: 0.3s all;
+        -o-transition: 0.3s all;
+        transition: 0.3s all; }
 
 .schedule {
   border-top: 1em solid #494949; }

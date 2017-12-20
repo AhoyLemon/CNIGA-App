@@ -2,6 +2,9 @@ transition-group(name="members" tag="section" enter-active-class="animated anima
   .bills(v-if="my.view == 'members'" v-cloak v-bind:key="0")
     .inner
       h4.bills-heading(v-on:click="stateSupportShow = !stateSupportShow;") State Legislation we are Supporting
+        span.indicator(v-bind:class="{loading: billsLoading, expanded: stateSupportShow}")
+          span.bar.v
+          span.bar.h
       transition(v-on:enter="slideDown" v-on:leave="slideUp")
         .bill-list(v-if="stateSupportShow")
           .bill(v-for="bill in stateSupport")
@@ -11,7 +14,13 @@ transition-group(name="members" tag="section" enter-active-class="animated anima
               a.bill-author--name(v-on:click="openLink(bill.billAuthorLink, '_system');" href="#") {{bill.billAuthorName}}
               span.bill-author--party(v-bind:class="bill.billAuthorParty") {{bill.billAuthorParty}}
             p {{bill.description}}
-            a.email-button(:href="emailLink(bill.emailTitle, bill.emailBody)" class="button" v-if="bill.emailBody") Email Congress about this bill
+            .email-congress(v-if="bill.emailBody")
+              a.email-button(:href="emailLink(bill.emailTitle, bill.emailBody)" class="button") Email Congress about this bill
+              span.email-sent(v-on:click="setEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}") 
+                span.checkbox 
+                  svg(aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512")
+                    path(d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z")
+                | I sent an email about this bill
       h4.bills-heading(v-on:click="stateOpposeShow = !stateOpposeShow;") State Legislation we are Opposing
       transition(v-on:enter="slideDown" v-on:leave="slideUp")
         .bill-list(v-if="stateOpposeShow")

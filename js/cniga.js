@@ -12,6 +12,7 @@ var app = new Vue({
       view: 'news',
       contactChoice: false,
       unreadItems: 0,
+      sentBills: [],
     },
     news: [
       {
@@ -27,6 +28,7 @@ var app = new Vue({
         read: false
       }
     ],
+    billsLoading: true,
     stateSupport: {},
     stateSupportShow: false,
     stateOppose: {},
@@ -142,17 +144,40 @@ var app = new Vue({
       //fetch('https://circle.red/cniga/')
         .then(function(res){ return res.json()})
         .then(function(content){
+          self.schedule = content.schedule
+        }).catch(function(err){
+          console.log(err)
+        })
+    },
+    getBills: function(){
+      var self = this;
+      fetch('http://localhost/CNIGA-Content/legislation')
+      //fetch('https://circle.red/cniga/legislation')
+        .then(function(res){ return res.json()})
+        .then(function(content){
           self.stateSupport = content.billssupporting
           self.stateOppose = content.billsopposing
           self.stateMonitor = content.billsmonitoring
-          self.schedule = content.schedule
+          self.billsLoading = false
+        }).catch(function(err){
+          console.log(err)
         })
-    }
+    },
+    setEmailSent: function(billName){
+      var self = this;
+      if(self.my.sentBills.indexOf(billName) === -1){
+          self.my.sentBills.push(billName);
+      } else {
+        self.my.sentBills.splice(self.my.sentBills.indexOf(billName), 1)
+      }
+      console.log(self.my.sentBills);
+    },
   },
   mounted: function () {
     var self = this;
     self.countUnreadNews();
     self.bindEvents();
     self.getContent();
+    self.getBills();
   }
 });
