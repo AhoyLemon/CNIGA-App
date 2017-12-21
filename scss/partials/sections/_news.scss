@@ -2,8 +2,9 @@ section.news {
   dl { padding: 12px; border-bottom: 1px solid $black;
     &:last-child { border-bottom: none; }
   }
-  dt { cursor: pointer; font-weight: $bold; color:$orange;
+  dt { font-weight: $bold; color:$orange;
     .unread { width:1em; height: 1em; display: inline-block; background-color:$red; border-radius: 50%; color:$white; margin-right: 0.5em; text-align: center; }
+    //-.title-link { display: block; font-size:200%; cursor: pointer; position: relative; z-index: 6; }
   }
   dd { margin-top:10px; font-size:0.85em; }
 }

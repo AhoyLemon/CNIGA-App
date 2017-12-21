@@ -11,14 +11,14 @@
   <body>
     <main id="app">
       <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
-        <section class="news" v-if="my.view == 'news'" v-cloak>
+        <section class="news" v-if="my.view == 'news' &amp;&amp; news.length &gt; 0">
           <div class="inner">
-            <dl v-for="item in news">
-              <dt v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()">
-                <transition leave-active-class="animated bounceOut"><span class="unread" v-if="!item.read">!</span></transition><span class="title" v-html="item.title"></span>
+            <dl v-for="item in news" v-on:click="alert('hit')">
+              <dt>
+                <transition leave-active-class="animated bounceOut"><span class="unread" v-if="!item.read">!</span></transition><a class="title-link" v-on:click="alert('hit')"><span class="title" v-html="item.title"></span></a>
               </dt>
               <transition v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false">
-                <dd v-if="item.expand" v-html="item.body"></dd>
+                <dd v-html="item.text"></dd>
               </transition>
             </dl>
           </div>

@@ -280,8 +280,7 @@ section {
   top: 0;
   right: 0;
   bottom: 65px;
-  left: 0;
-  overflow-y: auto; }
+  left: 0; }
   section .inner {
     background: #eee;
     padding: 12px; }
@@ -422,7 +421,6 @@ section.news dl {
     border-bottom: none; }
 
 section.news dt {
-  cursor: pointer;
   font-weight: 600;
   color: #F86C4F; }
   section.news dt .unread {

@@ -14,20 +14,7 @@ var app = new Vue({
       unreadItems: 0,
       sentBills: [],
     },
-    news: [
-      {
-        title: 'Here is an urgent piece of news',
-        body:  "Morbi posuere enim non ligula congue posuere. Morbi augue sem, interdum vitae ligula ac, cursus ultrices mi. Aenean ornare diam in erat gravida, ac interdum sapien varius. In sit amet volutpat arcu, in feugiat elit. Etiam dictum, risus sit amet cursus molestie, nibh elit tincidunt dui, in eleifend mauris odio nec magna. Nulla ultrices velit ac magna gravida imperdiet. In erat mauris, dapibus ac sem a, posuere consectetur neque. Integer finibus mi id sem tempor interdum. Sed vestibulum, turpis quis sagittis malesuada, odio libero pellentesque odio, sed interdum augue odio ac nisi.",
-        expand: false,
-        read: false
-      },
-      {
-        title: 'Another piece of news',
-        body:  "Sed ullamcorper dui condimentum, lacinia turpis quis, iaculis quam. Duis nec augue aliquet, vehicula ligula nec, faucibus leo.",
-        expand: false,
-        read: false
-      }
-    ],
+    news: [],
     billsLoading: true,
     stateSupport: {},
     stateSupportShow: false,
@@ -140,19 +127,20 @@ var app = new Vue({
     },
     getContent: function(){
       var self = this;
-      fetch('http://localhost/cniga-content/')
-      //fetch('https://circle.red/cniga/')
+      fetch('https://circle.red/cniga/')
         .then(function(res){ return res.json()})
         .then(function(content){
-          self.schedule = content.schedule
+          self.schedule = content.schedule;
+          self.news = content.news;
         }).catch(function(err){
           console.log(err)
         })
     },
     getBills: function(){
       var self = this;
-      fetch('http://localhost/CNIGA-Content/legislation')
-      //fetch('https://circle.red/cniga/legislation')
+      //fetch('http://localhost/cniga/legislation')
+      /*
+      fetch('https://circle.red/cniga/legislation')
         .then(function(res){ return res.json()})
         .then(function(content){
           self.stateSupport = content.billssupporting
@@ -162,6 +150,7 @@ var app = new Vue({
         }).catch(function(err){
           console.log(err)
         })
+        */
     },
     setEmailSent: function(billName){
       var self = this;
