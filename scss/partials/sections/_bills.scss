@@ -71,10 +71,14 @@
 .email-congress{
   @include flex-container();
   align-items: center;
+  justify-content: center;
+  .email-button{
+    margin: 0.5em 1em;
+  }
 }
 
 .email-sent{
-  margin-left: 1em;
+  margin: 0.5em 1em;
   transition: 0.3s all;
   display: inline-flex;
   align-items: center;
