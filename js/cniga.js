@@ -29,6 +29,11 @@ var app = new Vue({
 
   },
   methods: {
+    
+    newAlert: function(text) {
+      alert(text);
+    },
+    
     beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -68,6 +73,7 @@ var app = new Vue({
       self.my.unreadItems = 0;
       self.news.forEach(function(element) {
         if (!element.read) {
+          //alert('yes');
           self.my.unreadItems++;
         }
       });
@@ -132,8 +138,10 @@ var app = new Vue({
         .then(function(content){
           self.schedule = content.schedule;
           self.news = content.news;
+          self.countUnreadNews();
         }).catch(function(err){
-          console.log(err)
+          console.log(err);
+          self.countUnreadNews();
         })
     },
     getBills: function(){

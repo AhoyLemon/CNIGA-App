@@ -420,18 +420,21 @@ section.news dl {
   section.news dl:last-child {
     border-bottom: none; }
 
-section.news dt {
-  font-weight: 600;
-  color: #F86C4F; }
-  section.news dt .unread {
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    background-color: #ee2a2a;
-    border-radius: 50%;
-    color: #eee;
-    margin-right: 0.5em;
-    text-align: center; }
+section.news dt .unread {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  background-color: #ee2a2a;
+  border-radius: 50%;
+  color: #eee;
+  margin-right: 0.5em;
+  text-align: center;
+  font-weight: 700; }
+
+section.news dt .title {
+  font-weight: 600; }
+  section.news dt .titlea {
+    color: #F86C4F; }
 
 section.news dd {
   margin-top: 10px;
