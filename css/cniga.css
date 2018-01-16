@@ -280,12 +280,12 @@ section {
   top: 0;
   right: 0;
   bottom: 65px;
-  left: 0;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch; }
+  left: 0; }
   section .inner {
     background: #eee;
-    padding: 12px; }
+    padding: 12px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch; }
 
 footer {
   position: absolute;

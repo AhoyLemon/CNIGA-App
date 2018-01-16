@@ -9,10 +9,10 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .bill-list(v-if="stateSupportShow")
             .bill(v-for="bill in stateSupport")
-              a.bill-title(v-on:click="openLink(bill.billLink, '_system');" href="#") {{bill.billTitle}}
+              a.bill-title(v-on:click="openLink(bill.billLink, '_system');") {{bill.billTitle}}
               strong.bill-custom-name(v-if="bill.billCustomName") {{bill.billCustomName}}
               p.bill-author
-                a.bill-author--name(v-on:click="openLink(bill.billAuthorLink, '_system');" href="#") {{bill.billAuthorName}}
+                a.bill-author--name(v-on:click="openLink(bill.billAuthorLink, '_system');") {{bill.billAuthorName}}
                 span.bill-author--party(v-bind:class="bill.billAuthorParty") {{bill.billAuthorParty}}
               p {{bill.description}}
               .email-congress(v-if="bill.emailBody")

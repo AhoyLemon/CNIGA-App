@@ -56,8 +56,8 @@
               <h4 class="bills-heading" v-on:click="stateSupportShow = !stateSupportShow;">State Legislation we are Supporting<span class="indicator" v-bind:class="{loading: billsLoading, expanded: stateSupportShow}"><span class="bar v"></span><span class="bar h"></span></span></h4>
               <transition v-on:enter="slideDown" v-on:leave="slideUp">
                 <div class="bill-list" v-if="stateSupportShow">
-                  <div class="bill" v-for="bill in stateSupport"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><strong class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</strong>
-                    <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                  <div class="bill" v-for="bill in stateSupport"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><strong class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</strong>
+                    <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
                     <p>{{bill.description}}</p>
                     <div class="email-congress" v-if="bill.emailBody"><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)">Email Congress</a><span class="email-sent" v-on:click="setEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                           <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -128,6 +128,7 @@
       </footer>
     </main>
     <div class="javascripts">
+      <script src="cordova.js"></script>
       <script src="js/libraries/velocity.min.js"></script>
       <script src="js/libraries/vue.js"></script>
       <script src="js/cniga.min.js"></script>
