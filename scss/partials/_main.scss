@@ -1,6 +1,6 @@
 body { background:$black; font-family:$sans; }
 main { height: 100%; padding-bottom: 76px; }
 
-section { padding: 20px; @include position(fixed,0,0,65px,0); overflow: scroll; -webkit-overflow-scrolling: touch;
+section { padding: 20px; @include position(fixed,0,0,65px,0); overflow-y: scroll; -webkit-overflow-scrolling: touch;
   .inner { background: $white; padding: 12px; }
 }
