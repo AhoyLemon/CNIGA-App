@@ -1,4 +1,4 @@
-footer
+footer(v-if="my.userType == 'member'")
   nav
     a(v-on:click="my.view = 'news'")
       .icon
@@ -17,3 +17,6 @@ footer
       .icon
         .fill(v-bind:class="{active: my.view == 'iframe'}")
       span Information
+footer.guest(v-else-if="my.userType == 'guest'")
+  .inner
+    a(v-on:click="my.view = 'login'") Log In

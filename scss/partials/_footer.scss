@@ -12,6 +12,12 @@ footer { @include position(absolute,null,0,0,0); height: 64px; z-index: $z-foote
     span { display: block; }
     .badge { width:20px; height: 20px; background:$red; border-radius:50%; color:$white; font-weight: $bold; line-height: 180%; @include position(absolute,-5px,null,null,55%); }
   }
+  
+  
+  &.guest { background:$black; height: 36px; text-align: left; padding-left: 20px;
+  
+  }
+  
 }
 
 /*
