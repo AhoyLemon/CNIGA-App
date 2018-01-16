@@ -280,12 +280,12 @@ section {
   top: 0;
   right: 0;
   bottom: 65px;
-  left: 0;
-  overflow-y: auto; }
+  left: 0; }
   section .inner {
     background: #eee;
     padding: 12px;
-    margin-bottom: 20px; }
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch; }
 
 footer {
   position: absolute;
@@ -629,7 +629,9 @@ section.iframe .inner {
 
 section.iframe iframe {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch; }
 
 section.iframe.guest {
   bottom: 10px;
@@ -710,10 +712,15 @@ section.iframe.guest {
   align-items: stretch;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .email-congress .email-button {
+    margin: 0.5em 1em; }
 
 .email-sent {
-  margin-left: 1em;
+  margin: 0.5em 1em;
   -webkit-transition: 0.3s all;
   -o-transition: 0.3s all;
   transition: 0.3s all;
