@@ -49,6 +49,67 @@
           </div>
         </section>
       </transition>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="members" v-if="my.view == 'members'" v-cloak>
+          <div class="bills" v-if="my.view == 'members'" v-cloak v-bind:key="0">
+            <div class="inner">
+              <h4 class="bills-heading" v-on:click="stateSupportShow = !stateSupportShow;">State Legislation we are Supporting<span class="indicator" v-bind:class="{loading: billsLoading, expanded: stateSupportShow}"><span class="bar v"></span><span class="bar h"></span></span></h4>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="bill-list" v-if="stateSupportShow">
+                  <div class="bill" v-for="bill in stateSupport"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><strong class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</strong>
+                    <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                    <p>{{bill.description}}</p>
+                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)">Email Congress</a><span class="email-sent" v-on:click="setEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
+                          <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                          </svg></span>I sent an email about this bill</span></div>
+                  </div>
+                </div>
+              </transition>
+              <h4 class="bills-heading" v-on:click="stateOpposeShow = !stateOpposeShow;">State Legislation we are Opposing<span class="indicator" v-bind:class="{loading: billsLoading, expanded: stateOpposeShow}"><span class="bar v"></span><span class="bar h"></span></span></h4>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="bill-list" v-if="stateOpposeShow">
+                  <div class="bill" v-for="bill in stateOppose"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><span class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</span>
+                    <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                    <p>{{bill.description}}</p><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)" v-if="bill.emailBody">Email Congress about this bill</a>
+                  </div>
+                </div>
+              </transition>
+              <h4 class="bills-heading" v-on:click="stateMonitorShow = !stateMonitorShow;">State Legislation we are Monitoring<span class="indicator" v-bind:class="{loading: billsLoading, expanded: stateMonitorShow}"><span class="bar v"></span><span class="bar h"></span></span></h4>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="bill-list" v-if="stateMonitorShow">
+                  <div class="bill" v-for="bill in stateMonitor"><a class="bill-title" v-on:click="openLink(bill.billLink, '_system');" href="#">{{bill.billTitle}}</a><span class="bill-custom-name" v-if="bill.billCustomName">{{bill.billCustomName}}</span>
+                    <p class="bill-author"><a class="bill-author--name" v-on:click="openLink(bill.billAuthorLink, '_system');" href="#">{{bill.billAuthorName}}</a><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                    <p>{{bill.description}}</p><a class="email-button button" :href="emailLink(bill.emailTitle, bill.emailBody)" v-if="bill.emailBody">Email Congress about this bill</a>
+                  </div>
+                </div>
+              </transition>
+            </div>
+          </div>
+          <div class="schedule" v-if="my.view == 'members'" v-cloak v-bind:key="1">
+            <div class="inner">
+              <h4 class="schedule-heading" v-on:click="scheduleShow = !scheduleShow">2018 CNIGA Schedule<span class="indicator" v-bind:class="{expanded: stateSupportShow}"><span class="bar v"></span><span class="bar h"></span></span></h4>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="schedule-items" v-if="scheduleShow">
+                  <div class="schedule-item" v-for="item in schedule">
+                    <h5>{{item.title}}</h5>
+                    <date>{{item.datetime}}</date>
+                    <p v-if="item.location">Location: {{item.location}} <span v-if="item.street_address">- {{item.street_address}} </span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></p>
+                    <p v-if="item.description">{{item.description}}</p>
+                  </div>
+                </div>
+              </transition>
+            </div>
+          </div>
+        </section>
+      </transition>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="iframe" v-if="my.view == 'iframe'" v-cloak>
+          <div class="inner">
+            <iframe src="https://cniga.com" width="100%"></iframe>
+          </div>
+        </section>
+      </transition>
       <footer>
         <nav><a v-on:click="my.view = 'news'">
             <div class="icon">

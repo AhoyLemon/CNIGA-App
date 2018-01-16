@@ -29,11 +29,11 @@ var app = new Vue({
 
   },
   methods: {
-    
+
     newAlert: function(text) {
       alert(text);
     },
-    
+
     beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -88,6 +88,7 @@ var app = new Vue({
         console.log('Received Device Ready Event');
         console.log('calling setup push');
         app.setupPush();
+        universalLinks.subscribe('ul_didLaunchAppFromLink', app.didLaunchAppFromLink);
     },
     setupPush: function() {
         var self = this;
@@ -147,7 +148,7 @@ var app = new Vue({
     getBills: function(){
       var self = this;
       //fetch('http://localhost/cniga/legislation')
-      /*
+
       fetch('https://circle.red/cniga/legislation')
         .then(function(res){ return res.json()})
         .then(function(content){
@@ -158,7 +159,7 @@ var app = new Vue({
         }).catch(function(err){
           console.log(err)
         })
-        */
+
     },
     setEmailSent: function(billName){
       var self = this;
@@ -169,6 +170,9 @@ var app = new Vue({
       }
       console.log(self.my.sentBills);
     },
+    didLaunchAppFromLink: function(){
+      alert('Did launch application from the link: ' + eventData.url)
+    }
   },
   mounted: function () {
     var self = this;
