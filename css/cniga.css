@@ -425,6 +425,46 @@ button, .button {
     margin: 0 0.5em 0 0;
     width: 1em; }
 
+.indicator {
+  margin-left: 0.75em;
+  position: relative; }
+  .indicator .loader {
+    display: none; }
+  .indicator.loading {
+    margin-left: 0.25em; }
+    .indicator.loading .bar {
+      display: none; }
+    .indicator.loading .loader {
+      -webkit-animation: spin 3s linear infinite;
+      animation: spin 3s linear infinite;
+      display: inline-block;
+      width: 1em;
+      height: 1em; }
+  .indicator.expanded .bar {
+    background-color: #F86C4F; }
+    .indicator.expanded .bar.v {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg); }
+  .indicator .bar {
+    background-color: #494949;
+    position: absolute;
+    display: inline-block;
+    -webkit-transition: 0.3s all;
+    -o-transition: 0.3s all;
+    transition: 0.3s all; }
+    .indicator .bar.v {
+      height: 1em;
+      width: 5px; }
+    .indicator .bar.h {
+      width: 1em;
+      height: 5px;
+      top: 50%;
+      left: -11px;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%); }
+
 section.news dl {
   padding: 12px;
   border-bottom: 1px solid #494949; }
@@ -502,33 +542,6 @@ section.iframe iframe {
   margin: 1em 0 0; }
   .bills-heading:first-of-type {
     margin-top: 0; }
-  .bills-heading .indicator {
-    margin-left: 0.75em;
-    position: relative; }
-    .bills-heading .indicator.loading .bar {
-      -webkit-animation: spin 3s linear infinite;
-      animation: spin 3s linear infinite; }
-    .bills-heading .indicator.expanded .bar {
-      background-color: #F86C4F; }
-      .bills-heading .indicator.expanded .bar.v {
-        -webkit-transform: rotate(90deg);
-        -ms-transform: rotate(90deg);
-        transform: rotate(90deg); }
-    .bills-heading .indicator .bar {
-      background-color: #494949;
-      display: inline-block;
-      position: absolute;
-      -webkit-transition: 0.3s all;
-      -o-transition: 0.3s all;
-      transition: 0.3s all; }
-      .bills-heading .indicator .bar.v {
-        height: 1em;
-        width: 5px; }
-      .bills-heading .indicator .bar.h {
-        width: 1em;
-        height: 5px;
-        top: 13px;
-        left: -11px; }
 
 .bill-custom-name {
   margin-left: 1em; }
