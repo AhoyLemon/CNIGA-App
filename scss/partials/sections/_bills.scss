@@ -2,6 +2,16 @@ section.members{
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+.bills { margin-bottom: 20px; position: relative; 
+  //.indicator { @include position(absolute,10px,10px); height: 16px; width: 16px; }
+  .bills-heading { color:$black; font-size: 18px; padding-right: 36px; cursor: pointer;
+    span { font-weight: $bold; font-size:130%; display: block; text-transform: uppercase; }
+    .support { color:$green; }
+    .oppose { color:#a22222; }
+    .monitor { color:$blue; }
+  }
+  .indicator { @include position(absolute,24px,24px); height: 36px; height: 36px; }
+}
 .bill{
   border-bottom: 1px solid #494949;
   padding: 1em 0;

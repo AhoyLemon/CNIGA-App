@@ -1,29 +1,24 @@
-.indicator{
-  margin-left: 0.75em;
-  position: relative;
-  .loader{
-    display: none;
-  }
+.indicator{ margin-left: 0.75em; pointer-events: none;
+  .icons { position: relative; }
+  .loader, .expand { height: 26px; width: 26px; }
+  .loader{ @include position(absolute,0,0);  animation:spin 3s linear infinite; }
   &.loading{
-    margin-left: 0.25em;
-    .bar{
-      display: none;
-    }
-    .loader{
-      animation:spin 3s linear infinite;
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-    }
+    .expand { opacity: 0; }
   }
+  .loaded {
+    .loader { opacity: 0; }
+    .expand { opacity: 1; }
+  }
+  
+  .expand { @include position(absolute,0,0); transform: all 0.3s ease;
+    .circle { fill:$orange; }
+    .arrow { fill:$white;  }
+  }
+  
   &.expanded{
-    .bar{
-      background-color: $orange;
-      &.v{
-        transform: rotate(90deg);
-      }
-    }
+    .expand { transform: rotate(180deg); }
   }
+  /*
   .bar{
     background-color: $black;
     position: absolute;
@@ -41,4 +36,5 @@
       transform: translateY(-50%) ;
     }
   }
+  */
 }
