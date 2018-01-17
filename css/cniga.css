@@ -791,11 +791,24 @@ section.members {
         -o-transition: 0.3s all;
         transition: 0.3s all; }
 
+section.schedule .inner {
+  background: transparent;
+  padding: 0; }
+
 .schedule-heading {
-  color: #F86C4F;
-  cursor: pointer; }
+  color: #eee;
+  font-size: 7.42vw;
+  margin-bottom: 20px; }
 
 .schedule-item {
-  margin: 1em 0; }
+  background: #eee;
+  padding: 15px;
+  margin: 0 0 20px 0; }
+  .schedule-item time {
+    display: block;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em; }
+  .schedule-item address {
+    font-style: normal; }
 
 /*# sourceMappingURL=cniga.css.map */

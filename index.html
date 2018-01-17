@@ -270,8 +270,10 @@
               <div class="schedule-items">
                 <div class="schedule-item" v-for="item in schedule">
                   <h5>{{item.title}}</h5>
-                  <date>{{item.datetime}}</date>
-                  <p v-if="item.location">Location: {{item.location}} <span v-if="item.street_address">- {{item.street_address}} </span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></p>
+                  <time v-if="item.prettyDate &amp;&amp; item.prettyTime">
+                     {{item.prettyDate}} @ {{item.prettyTime}}</time>
+                  <address v-if="item.location"><strong class="name">
+                       {{item.location}} <br></strong><span v-if="item.street_address">{{item.street_address}} <br></span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></address>
                   <p v-if="item.description">{{item.description}}</p>
                 </div>
               </div>

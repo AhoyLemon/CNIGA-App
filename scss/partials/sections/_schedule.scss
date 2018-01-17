@@ -1,7 +1,11 @@
-.schedule-heading{
-  color: $orange;
-  cursor: pointer;
+section.schedule {
+  .inner { background: transparent; padding: 0; }
 }
-.schedule-item{
-  margin: 1em 0;
+
+.schedule-heading{ color:$white; font-size:7.42vw; margin-bottom: 20px;
+}
+.schedule-item { background:$white; padding: 15px; margin:0 0 20px 0;
+  time { display: block; margin-top: 0.4em; margin-bottom: 0.4em; }
+  address { font-style: normal; }
+  
 }

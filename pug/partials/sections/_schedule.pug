@@ -6,9 +6,15 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
         .schedule-items
           .schedule-item(v-for="item in schedule")
             h5 {{item.title}}
-            date {{item.datetime}}
-            p(v-if="item.location") Location: {{item.location}} 
-              span(v-if="item.street_address") - {{item.street_address}} 
+            time(v-if="item.prettyDate && item.prettyTime") 
+              | {{item.prettyDate}} @ {{item.prettyTime}}
+            address(v-if="item.location")
+              strong.name 
+                | {{item.location}} 
+                br
+              span(v-if="item.street_address")
+                | {{item.street_address}} 
+                br
               span(v-if="item.city") {{item.city}}, 
               span(v-if="item.state") {{item.state}} 
               span(v-if="item.zip") {{item.zip}}
