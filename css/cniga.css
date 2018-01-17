@@ -280,7 +280,9 @@ section {
   top: 0;
   right: 0;
   bottom: 65px;
-  left: 0; }
+  left: 0;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; }
   section .inner {
     background: #eee;
     padding: 12px; }
@@ -674,10 +676,6 @@ section.iframe.guest {
   section.iframe.guest .inner {
     height: calc(100% - 34px); }
 
-section.members {
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; }
-
 .bill {
   border-bottom: 1px solid #494949;
   padding: 1em 0; }
@@ -767,10 +765,6 @@ section.members {
         -webkit-transition: 0.3s all;
         -o-transition: 0.3s all;
         transition: 0.3s all; }
-
-section.schedule {
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; }
 
 .schedule-heading {
   color: #F86C4F;
