@@ -9,8 +9,8 @@ var app = new Vue({
   el: '#app',
   data: {
     my: {
-      userType: 'guest',
-      view: 'welcome',
+      userType: 'member',
+      view: 'news',
       contactChoice: false,
       unreadItems: 0,
       sentBills: [],
