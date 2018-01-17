@@ -99,20 +99,19 @@
               <label><span v-if="!my.contactChoice">What can we do for you?</span>
                 <select v-model="my.contactChoice">
                   <option></option>
-                  <option>Ask a question</option>
-                  <option>Request a Form</option>
+                  <option value="question">Ask a question</option>
+                  <option value="form">Request a Form</option>
                 </select>
               </label>
-              <transition enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut">
-                <label v-if="my.contactChoice">
-                  <textarea placeholder="What's your question?"></textarea>
-                </label>
-              </transition>
-              <transition enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut">
-                <div class="button-holder" v-if="my.contactChoice">
-                  <button type="submit">Submit</button>
-                </div>
-              </transition>
+              <label v-if="my.contactChoice == 'question'">
+                <textarea placeholder="What's your question?"></textarea>
+              </label>
+              <label v-if="my.contactChoice == 'form'">
+                <textarea placeholder="What form would you like?"></textarea>
+              </label>
+              <div class="button-holder" v-if="my.contactChoice">
+                <button type="submit">Submit</button>
+              </div>
             </form>
           </div>
         </section>
@@ -150,7 +149,7 @@
                   <div class="expand">
                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
                       <circle class="circle" cx="25" cy="25" r="23.9"></circle>
-                      <path class="arrow" fill="#ed1f24" d="M25.7 27.2L13.2 14.7 7.9 20l17.8 17.7L43.4 20l-5.3-5.3z"></path>
+                      <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
                     </svg>
                   </div>
                 </div>
@@ -200,7 +199,7 @@
                   <div class="expand">
                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
                       <circle class="circle" cx="25" cy="25" r="23.9"></circle>
-                      <path class="arrow" fill="#ed1f24" d="M25.7 27.2L13.2 14.7 7.9 20l17.8 17.7L43.4 20l-5.3-5.3z"></path>
+                      <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
                     </svg>
                   </div>
                 </div>
@@ -246,7 +245,7 @@
                   <div class="expand">
                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
                       <circle class="circle" cx="25" cy="25" r="23.9"></circle>
-                      <path class="arrow" fill="#ed1f24" d="M25.7 27.2L13.2 14.7 7.9 20l17.8 17.7L43.4 20l-5.3-5.3z"></path>
+                      <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
                     </svg>
                   </div>
                 </div>

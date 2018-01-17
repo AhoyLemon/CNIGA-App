@@ -444,9 +444,9 @@ button, .button {
     position: absolute;
     top: 0;
     right: 0;
-    -webkit-transform: all 0.3s ease;
-    -ms-transform: all 0.3s ease;
-    transform: all 0.3s ease; }
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease; }
     .indicator .expand .circle {
       fill: #F86C4F; }
     .indicator .expand .arrow {
