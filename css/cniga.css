@@ -659,22 +659,24 @@ section.contact button {
   font-weight: 600;
   padding: 0.5em 1em; }
 
+/*
+section.iframe {
+  .inner { padding: 0; height: 100%; }
+  iframe { width: 1px; min-width: 100%; height: 100%; }
+
+  &.guest { bottom: 10px; padding-bottom: 0;
+    .inner { height: calc(100% - 34px); }
+  }
+
+}
+*/
 section.iframe .inner {
   padding: 0;
   height: 100%; }
 
 section.iframe iframe {
-  width: 1px;
-  min-width: 100%;
-  height: 100%;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch; }
-
-section.iframe.guest {
-  bottom: 10px;
-  padding-bottom: 0; }
-  section.iframe.guest .inner {
-    height: calc(100% - 34px); }
+  width: 100%;
+  height: 100%; }
 
 .bill {
   border-bottom: 1px solid #494949;
