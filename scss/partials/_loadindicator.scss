@@ -1,0 +1,44 @@
+.indicator{
+  margin-left: 0.75em;
+  position: relative;
+  .loader{
+    display: none;
+  }
+  &.loading{
+    margin-left: 0.25em;
+    .bar{
+      display: none;
+    }
+    .loader{
+      animation:spin 3s linear infinite;
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+    }
+  }
+  &.expanded{
+    .bar{
+      background-color: $orange;
+      &.v{
+        transform: rotate(90deg);
+      }
+    }
+  }
+  .bar{
+    background-color: $black;
+    position: absolute;
+    display: inline-block;
+    transition: 0.3s all;
+    &.v{
+      height: 1em;
+      width: 5px;
+    }
+    &.h{
+      width: 1em;
+      height: 5px;
+      top: 50%;
+      left: -11px;
+      transform: translateY(-50%) ;
+    }
+  }
+}
