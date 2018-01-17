@@ -301,7 +301,6 @@ footer {
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
     -webkit-flex-wrap: wrap;
@@ -310,26 +309,20 @@ footer {
     flex-wrap: wrap;
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
-    -webkit-align-items: stretch;
     align-items: stretch;
     -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 10px 10px 0 10px; }
     footer nav a {
       width: 64px;
-      -webkit-flex-basis: 64px;
       -ms-flex-preferred-size: 64px;
       flex-basis: 64px;
       -webkit-box-flex: 0;
-      -webkit-flex-grow: 0;
       -ms-flex-positive: 0;
       flex-grow: 0;
-      -webkit-flex-shrink: 1;
       -ms-flex-negative: 1;
       flex-shrink: 1;
-      -webkit-align-self: auto;
       -ms-flex-item-align: auto;
       align-self: auto;
       text-align: center;
@@ -389,14 +382,12 @@ button, .button {
   padding: 0.6em 2em;
   cursor: pointer;
   display: -webkit-inline-box;
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
   text-transform: uppercase;
   text-decoration: none;
   font-family: "Sen", "Comic Sans MS", "Comic Sans", cursive;
   -webkit-box-align: center;
-  -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center; }
   button:hover, .button:hover {
@@ -456,7 +447,6 @@ section.welcome {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
   -webkit-flex-wrap: wrap;
@@ -465,7 +455,6 @@ section.welcome {
   flex-wrap: wrap;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  -webkit-align-items: center;
   align-items: center;
   bottom: 0;
   background: #494949;
@@ -495,7 +484,6 @@ section.welcome {
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
     -webkit-flex-wrap: wrap;
@@ -504,9 +492,7 @@ section.welcome {
     flex-wrap: wrap;
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
-    -webkit-align-items: stretch;
     align-items: stretch;
-    -webkit-justify-content: space-around;
     -ms-flex-pack: distribute;
     justify-content: space-around;
     margin-bottom: 1em; }
@@ -528,7 +514,6 @@ section.login {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
   -webkit-flex-wrap: wrap;
@@ -537,7 +522,6 @@ section.login {
   flex-wrap: wrap;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  -webkit-align-items: center;
   align-items: center;
   bottom: 0;
   background: #494949;
@@ -657,22 +641,24 @@ section.contact button {
   font-weight: 600;
   padding: 0.5em 1em; }
 
+/*
+section.iframe {
+  .inner { padding: 0; height: 100%; }
+  iframe { width: 1px; min-width: 100%; height: 100%; }
+
+  &.guest { bottom: 10px; padding-bottom: 0;
+    .inner { height: calc(100% - 34px); }
+  }
+
+}
+*/
 section.iframe .inner {
   padding: 0;
   height: 100%; }
 
 section.iframe iframe {
-  width: 1px;
-  min-width: 100%;
-  height: 100%;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch; }
-
-section.iframe.guest {
-  bottom: 10px;
-  padding-bottom: 0; }
-  section.iframe.guest .inner {
-    height: calc(100% - 34px); }
+  width: 100%;
+  height: 100%; }
 
 section.members {
   overflow-y: scroll;
@@ -713,7 +699,6 @@ section.members {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
   -webkit-flex-wrap: wrap;
@@ -722,14 +707,11 @@ section.members {
   flex-wrap: wrap;
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
-  -webkit-align-items: stretch;
   align-items: stretch;
   -webkit-box-align: center;
-  -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
   .email-congress .email-button {
@@ -741,11 +723,9 @@ section.members {
   -o-transition: 0.3s all;
   transition: 0.3s all;
   display: -webkit-inline-box;
-  display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center; }
   .email-sent.checked {
