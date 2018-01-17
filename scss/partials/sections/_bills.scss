@@ -1,3 +1,7 @@
+section.members{
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
 .bill{
   border-bottom: 1px solid #494949;
   padding: 1em 0;

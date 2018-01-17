@@ -33,18 +33,18 @@ var app = new Vue({
 
   },
   methods: {
-    
+
     checkPassword: function() {
       var self = this
-      
+
       if (self.my.email.includes('redcircle')) {
         self.loginStatus = 'validating';
       } else {
         self.loginStatus = 'error';
       }
-      
+
     },
-    
+
     checkLoginCode: function() {
       var self = this
       var m = self.my.loginCode.toUpperCase();
@@ -56,11 +56,11 @@ var app = new Vue({
         self.my.view = 'news';
       }
     },
-    
+
     newAlert: function(text) {
       alert(text);
     },
-    
+
     beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -162,7 +162,7 @@ var app = new Vue({
     getBills: function(){
       var self = this;
       //fetch('http://localhost/cniga/legislation')
-      /*
+
       fetch('https://circle.red/cniga/legislation')
         .then(function(res){ return res.json()})
         .then(function(content){
@@ -173,7 +173,7 @@ var app = new Vue({
         }).catch(function(err){
           console.log(err)
         })
-        */
+        
     },
     setEmailSent: function(billName){
       var self = this;

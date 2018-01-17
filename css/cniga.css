@@ -684,7 +684,8 @@ section.iframe .inner {
   height: 100%; }
 
 section.iframe iframe {
-  width: 100%;
+  width: 1px;
+  min-width: 100%;
   height: 100%;
   overflow: scroll;
   -webkit-overflow-scrolling: touch; }
@@ -694,6 +695,10 @@ section.iframe.guest {
   padding-bottom: 0; }
   section.iframe.guest .inner {
     height: calc(100% - 34px); }
+
+section.members {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; }
 
 .bill {
   border-bottom: 1px solid #494949;
