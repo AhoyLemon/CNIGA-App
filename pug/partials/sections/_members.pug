@@ -3,9 +3,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
     .bills(v-if="my.view == 'members'" v-cloak v-bind:key="0")
       .inner
         h4.bills-heading(v-on:click="stateSupportShow = !stateSupportShow;") State Legislation we are Supporting
-          span.indicator(v-bind:class="{loading: billsLoading, expanded: stateSupportShow}")
-            span.bar.v
-            span.bar.h
+          +loadIndicator("stateSupportShow")
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .bill-list(v-if="stateSupportShow")
             .bill(v-for="bill in stateSupport")
@@ -23,9 +21,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
                       path(d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z")
                   | I sent an email about this bill
         h4.bills-heading(v-on:click="stateOpposeShow = !stateOpposeShow;") State Legislation we are Opposing
-          span.indicator(v-bind:class="{loading: billsLoading, expanded: stateOpposeShow}")
-            span.bar.v
-            span.bar.h
+          +loadIndicator("stateOpposeShow")
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .bill-list(v-if="stateOpposeShow")
             .bill(v-for="bill in stateOppose")
@@ -37,9 +33,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
               p {{bill.description}}
               a.email-button(:href="emailLink(bill.emailTitle, bill.emailBody)" class="button" v-if="bill.emailBody") Email Congress about this bill
         h4.bills-heading(v-on:click="stateMonitorShow = !stateMonitorShow;") State Legislation we are Monitoring
-          span.indicator(v-bind:class="{loading: billsLoading, expanded: stateMonitorShow}")
-            span.bar.v
-            span.bar.h
+          +loadIndicator("stateMonitorShow")
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .bill-list(v-if="stateMonitorShow")
             .bill(v-for="bill in stateMonitor")
@@ -53,9 +47,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
     .schedule(v-if="my.view == 'members'" v-cloak v-bind:key="1")
       .inner
         h4.schedule-heading(v-on:click="scheduleShow = !scheduleShow") 2018 CNIGA Schedule
-          span.indicator(v-bind:class="{expanded: stateSupportShow}")
-            span.bar.v
-            span.bar.h
+          +loadIndicator("scheduleShow")
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .schedule-items(v-if="scheduleShow")
             .schedule-item(v-for="item in schedule")

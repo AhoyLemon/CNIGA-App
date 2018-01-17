@@ -10,40 +10,6 @@
   &:first-of-type{
     margin-top: 0;
   }
-  .indicator{
-    margin-left: 0.75em;
-    position: relative;
-    &.loading{
-      .bar{
-        animation:spin 3s linear infinite;
-      }
-    }
-    &.expanded{
-      .bar{
-        background-color: $orange;
-        &.v{
-          transform: rotate(90deg);
-        }
-      }
-    }
-    .bar{
-      background-color: $black;
-      display: inline-block;
-      position: absolute;
-      transition: 0.3s all;
-      &.v{
-      height: 1em;
-      width: 5px;
-      }
-      &.h{
-        width: 1em;
-        height: 5px;
-        top: 13px;
-        left: -11px;
-      }
-    }
-  }
-
 }
 
 
