@@ -1,5 +1,6 @@
-.schedule{
-  border-top: 1em solid #494949;
+section.schedule{
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .schedule-heading{
   color: $orange;
