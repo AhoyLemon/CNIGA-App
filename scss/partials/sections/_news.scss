@@ -7,6 +7,19 @@ section.news {
     .title { font-weight: $bold;
       &a { color:$orange; }
     }
+    
+    /*
+    @include flex-container();
+    
+    .icon-holder { @include flex-item(32px,0); }
+    .title-holder { @include flex-item(calc(100% - 98px)); }
+    .date-holder { @include flex-item(62px,0); text-align: right; }
+    date { font-size:75%; }
+    */
+    
+    display: grid;
+    grid-template-columns: 32px 1fr 62px;
+    
     //-.title-link { display: block; font-size:200%; cursor: pointer; position: relative; z-index: 6; }
   }
   dd { margin-top:10px; font-size:0.85em; }

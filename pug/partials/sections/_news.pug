@@ -4,9 +4,14 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
       dl(v-for="item in news")
         dt
           transition(leave-active-class="animated bounceOut")
-            span.unread(v-if="!item.read") !
-          a.title.link(v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()")
-            span(v-html="item.title")
-          span.title(v-else v-html="item.title" v-on:click="item.read = true; countUnreadNews()")
+            .icon-holder
+              span.unread(v-if="!item.read") !
+          .title-holder
+            a.title.link(v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()")
+              span(v-html="item.title")
+            span.title(v-else v-html="item.title" v-on:click="item.read = true; countUnreadNews()")
+          .date-holder
+            date.stamp(v-html="item.date")
+            
         transition(v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false")
           dd(v-if="item.expand" v-html="item.text")

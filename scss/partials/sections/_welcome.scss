@@ -1,0 +1,15 @@
+section.welcome { @include flex-center(); bottom:0; background: $black; z-index: $z-login;
+  .inner { margin-left: auto; margin-right: auto; background: transparent; }
+  .box { background-color: $white; color:$black; padding: 20px; text-align: center; }
+  .logo-holder { margin-bottom: 20px; }
+  .logo { max-height: 48px; }
+  h2 { margin-bottom: 0.35em; }
+  .welcome-text {
+    p { margin-bottom: 1em; }
+  }
+  .button-split { @include flex-container(); justify-content: space-around; margin-bottom: 1em;
+    .button { font-size:5vw; border:3px solid $orange; font-weight:700; padding: 0.5em 1.25em;
+      &.no { border:3px solid $orange; background:transparent; color:$orange; }
+    }
+  }
+}

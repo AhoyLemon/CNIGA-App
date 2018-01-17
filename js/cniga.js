@@ -9,11 +9,15 @@ var app = new Vue({
   el: '#app',
   data: {
     my: {
-      view: 'news',
+      userType: 'guest',
+      view: 'welcome',
       contactChoice: false,
       unreadItems: 0,
       sentBills: [],
+      email: '',
+      loginCode: ''
     },
+    loginStatus: 'guest',
     news: [],
     billsLoading: true,
     stateSupport: {},
@@ -29,11 +33,34 @@ var app = new Vue({
 
   },
   methods: {
-
+    
+    checkPassword: function() {
+      var self = this
+      
+      if (self.my.email.includes('redcircle')) {
+        self.loginStatus = 'validating';
+      } else {
+        self.loginStatus = 'error';
+      }
+      
+    },
+    
+    checkLoginCode: function() {
+      var self = this
+      var m = self.my.loginCode.toUpperCase();
+      if (!m.includes('X')) {
+        self.loginStatus = 'validateError';
+      } else {
+        self.loginStatus = 'member';
+        self.my.userType = 'member';
+        self.my.view = 'news';
+      }
+    },
+    
     newAlert: function(text) {
       alert(text);
     },
-
+    
     beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -47,17 +74,6 @@ var app = new Vue({
       Velocity(el, 'slideUp', {duration: 300})
     },
 
-    /*
-    beforeFromBottom: function (el) {
-      el.style.translateY = windowHeight
-    },
-    fromBottom: function (el, done) {
-      Velocity(el, { translateY: "1px", opacity:1 }, { duration: 900 })
-    },
-    toBottom: function (el, done) {
-      Velocity(el, { translateY: windowHeight, opacity:0 }, { duration: 400 })
-    }
-    */
     openLink: function(destination, target){
       if(typeof(cordova.InAppBrowser) !== 'undefined'){
           window.open = cordova.InAppBrowser.open;
@@ -73,7 +89,6 @@ var app = new Vue({
       self.my.unreadItems = 0;
       self.news.forEach(function(element) {
         if (!element.read) {
-          //alert('yes');
           self.my.unreadItems++;
         }
       });
@@ -88,7 +103,6 @@ var app = new Vue({
         console.log('Received Device Ready Event');
         console.log('calling setup push');
         app.setupPush();
-        universalLinks.subscribe('ul_didLaunchAppFromLink', app.didLaunchAppFromLink);
     },
     setupPush: function() {
         var self = this;
@@ -148,7 +162,7 @@ var app = new Vue({
     getBills: function(){
       var self = this;
       //fetch('http://localhost/cniga/legislation')
-
+      /*
       fetch('https://circle.red/cniga/legislation')
         .then(function(res){ return res.json()})
         .then(function(content){
@@ -159,7 +173,7 @@ var app = new Vue({
         }).catch(function(err){
           console.log(err)
         })
-
+        */
     },
     setEmailSent: function(billName){
       var self = this;
@@ -170,9 +184,6 @@ var app = new Vue({
       }
       console.log(self.my.sentBills);
     },
-    didLaunchAppFromLink: function(){
-      alert('Did launch application from the link: ' + eventData.url)
-    }
   },
   mounted: function () {
     var self = this;

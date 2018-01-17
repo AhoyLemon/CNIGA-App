@@ -1,4 +1,4 @@
 transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
-  section.iframe(v-if="my.view == 'iframe'" v-cloak)
+  section.iframe(v-if="my.view == 'iframe'" v-cloak v-bind:class="{guest: my.userType == 'guest'}")
     .inner
       iframe(src="https://cniga.com" height="100%" id="iframe" scrolling="no" width="100%")

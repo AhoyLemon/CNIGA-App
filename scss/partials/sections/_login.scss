@@ -1,0 +1,26 @@
+section.login { @include flex-center(); bottom:0; background: $black; z-index: $z-login;
+  .inner { margin-left: auto; margin-right: auto; background: transparent; }
+  
+  .box { background-color: $white; color:$black; padding: 20px;  }
+  .logo-holder { margin-bottom: 20px; }
+  .logo { max-height: 48px; }
+  
+  .login-text { margin-bottom: 1em; text-align: center;
+    //&.login-error { color:$red; }
+  }
+  
+  label { width: 100%; display: block; margin-bottom: 0.75em;
+    span { display: block; font-family: $sans; font-size:80%; padding-left: 1rem; text-transform: uppercase; }
+    input { font-family: $serif; font-size:1em; padding: 0.25em 1rem; font-weight: $bold; display: block; width:100%; border:1px solid $black;
+      &.error { color:$red; border-color:$red; }
+      
+      &.code { font-size:140%; max-width: 5em; text-transform: uppercase; margin-left: auto; margin-right: auto;  }
+    }
+  }
+  .button-holder {text-align: center; }
+  
+  .nevermind { background: $black; margin-top: 20px; text-align: center;
+    
+  }
+  
+}
