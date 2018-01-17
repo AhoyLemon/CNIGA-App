@@ -4,9 +4,11 @@ $footerFG: $white;
 footer { @include position(absolute,null,0,0,0); height: 64px; z-index: $z-footer; background: $footerBG;
   nav { @include flex-container(); justify-content: space-between; padding:10px 10px 0 10px;
     a { @include flex-item(64px,0); text-align: center; font-size:10px; position: relative; color:$footerFG; }
-    .icon { display: inline-block; height: 36px; width:36px;border:2px solid currentColor; border-radius: 50%; margin-bottom: 0; padding-bottom: 0; position: relative;
-      .fill { @include position(absolute,0,0,0,0); background:currentColor; transform: scale(2); opacity: 0;  border-radius: 50%; transition:all 0.3s linear;
-        &.active { transform: scale(1.05); opacity: 1; transition:transform 0.3s linear; }
+    .icon { display: inline-block; height: 36px; width:36px; margin-bottom: 0; padding-bottom: 0; position: relative;
+      .fill { opacity: 0; }
+      &.active {
+        .glyph { fill:$orange; color:$orange; }
+        .fill { opacity: 1; }
       }
     }
     span { display: block; }
