@@ -265,20 +265,18 @@
       </transition>
       <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
         <section class="schedule" v-if="my.view == 'schedule'" v-cloak>
-          <div class="schedule" v-if="my.view == 'schedule'" v-cloak v-bind:key="0">
-            <div class="inner">
-              <h4 class="schedule-heading">2018 CNIGA Schedule</h4>
-              <transition v-on:enter="slideDown" v-on:leave="slideUp">
-                <div class="schedule-items">
-                  <div class="schedule-item" v-for="item in schedule">
-                    <h5>{{item.title}}</h5>
-                    <date>{{item.datetime}}</date>
-                    <p v-if="item.location">Location: {{item.location}} <span v-if="item.street_address">- {{item.street_address}} </span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></p>
-                    <p v-if="item.description">{{item.description}}</p>
-                  </div>
+          <div class="inner">
+            <h4 class="schedule-heading">2018 CNIGA Schedule</h4>
+            <transition v-on:enter="slideDown" v-on:leave="slideUp">
+              <div class="schedule-items">
+                <div class="schedule-item" v-for="item in schedule">
+                  <h5>{{item.title}}</h5>
+                  <date>{{item.datetime}}</date>
+                  <p v-if="item.location">Location: {{item.location}} <span v-if="item.street_address">- {{item.street_address}} </span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></p>
+                  <p v-if="item.description">{{item.description}}</p>
                 </div>
-              </transition>
-            </div>
+              </div>
+            </transition>
           </div>
         </section>
       </transition>
