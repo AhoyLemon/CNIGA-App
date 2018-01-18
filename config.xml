@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.cniga.rca" version="1.0" versionCode="1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>CNIGA</name>
+    <description>
+    App for California Nations Indian Gaming Association.
+  </description>
+    <author email="dev@redcircleagency.com" href="https://www.redcircleagency.com">
+    Red Circle Agency
+  </author>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <preference name="android-minSdkVersion" value="20" />
+    <universal-links>
+        <host name="cniga.com">
+            <path url="/registration/*" />
+        </host>
+        <host name="circle.red">
+            <path url="cniga/registration/*" />
+        </host>
+    </universal-links>
+    <platform name="winphone" />
+    <access origin="*" />
+    <allow-intent href="*" />
+    <allow-navigation href="*" />
+    <engine name="android" spec="^6.3.0" />
+    <engine name="ios" spec="^4.5.4" />
+    <plugin name="phonegap-plugin-push" spec="^2.1.2">
+        <variable name="FCM_VERSION" value="11.0.1" />
+    </plugin>
+    <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
+    <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
+</widget>
