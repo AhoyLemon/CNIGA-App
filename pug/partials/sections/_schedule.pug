@@ -8,6 +8,8 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
             h5 {{item.title}}
             time(v-if="item.prettyDate && item.prettyTime") 
               | {{item.prettyDate}} @ {{item.prettyTime}}
+            time(v-else-if="item.prettyDate")
+              | {{item.prettyDate}}
             address(v-if="item.location")
               strong.name 
                 | {{item.location}} 
