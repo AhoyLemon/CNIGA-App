@@ -11,7 +11,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
               span(v-html="item.title")
             span.title(v-else v-html="item.title" v-on:click="item.read = true; countUnreadNews()")
           .date-holder
-            date.stamp(v-html="item.date")
+            time.stamp(v-html="item.date")
             
         transition(v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false")
           dd(v-if="item.expand" v-html="item.text")

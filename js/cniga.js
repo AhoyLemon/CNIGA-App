@@ -14,6 +14,7 @@ var app = new Vue({
       contactChoice: false,
       unreadItems: 0,
       sentBills: [],
+      expandedBills: [],
       email: '',
       loginCode: ''
     },
@@ -75,8 +76,8 @@ var app = new Vue({
     },
 
     openLink: function(destination, target){
-      if(typeof(cordova.InAppBrowser) !== 'undefined'){
-          window.open = cordova.InAppBrowser.open;
+      if(typeof(cordova) !== 'undefined'){
+        window.open = cordova.InAppBrowser.open;
       }
       window.open(destination, target)
     },
@@ -94,70 +95,70 @@ var app = new Vue({
       });
     },
     bindEvents: function() {
-        console.log('Bind Events');
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+      console.log('Bind Events');
+      document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-        var self = this;
-        self.deviceready = true;
-        console.log('Received Device Ready Event');
-        console.log('calling setup push');
-        app.setupPush();
+      var self = this;
+      self.deviceready = true;
+      console.log('Received Device Ready Event');
+      console.log('calling setup push');
+      app.setupPush();
     },
     setupPush: function() {
-        var self = this;
-        console.log('calling push init');
-        var push = PushNotification.init({
-            "android": {
-                "senderID": "XXXXXXXX"
-            },
-            "browser": {},
-            "ios": {
-                "sound": true,
-                "vibration": true,
-                "badge": true
-            },
-            "windows": {}
-        });
-        console.log('after init');
+      var self = this;
+      console.log('calling push init');
+      var push = PushNotification.init({
+        "android": {
+          "senderID": "XXXXXXXX"
+        },
+        "browser": {},
+        "ios": {
+          "sound": true,
+          "vibration": true,
+          "badge": true
+        },
+        "windows": {}
+      });
+      console.log('after init');
 
-        push.on('registration', function(data) {
-            console.log('registration event: ' + data.registrationId);
-            document.getElementById("regId").innerHTML = data.registrationId;
-            var oldRegId = localStorage.getItem('registrationId');
-            if (oldRegId !== data.registrationId) {
-                // Save new registration ID
-                localStorage.setItem('registrationId', data.registrationId);
-                // Post registrationId to your app server as the value has changed
-            }
-        });
+      push.on('registration', function(data) {
+        console.log('registration event: ' + data.registrationId);
+        document.getElementById("regId").innerHTML = data.registrationId;
+        var oldRegId = localStorage.getItem('registrationId');
+        if (oldRegId !== data.registrationId) {
+          // Save new registration ID
+          localStorage.setItem('registrationId', data.registrationId);
+          // Post registrationId to your app server as the value has changed
+        }
+      });
 
-        push.on('error', function(e) {
-            console.log("push error = " + e.message);
-        });
+      push.on('error', function(e) {
+        console.log("push error = " + e.message);
+      });
 
-        push.on('notification', function(data) {
-            console.log('notification event');
-            navigator.notification.alert(
-                data.message,         // message
-                null,                 // callback
-                data.title,           // title
-                'Ok'                  // buttonName
-            );
-       });
+      push.on('notification', function(data) {
+        console.log('notification event');
+        navigator.notification.alert(
+          data.message,         // message
+          null,                 // callback
+          data.title,           // title
+          'Ok'                  // buttonName
+        );
+      });
     },
     getContent: function(){
       var self = this;
       fetch('https://circle.red/cniga/')
         .then(function(res){ return res.json()})
         .then(function(content){
-          self.schedule = content.schedule;
-          self.news = content.news;
-          self.countUnreadNews();
-        }).catch(function(err){
-          console.log(err);
-          self.countUnreadNews();
-        })
+        self.schedule = content.schedule;
+        self.news = content.news;
+        self.countUnreadNews();
+      }).catch(function(err){
+        console.log(err);
+        self.countUnreadNews();
+      })
     },
     getBills: function(){
       var self = this;
@@ -166,24 +167,39 @@ var app = new Vue({
       fetch('https://circle.red/cniga/legislation')
         .then(function(res){ return res.json()})
         .then(function(content){
-          self.stateSupport = content.billssupporting
-          self.stateOppose = content.billsopposing
-          self.stateMonitor = content.billsmonitoring
-          self.billsLoading = false
-        }).catch(function(err){
-          console.log(err)
-        })
+        self.stateSupport = content.billssupporting
+        self.stateOppose = content.billsopposing
+        self.stateMonitor = content.billsmonitoring
+        self.billsLoading = false
+      }).catch(function(err){
+        console.log(err)
+      })
 
     },
-    setEmailSent: function(billName){
+    toggleEmailSent: function(billName){
       var self = this;
       if(self.my.sentBills.indexOf(billName) === -1){
-          self.my.sentBills.push(billName);
+        self.my.sentBills.push(billName);
       } else {
         self.my.sentBills.splice(self.my.sentBills.indexOf(billName), 1)
       }
-      console.log(self.my.sentBills);
+      //console.log(self.my.sentBills);
     },
+    toggleBillCollapse: function(b){
+      //var self = this;
+      //alert(b);
+      var self = this;
+      if (self.my.expandedBills.includes(b)) {
+        var i = self.my.expandedBills.indexOf(b);
+        if(i != -1) {
+          self.my.expandedBills.splice(i, 1);
+        }
+        //alert('remove collapse!')
+      } else {
+        self.my.expandedBills.push(b);
+        //alert('add collapse!');
+      }
+    }
   },
   mounted: function () {
     var self = this;

@@ -12,9 +12,15 @@ section.members{
   }
   .indicator { @include position(absolute,24px,24px); height: 36px; height: 36px; }
 }
-.bill{
-  border-bottom: 1px solid #494949;
-  padding: 1em 0;
+.bill{ border-bottom: 1px solid $black; padding: 1em 0; position: relative;
+  .title { padding-right: 40px; }
+  .bill-acted { width:1.5rem; height: 1.5rem; @include position(absolute,15px,0); color:#333; cursor: pointer; z-index: 13;
+    .collapse { color:$orange; opacity: 0; }
+    &.expanded { color:$blue;
+      .read { opacity: 0; }
+      .collapse { opacity: 1; }
+    }
+  }
 }
 
 .bills-heading{

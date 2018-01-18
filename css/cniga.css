@@ -709,7 +709,28 @@ section.members {
 
 .bill {
   border-bottom: 1px solid #494949;
-  padding: 1em 0; }
+  padding: 1em 0;
+  position: relative; }
+  .bill .title {
+    padding-right: 40px; }
+  .bill .bill-acted {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 15px;
+    right: 0;
+    color: #333;
+    cursor: pointer;
+    z-index: 13; }
+    .bill .bill-acted .collapse {
+      color: #F86C4F;
+      opacity: 0; }
+    .bill .bill-acted.expanded {
+      color: #4885ed; }
+      .bill .bill-acted.expanded .read {
+        opacity: 0; }
+      .bill .bill-acted.expanded .collapse {
+        opacity: 1; }
 
 .bills-heading {
   color: #F86C4F;
