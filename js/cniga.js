@@ -12,6 +12,7 @@ var app = new Vue({
       userType: 'member',
       view: 'news',
       contactChoice: false,
+      readItems: [],
       unreadItems: 0,
       sentBills: [],
       expandedBills: [],
@@ -31,7 +32,14 @@ var app = new Vue({
     scheduleShow: false
   },
   computed: {
-
+    myNews: function(){
+      var self = this;
+      return self.news.map(function(story){
+       if(self.my.readItems.indexOf(story.slug) !== -1)
+         story.read = true;
+        return story;
+     })
+    }
   },
   methods: {
 
@@ -84,7 +92,11 @@ var app = new Vue({
     emailLink: function(emailTitle,emailBody){
       return "mailto:?subject=" + emailTitle + "&body=" + emailBody;
     },
-
+    markNewsRead: function(item){
+      var self = this;
+      self.my.readItems.push(item);
+      self.countUnreadNews();
+    },
     countUnreadNews: function(){
       var self = this;
       self.my.unreadItems = 0;
@@ -130,6 +142,8 @@ var app = new Vue({
           // Save new registration ID
           localStorage.setItem('registrationId', data.registrationId);
           // Post registrationId to your app server as the value has changed
+          // NOTE: ONLY SEND DEVICE ID TO SERVER IF THE USER IS LOGGED IN
+          // I.E. USE THE CHECK LOGIN CODE METHOD
         }
       });
 
@@ -199,7 +213,56 @@ var app = new Vue({
         self.my.expandedBills.push(b);
         //alert('add collapse!');
       }
-    }
+    },
+    getMyData: function() {
+      var self = this;
+      var store = self.getObjectStore('my', 'readonly');
+      var req = store.openCursor();
+
+      req.onsuccess = function(evt) {
+        var cursor = evt.target.result;
+        if (cursor) {
+          self.my = cursor.value;
+          if (self.error_msg) {
+            self.my.view = 'error';
+          } else {
+            self.my.view = 'news';
+          }
+        }
+      };
+    },
+    updateMyData: function(){
+      var self = this;
+      var store = self.getObjectStore('my', 'readwrite');
+
+      var getCount = store.count();
+      getCount.onsuccess = function(evt){
+        if (evt.target.result === 0){
+          try {
+            var req = store.add(self.my, 0);
+          } catch (e) {
+            throw e;
+          }
+        }
+        else{
+          var req = store.openCursor();
+          req.onsuccess = function(evt) {
+            var cursor = evt.target.result;
+            if(cursor){
+              try {
+                cursor.update(self.my);
+              } catch (e) {
+                throw e;
+              }
+            }
+          };
+        }
+      };
+    },
+    getObjectStore: function(storeName, protocol){
+      var self = this;
+      return self.db.transaction(storeName, protocol).objectStore(storeName);
+    },
   },
   mounted: function () {
     var self = this;
@@ -207,5 +270,36 @@ var app = new Vue({
     self.bindEvents();
     self.getContent();
     self.getBills();
+
+    var request = indexedDB.open("CNIGAApp", 3);
+
+    request.onerror = function(event) {
+      self.indexed = "Can't use IndexedDB";
+    };
+    request.onsuccess = function(event) {
+      self.db = this.result;
+      self.getMyData();
+      self.my.view = "sessions";
+    };
+    request.onupgradeneeded = function(event) {
+      var objStore = event.currentTarget.result.createObjectStore('my');
+    };
+
+
+  },
+  updated: function() {
+    var self = this;
+    var request = indexedDB.open("CNIGAApp", 3);
+
+    request.onerror = function(event) {
+      self.indexed = "Can't use IndexedDB";
+    };
+    request.onsuccess = function(event) {
+      self.db = this.result;
+      self.updateMyData();
+    };
+    request.onupgradeneeded = function(event) {
+      var objStore = event.currentTarget.result.createObjectStore('my');
+    };
   }
 });
