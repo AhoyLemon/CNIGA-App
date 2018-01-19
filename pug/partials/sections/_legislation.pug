@@ -43,7 +43,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
         +loadIndicator("stateOpposeShow")
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .bill-list(v-if="stateOpposeShow")
-            .bill(v-for="bill in stateSupport")
+            .bill(v-for="bill in stateOppose")
               .title
                 a.bill-title(v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');") {{bill.billTitle}}
                 span.bill-title(v-else) {{bill.billTitle}}
@@ -79,7 +79,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
         +loadIndicator("stateMonitorShow")
         transition(v-on:enter="slideDown" v-on:leave="slideUp")
           .bill-list(v-if="stateMonitorShow")
-            .bill(v-for="bill in stateSupport")
+            .bill(v-for="bill in stateMonitor")
               .title
                 a.bill-title(v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');") {{bill.billTitle}}
                 span.bill-title(v-else) {{bill.billTitle}}

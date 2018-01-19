@@ -94,17 +94,22 @@ var app = new Vue({
     },
     markNewsRead: function(item){
       var self = this;
-      self.my.readItems.push(item);
+      if(self.my.readItems.indexOf(item) === -1)
+        self.my.readItems.push(item);
       self.countUnreadNews();
     },
     countUnreadNews: function(){
       var self = this;
       self.my.unreadItems = 0;
-      self.news.forEach(function(element) {
+      self.news.map(function(story){
+       if(self.my.readItems.indexOf(story.slug) === -1)
+         self.my.unreadItems++;
+     })
+      /*self.news.forEach(function(element) {
         if (!element.read) {
           self.my.unreadItems++;
         }
-      });
+      });*/
     },
     bindEvents: function() {
       console.log('Bind Events');
