@@ -13,7 +13,7 @@
     </platform>
     <platform name="android">
         <allow-intent href="market:*" />
-        <resource-file src="google-services.json" target="app/google-services.json" />
+        <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <preference name="phonegap-version" value="cli-7.1.0" />
     <preference name="android-minSdkVersion" value="20" />
