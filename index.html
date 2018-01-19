@@ -80,7 +80,7 @@
                 <transition leave-active-class="animated bounceOut">
                   <div class="icon-holder"><span class="unread" v-if="!item.read">!</span></div>
                 </transition>
-                <div class="title-holder"><a class="title link" v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; countUnreadNews()"><span v-html="item.title"></span></a><span class="title" v-else v-html="item.title" v-on:click="item.read = true; countUnreadNews()"></span></div>
+                <div class="title-holder"><a class="title link" v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; markNewsRead(item.slug)"><span v-html="item.title"></span></a><span class="title" v-else v-html="item.title" v-on:click="item.read = true; markNewsRead(item.slug)"></span></div>
                 <div class="date-holder">
                   <time class="stamp" v-html="item.date"></time>
                 </div>
