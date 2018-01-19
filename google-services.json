@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1098348384269",
+    "firebase_url": "https://cniga-621ff.firebaseio.com",
+    "project_id": "cniga-621ff",
+    "storage_bucket": "cniga-621ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098348384269:android:a228a006e0c359db",
+        "android_client_info": {
+          "package_name": "com.cniga.rca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098348384269-1pibjpvalf64qq52pv0u1id333nhoqba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArtj0_djqp65vyVvQlVbBFPWWfTpiUE8M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

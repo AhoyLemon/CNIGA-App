@@ -13,17 +13,10 @@
     </platform>
     <platform name="android">
         <allow-intent href="market:*" />
+        <resource-file src="google-services.json" target="app/google-services.json" />
     </platform>
     <preference name="phonegap-version" value="cli-7.1.0" />
     <preference name="android-minSdkVersion" value="20" />
-    <universal-links>
-        <host name="cniga.com">
-            <path url="/registration/*" />
-        </host>
-        <host name="circle.red">
-            <path url="cniga/registration/*" />
-        </host>
-    </universal-links>
 
     <platform name="winphone" />
     <access origin="*" />
@@ -34,7 +27,6 @@
     <plugin name="phonegap-plugin-push" spec="^2.1.2">
         <variable name="FCM_VERSION" value="11.0.1" />
     </plugin>
-    <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
