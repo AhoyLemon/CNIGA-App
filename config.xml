@@ -23,14 +23,13 @@
             <path url="cniga/registration/*" />
         </host>
     </universal-links>
-    <preference name="android-minSdkVersion" value="20" />
     <platform name="winphone" />
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
     <engine name="android" spec="^6.3.0" />
     <engine name="ios" spec="^4.5.4" />
-    <plugin name="phonegap-plugin-push" spec="^2.1.2">
+    <plugin name="phonegap-plugin-push" spec="^2.0.0">
         <variable name="FCM_VERSION" value="11.0.1" />
     </plugin>
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
