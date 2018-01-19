@@ -1,7 +1,7 @@
 transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
   section.news(v-if="my.view == 'news'" v-cloak)
     .inner
-      dl(v-for="item in news")
+      dl(v-for="item in myNews")
         dt
           transition(leave-active-class="animated bounceOut")
             .icon-holder

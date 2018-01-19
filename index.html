@@ -75,7 +75,7 @@
       <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
         <section class="news" v-if="my.view == 'news'" v-cloak>
           <div class="inner">
-            <dl v-for="item in news">
+            <dl v-for="item in myNews">
               <dt>
                 <transition leave-active-class="animated bounceOut">
                   <div class="icon-holder"><span class="unread" v-if="!item.read">!</span></div>

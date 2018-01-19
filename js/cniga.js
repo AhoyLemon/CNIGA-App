@@ -136,7 +136,6 @@ var app = new Vue({
 
       push.on('registration', function(data) {
         console.log('registration event: ' + data.registrationId);
-        document.getElementById("regId").innerHTML = data.registrationId;
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
           // Save new registration ID
@@ -279,7 +278,7 @@ var app = new Vue({
     request.onsuccess = function(event) {
       self.db = this.result;
       self.getMyData();
-      self.my.view = "sessions";
+      self.my.view = "news";
     };
     request.onupgradeneeded = function(event) {
       var objStore = event.currentTarget.result.createObjectStore('my');
