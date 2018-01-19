@@ -266,6 +266,9 @@ ul {
   .desktop-only {
     display: none; } }
 
+[v-cloak] {
+  display: none !important; }
+
 body {
   background: #494949;
   font-family: "Sen", "Comic Sans MS", "Comic Sans", cursive; }
