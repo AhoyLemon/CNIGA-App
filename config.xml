@@ -2,11 +2,11 @@
 <widget id="com.cniga.rca" version="1.0" versionCode="1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>CNIGA</name>
     <description>
-    App for California Nations Indian Gaming Association.
-  </description>
+      App for California Nations Indian Gaming Association.
+    </description>
     <author email="dev@redcircleagency.com" href="https://www.redcircleagency.com">
-    Red Circle Agency
-  </author>
+      Red Circle Agency
+    </author>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
