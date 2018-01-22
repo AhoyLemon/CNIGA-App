@@ -22,7 +22,7 @@ mixin loadIndicator(section)
           path.arrow(fill='#ed1f24' d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z")
 
 mixin bills(list)
-  .bill(v-for="bill in stateOppose")
+  .bill(v-for="bill in "+ list +"")
     .title
       a.bill-title(v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');") {{bill.billTitle}}
       span.bill-title(v-else) {{bill.billTitle}}

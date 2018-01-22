@@ -147,7 +147,7 @@
             </div>
             <transition v-on:enter="slideDown" v-on:leave="slideUp">
               <div class="bill-list" v-if="stateSupportShow">
-                <div class="bill" v-for="bill in stateOppose">
+                <div class="bill" v-for="bill in stateSupport">
                   <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
                       <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
                         <g class="read">
@@ -277,7 +277,7 @@
             </div>
             <transition v-on:enter="slideDown" v-on:leave="slideUp">
               <div class="bill-list" v-if="stateMonitorShow">
-                <div class="bill" v-for="bill in stateOppose">
+                <div class="bill" v-for="bill in stateMonitor">
                   <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
                       <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
                         <g class="read">
