@@ -3,3 +3,5 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
     .inner
       if platform == "android"
         iframe(src="https://cniga.com" id="iframe" scrolling="yes")
+      if platform == "ios"
+        iframe(src="https://cniga.com" id="iframe" scrolling="no")
