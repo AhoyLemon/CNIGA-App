@@ -774,7 +774,7 @@ section.members {
   .bill-author--party.R {
     background-color: #E83015; }
 
-.email-congress {
+.email-congress, .position-paper {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -801,7 +801,7 @@ section.members {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
-  .email-congress .email-button {
+  .email-congress .email-button, .email-congress .paper-button, .position-paper .email-button, .position-paper .paper-button {
     margin: 0.5em 1em; }
 
 .email-sent {

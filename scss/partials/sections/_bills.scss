@@ -2,7 +2,7 @@ section.members{
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-.bills { margin-bottom: 20px; position: relative; 
+.bills { margin-bottom: 20px; position: relative;
   //.indicator { @include position(absolute,10px,10px); height: 16px; width: 16px; }
   .bills-heading { color:$black; font-size: 18px; padding-right: 36px; cursor: pointer;
     span { font-weight: $bold; font-size:130%; display: block; text-transform: uppercase; }
@@ -54,11 +54,11 @@ section.members{
   }
 }
 
-.email-congress{
+.email-congress, .position-paper{
   @include flex-container();
   align-items: center;
   justify-content: center;
-  .email-button{
+  .email-button, .paper-button{
     margin: 0.5em 1em;
   }
 }
