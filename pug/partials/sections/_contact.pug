@@ -1,19 +1,18 @@
-transition(enter-active-class="animated animated-entrance bounceInUp" leave-active-class="animated bounceOutUp")
-  section.contact(v-if="my.view == 'contact'" v-cloak)
-    .inner
-      form
-        label
-          span(v-if="!my.contactChoice") What can we do for you?
-          select(v-model="my.contactChoice")
-            option
-            option(value="question") Ask a question
-            option(value="form") Request a Form
-        //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
-        label(v-if="my.contactChoice == 'question'")
-          textarea(placeholder="What's your question?")
-        //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
-        label(v-if="my.contactChoice == 'form'")
-          textarea(placeholder="What form would you like?")
-        //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
-        .button-holder(v-if="my.contactChoice")
-          button(type="submit") Submit
++sectionWrap('contact')
+  .inner
+    form
+      label
+        span(v-if="!my.contactChoice") What can we do for you?
+        select(v-model="my.contactChoice")
+          option
+          option(value="question") Ask a question
+          option(value="form") Request a Form
+      //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
+      label(v-if="my.contactChoice == 'question'")
+        textarea(placeholder="What's your question?")
+      //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
+      label(v-if="my.contactChoice == 'form'")
+        textarea(placeholder="What form would you like?")
+      //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
+      .button-holder(v-if="my.contactChoice")
+        button(type="submit") Submit

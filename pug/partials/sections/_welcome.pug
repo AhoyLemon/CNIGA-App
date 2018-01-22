@@ -1,18 +1,19 @@
-transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
-  section.welcome(v-if="my.view == 'welcome'" v-cloak)
-    .inner
-      .logo-holder
-        img.logo(src="svg/cniga.svg")
-      .box 
-        .welcome-text
-          h2  Welcome!
-          p
-            | Are you a member of the California Nations Indian Gaming Association?
-        
-        .button-split
-          a.button.yes(v-on:click="my.view='login'") Yes
-          a.button.no(v-on:click="my.view='iframe'")  No
-        
-        .welcome-text
-          p 
-            | (if so, you will be asked to login using the email address we have on file)
++sectionWrap('welcome')
+  .inner
+    .logo-holder
+      img.logo(src="svg/cniga.svg")
+    .box 
+      .welcome-text
+        h2  Welcome!
+        p
+          | Are you a member of the California Nations Indian Gaming Association?
+      
+      .button-split
+        a.button.yes(v-on:click="my.view='login'") Yes
+        a.button.no(v-on:click="my.view='iframe'")  No
+      
+      .welcome-text
+        p 
+          | (if so, you will be asked to login using the email address we have on file)
+if platform == "android"
+  | </transition>          

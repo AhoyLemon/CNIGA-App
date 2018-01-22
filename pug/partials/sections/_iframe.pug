@@ -1,7 +1,6 @@
-transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
-  section.iframe(v-if="my.view == 'iframe'" v-cloak v-bind:class="{guest: my.userType == 'guest'}")
-    .inner
-      if platform == "android"
-        iframe(src="https://cniga.com" id="iframe" scrolling="yes")
-      if platform == "ios"
-        iframe(src="https://cniga.com" id="iframe" scrolling="no")
++sectionWrap('iframe')
+  .inner
+    if platform == "android"
+      iframe(src="https://cniga.com" id="iframe" scrolling="yes")
+    if platform == "ios"
+      iframe(src="https://cniga.com" id="iframe" scrolling="no")
