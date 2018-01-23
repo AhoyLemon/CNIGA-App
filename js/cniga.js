@@ -90,6 +90,7 @@ var app = new Vue({
       window.open(destination, target)
     },
     emailLink: function(emailTitle,emailBody){
+      trackEvent('Email sent', emailTitle)
       return "mailto:?subject=" + emailTitle + "&body=" + emailBody;
     },
     markNewsRead: function(item){
@@ -201,6 +202,7 @@ var app = new Vue({
       } else {
         self.my.sentBills.splice(self.my.sentBills.indexOf(billName), 1)
       }
+      trackEvent('Member marked email sent', billName)
       //console.log(self.my.sentBills);
     },
     toggleBillCollapse: function(b){
