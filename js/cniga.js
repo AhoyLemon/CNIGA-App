@@ -90,7 +90,6 @@ var app = new Vue({
       window.open(destination, target)
     },
     emailLink: function(emailTitle,emailBody){
-      trackEvent('Email sent', emailTitle)
       return "mailto:?subject=" + emailTitle + "&body=" + emailBody;
     },
     markNewsRead: function(item){
@@ -268,6 +267,21 @@ var app = new Vue({
     getObjectStore: function(storeName, protocol){
       var self = this;
       return self.db.transaction(storeName, protocol).objectStore(storeName);
+    },
+    trackEvent: function(c, a, l, v) {
+      if (v) {
+        _paq.push(['trackEvent', c, a, l, v]);
+        //ga('send', 'event', { eventCategory: c, eventAction: a, eventLabel: l, eventValue:v });
+        console.log('CATEGORY: '+c+', ACTION:'+a+', LABEL:'+l+', VALUE:'+v);
+      } else if (l) {
+        _paq.push(['trackEvent', c, a, l]);
+        //ga('send', 'event', { eventCategory: c, eventAction: a, eventLabel: l });
+        console.log('CATEGORY: '+c+', ACTION:'+a+', LABEL:'+l);
+      } else {
+        _paq.push(['trackEvent', c, a]);
+        //ga('send', 'event', { eventCategory: c, eventAction: a });
+        console.log('CATEGORY: '+c+', ACTION:'+a);
+      }
     },
   },
   mounted: function () {

@@ -114,7 +114,7 @@
             <div class="bills-heading" v-on:click="stateSupportShow = !stateSupportShow;">State Legislation we are <span class="support">SUPPORTING</span></div>
             <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateSupportShow}">
               <div class="icons">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421">
+                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
                   <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
                     <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
                   </g>
@@ -164,7 +164,7 @@
                     <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
                     <p v-else="v-else">{{bill.description}}</p>
                     <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button" :href="emailLink(bill.emailSubject, bill.emailBody)">Email Legislators</a></div>
+                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
                     <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" :href="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                         <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                           <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
@@ -180,7 +180,7 @@
             <div class="bills-heading" v-on:click="stateOpposeShow = !stateOpposeShow;">State Legislation we are <span class="oppose">Opposing</span></div>
             <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateOpposeShow}">
               <div class="icons">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421">
+                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
                   <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
                     <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
                   </g>
@@ -230,7 +230,7 @@
                     <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
                     <p v-else="v-else">{{bill.description}}</p>
                     <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button" :href="emailLink(bill.emailSubject, bill.emailBody)">Email Legislators</a></div>
+                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
                     <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" :href="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                         <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                           <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
@@ -246,7 +246,7 @@
             <div class="bills-heading" v-on:click="stateMonitorShow = !stateMonitorShow;">State Legislation we are <span class="monitor">Monitoring</span></div>
             <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateMonitorShow}">
               <div class="icons">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421">
+                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
                   <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
                     <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
                   </g>
@@ -296,7 +296,7 @@
                     <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
                     <p v-else="v-else">{{bill.description}}</p>
                     <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button" :href="emailLink(bill.emailSubject, bill.emailBody)">Email Legislators</a></div>
+                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
                     <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" :href="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                         <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                           <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
