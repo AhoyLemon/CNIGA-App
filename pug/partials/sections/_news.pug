@@ -1,17 +1,16 @@
-transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
-  section.news(v-if="my.view == 'news'" v-cloak)
-    .inner
-      dl(v-for="item in myNews")
-        dt
-          transition(leave-active-class="animated bounceOut")
-            .icon-holder
-              span.unread(v-if="!item.read") !
-          .title-holder
-            a.title.link(v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; markNewsRead(item.slug)")
-              span(v-html="item.title")
-            span.title(v-else v-html="item.title" v-on:click="item.read = true; markNewsRead(item.slug)")
-          .date-holder
-            time.stamp(v-html="item.date")
-            
-        transition(v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false")
-          dd(v-if="item.expand" v-html="item.text")
++sectionWrap('news')
+  .inner
+    dl(v-for="item in myNews")
+      dt
+        transition(leave-active-class="animated bounceOut")
+          .icon-holder
+            span.unread(v-if="!item.read") !
+        .title-holder
+          a.title.link(v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; markNewsRead(item.slug)")
+            span(v-html="item.title")
+          span.title(v-else v-html="item.title" v-on:click="item.read = true; markNewsRead(item.slug)")
+        .date-holder
+          time.stamp(v-html="item.date")
+          
+      transition(v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false")
+        dd(v-if="item.expand" v-html="item.text")

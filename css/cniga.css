@@ -677,17 +677,17 @@ section.contact button {
   font-weight: 600;
   padding: 0.5em 1em; }
 
-/*
-section.iframe {
-  .inner { padding: 0; height: 100%; }
-  iframe { width: 1px; min-width: 100%; height: 100%; }
+.ios section.iframe iframe {
+  width: 1px;
+  min-width: 100%;
+  height: 100%; }
 
-  &.guest { bottom: 10px; padding-bottom: 0;
-    .inner { height: calc(100% - 34px); }
-  }
+.ios section.iframe.guest {
+  bottom: 10px;
+  padding-bottom: 0; }
+  .ios section.iframe.guest .inner {
+    height: calc(100% - 34px); }
 
-}
-*/
 section.iframe .inner {
   padding: 0;
   height: 100%; }
@@ -774,7 +774,7 @@ section.members {
   .bill-author--party.R {
     background-color: #E83015; }
 
-.email-congress {
+.email-congress, .position-paper {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-flex;
@@ -801,7 +801,7 @@ section.members {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center; }
-  .email-congress .email-button {
+  .email-congress .email-button, .email-congress .paper-button, .position-paper .email-button, .position-paper .paper-button {
     margin: 0.5em 1em; }
 
 .email-sent {
@@ -856,5 +856,19 @@ section.schedule .inner {
     margin-bottom: 0.4em; }
   .schedule-item address {
     font-style: normal; }
+
+.ios section {
+  -webkit-transform: translateY(-120%);
+  -ms-transform: translateY(-120%);
+  transform: translateY(-120%);
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: -webkit-transform 1s ease;
+  -o-transition: transform 1s ease;
+  transition: transform 1s ease;
+  transition: transform 1s ease, -webkit-transform 1s ease; }
+  .ios section.visible {
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    transform: translateY(0%); }
 
 /*# sourceMappingURL=cniga.css.map */

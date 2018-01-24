@@ -1,23 +1,21 @@
-transition(enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp")
-  section.schedule(v-if="my.view == 'schedule'" v-cloak)
-    .inner
-      h4.schedule-heading 2018 CNIGA Schedule
-      transition(v-on:enter="slideDown" v-on:leave="slideUp")
-        .schedule-items
-          .schedule-item(v-for="item in schedule")
-            h5 {{item.title}}
-            time(v-if="item.prettyDate && item.prettyTime") 
-              | {{item.prettyDate}} @ {{item.prettyTime}}
-            time(v-else-if="item.prettyDate")
-              | {{item.prettyDate}}
-            address(v-if="item.location")
-              strong.name 
-                | {{item.location}} 
-                br
-              span(v-if="item.street_address")
-                | {{item.street_address}} 
-                br
-              span(v-if="item.city") {{item.city}}, 
-              span(v-if="item.state") {{item.state}} 
-              span(v-if="item.zip") {{item.zip}}
-            p(v-if="item.description") {{item.description}}
++sectionWrap('schedule')
+  .inner
+    h4.schedule-heading 2018 CNIGA Schedule
+    .schedule-items
+      .schedule-item(v-for="item in schedule")
+        h5 {{item.title}}
+        time(v-if="item.prettyDate && item.prettyTime") 
+          | {{item.prettyDate}} @ {{item.prettyTime}}
+        time(v-else-if="item.prettyDate")
+          | {{item.prettyDate}}
+        address(v-if="item.location")
+          strong.name 
+            | {{item.location}} 
+            br
+          span(v-if="item.street_address")
+            | {{item.street_address}} 
+            br
+          span(v-if="item.city") {{item.city}}, 
+          span(v-if="item.state") {{item.state}} 
+          span(v-if="item.zip") {{item.zip}}
+        p(v-if="item.description") {{item.description}}
