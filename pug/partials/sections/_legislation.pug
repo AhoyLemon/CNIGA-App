@@ -30,7 +30,7 @@ transition(enter-active-class="animated bounceInUp" leave-active-class="animated
                 p(v-else) {{bill.description}}
                 p(v-if="bill.billImpact" v-html="bill.billImpact") 
                 .email-congress(v-if="bill.emailBody")
-                  a.email-button(:href="emailLink(bill.emailSubject, bill.emailBody)" class="button") Email Congress
+                  a.email-button(:href="emailLink(bill.emailSubject, bill.emailBody)" class="button") Email Template
                 span.email-sent(v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}") 
                   span.checkbox 
                     svg(aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512")

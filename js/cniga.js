@@ -9,8 +9,8 @@ var app = new Vue({
   el: '#app',
   data: {
     my: {
-      userType: 'member',
-      view: 'news',
+      userType: 'guest',
+      view: 'welcome',
       contactChoice: false,
       readItems: [],
       unreadItems: 0,
@@ -62,7 +62,8 @@ var app = new Vue({
       } else {
         self.loginStatus = 'member';
         self.my.userType = 'member';
-        self.my.view = 'news';
+        //self.my.view = 'news';
+        self.my.view = 'welcome';
       }
     },
 
@@ -230,7 +231,8 @@ var app = new Vue({
           if (self.error_msg) {
             self.my.view = 'error';
           } else {
-            self.my.view = 'news';
+            //self.my.view = 'news';
+            self.my.view = 'welcome';
           }
         }
       };
@@ -283,7 +285,8 @@ var app = new Vue({
     request.onsuccess = function(event) {
       self.db = this.result;
       self.getMyData();
-      self.my.view = "news";
+      //self.my.view = "news";
+      self.my.view = "welcome";
     };
     request.onupgradeneeded = function(event) {
       var objStore = event.currentTarget.result.createObjectStore('my');
