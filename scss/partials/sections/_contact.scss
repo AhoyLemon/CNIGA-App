@@ -4,4 +4,18 @@ section.contact {
   label { display: block; width: 100%; }
   .button-holder { text-align: center; padding-top: 0.5em; }
   button { background:$orange; color:$black;  border:0; font-family: $sans; font-size:0.9rem; text-transform: uppercase; font-weight: $bold; padding:0.5em 1em; }
+  .social-heading{
+    padding: 1em 0 0.5em;
+  }
+  .social-links{
+
+    @include flex-container();
+    justify-content: space-between;
+    .social{
+      .icon{
+        width: 2.5em;
+        height: auto;
+      }
+    }
+  }
 }
