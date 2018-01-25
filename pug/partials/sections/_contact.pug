@@ -16,7 +16,7 @@
       //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
       .button-holder(v-if="my.contactChoice")
         button(type="submit") Submit
-    h4.social-heading Follow us
+    p.social-heading Follow us
     .social-links
       if platform == "ios"
         a.social.facebook(v-on:click="openLink('https://www.facebook.com/CAIndianGaming/', '_system')")
