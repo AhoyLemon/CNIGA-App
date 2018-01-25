@@ -142,6 +142,7 @@ var app = new Vue({
 
       push.on('registration', function(data) {
         console.log('registration event: ' + data.registrationId);
+        console.log('Device Type: ' + data.registrationType);
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
           // Save new registration ID
