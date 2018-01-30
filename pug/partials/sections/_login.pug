@@ -10,7 +10,7 @@
           b We don't have that address on file!
         p 
           |  Please check to see if it was mistyped, or, if you believe you should be in the records, contact 
-          a(href="mailto:fake@email.info") fake@email.info
+          a(href="mailto:ambar@cniga.com") ambar@cniga.com
       .login-text.login-validating(v-if="loginStatus=='validating'")
         p 
           b Check your email!
@@ -21,7 +21,7 @@
           b Incorrect code.
         p
           | We've send a four letter code to your email address. Please double check.
-      form(v-on:submit.prevent="checkPassword" v-if="loginStatus != 'validating' && loginStatus != 'validateError'")
+      form(v-on:submit.prevent="checkEmail" v-if="loginStatus != 'validating' && loginStatus != 'validateError'")
         label
           span(v-bind:class=" { error: loginStatus=='error' } ") Email Address
           input(type="email" v-model="my.email" v-bind:class=" { error: loginStatus=='error' } ")

@@ -17,7 +17,8 @@ var app = new Vue({
       sentBills: [],
       expandedBills: [],
       email: '',
-      loginCode: ''
+      loginCode: '',
+      authToken: ''
     },
     loginStatus: 'guest',
     news: [],
@@ -43,28 +44,68 @@ var app = new Vue({
   },
   methods: {
 
-    checkPassword: function() {
+    checkEmail: function() {
       var self = this
-
-      if (self.my.email.includes('redcircle')) {
-        self.loginStatus = 'validating';
-      } else {
-        self.loginStatus = 'error';
-      }
+      
+      //alert(self.my.email);
+      
+      //var emailURL = 'http://204.232.242.150:8008/api/Registration/Registration/ValidateEmailAddress?emailAddress='+ encodeURIComponent(self.my.email);
+      var emailURL = 'http://204.232.242.150:8008/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress='+ encodeURIComponent(self.my.email);
+      
+      //var emailURL = 'http://204.232.242.150:8008/api/Registration/Registration/ValidateEmailAddress?emailAddress=fake%40fake.com';
+      //alert(emailURL);
+      
+      $.getJSON(emailURL, function(content) {
+        console.log(content);
+        
+        if (content.success) {
+          self.loginStatus = 'validating';
+        } else {
+          self.loginStatus = 'error';
+        }
+        
+      })
+        .done(function() {
+          console.log( "second success" );
+        })
+        .fail(function() {
+          console.log( "error" );
+        })
+        .always(function() {
+          console.log( "complete" );
+        });
+      
 
     },
 
     checkLoginCode: function() {
       var self = this
       var m = self.my.loginCode.toUpperCase();
-      if (!m.includes('X')) {
-        self.loginStatus = 'validateError';
-      } else {
-        self.loginStatus = 'member';
-        self.my.userType = 'member';
-        //self.my.view = 'news';
-        self.my.view = 'welcome';
-      }
+      var verifyURL = 'http://204.232.242.150:8008/api/Registration/VerifyRegistrationCodeAndCreateUser?emailAddress=' + encodeURIComponent(self.my.email) +'&registrationCode=' + encodeURIComponent(m);
+      
+      $.getJSON(verifyURL, function(content) {
+        console.log(content);
+        
+        if (content.success) {
+          self.loginStatus = 'member';
+          self.my.userType = 'member';
+          self.my.view = 'news';
+          self.my.authToken = content.cnigaAuthToken;
+        } else {
+          self.loginStatus = 'validateError';
+        }
+        
+      })
+        .done(function() {
+          console.log( "second success" );
+        })
+        .fail(function() {
+          console.log( "error" );
+        })
+        .always(function() {
+          console.log( "complete" );
+        });
+      
     },
 
     newAlert: function(text) {
@@ -232,8 +273,7 @@ var app = new Vue({
           if (self.error_msg) {
             self.my.view = 'error';
           } else {
-            //self.my.view = 'news';
-            self.my.view = 'welcome';
+            self.my.view = 'news';
           }
         }
       };
@@ -302,7 +342,8 @@ var app = new Vue({
       self.db = this.result;
       self.getMyData();
       //self.my.view = "news";
-      self.my.view = "welcome";
+      //self.my.view = "welcome";
+      //alert(self.my.view);
     };
     request.onupgradeneeded = function(event) {
       var objStore = event.currentTarget.result.createObjectStore('my');
