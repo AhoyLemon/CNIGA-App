@@ -604,7 +604,7 @@ section.news dl {
 section.news dt {
   /*
     @include flex-container();
-    
+
     .icon-holder { @include flex-item(32px,0); }
     .title-holder { @include flex-item(calc(100% - 98px)); }
     .date-holder { @include flex-item(62px,0); text-align: right; }
@@ -630,6 +630,19 @@ section.news dt {
 section.news dd {
   margin-top: 10px;
   font-size: 0.85em; }
+
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 35px;
+  height: 0;
+  overflow: hidden; }
+  .video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
 
 section.contact select {
   display: block;
