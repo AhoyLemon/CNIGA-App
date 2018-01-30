@@ -12,6 +12,7 @@ var app = new Vue({
       userType: 'guest',
       view: 'welcome',
       contactChoice: false,
+      contactEmail: "",
       readItems: [],
       unreadItems: 0,
       sentBills: [],
@@ -183,6 +184,7 @@ var app = new Vue({
 
       push.on('registration', function(data) {
         console.log('registration event: ' + data.registrationId);
+        console.log('Device Type: ' + data.registrationType);
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
           // Save new registration ID
@@ -325,6 +327,27 @@ var app = new Vue({
         console.log('CATEGORY: '+c+', ACTION:'+a);
       }
     },
+    sendContactEmail: function(e){
+      var self = this
+      if(self.my.contactChoice === 'form'){
+        var subject = "Form request from " + self.my.email
+      } else if(self.my.contactChoice === 'question'){
+        var subject = "Question from " + self.my.email
+      }
+      var email = new FormData()
+      email.append('subject', subject)
+      email.append('message', self.my.contactEmail)
+      email.append('sender', self.my.email)
+      fetch('https://circle.red/cniga/mail.php', { method: 'POST',body: email,})
+      .then(function(response) {
+        console.log(response)
+      }).catch(function(error) {
+        console.error(error)
+      })
+      //self.my.contactChoice = false;
+      //self.my.contactEmail = "";
+
+    }
   },
   mounted: function () {
     var self = this;
