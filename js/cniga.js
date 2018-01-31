@@ -47,24 +47,24 @@ var app = new Vue({
 
     checkEmail: function() {
       var self = this
-      
+
       //alert(self.my.email);
-      
+
       //var emailURL = 'http://204.232.242.150:8008/api/Registration/Registration/ValidateEmailAddress?emailAddress='+ encodeURIComponent(self.my.email);
       var emailURL = 'http://204.232.242.150:8008/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress='+ encodeURIComponent(self.my.email);
-      
+
       //var emailURL = 'http://204.232.242.150:8008/api/Registration/Registration/ValidateEmailAddress?emailAddress=fake%40fake.com';
       //alert(emailURL);
-      
+
       $.getJSON(emailURL, function(content) {
         console.log(content);
-        
+
         if (content.success) {
           self.loginStatus = 'validating';
         } else {
           self.loginStatus = 'error';
         }
-        
+
       })
         .done(function() {
           console.log( "second success" );
@@ -75,7 +75,7 @@ var app = new Vue({
         .always(function() {
           console.log( "complete" );
         });
-      
+
 
     },
 
@@ -83,10 +83,10 @@ var app = new Vue({
       var self = this
       var m = self.my.loginCode.toUpperCase();
       var verifyURL = 'http://204.232.242.150:8008/api/Registration/VerifyRegistrationCodeAndCreateUser?emailAddress=' + encodeURIComponent(self.my.email) +'&registrationCode=' + encodeURIComponent(m);
-      
+
       $.getJSON(verifyURL, function(content) {
         console.log(content);
-        
+
         if (content.success) {
           self.loginStatus = 'member';
           self.my.userType = 'member';
@@ -95,10 +95,14 @@ var app = new Vue({
         } else {
           self.loginStatus = 'validateError';
         }
-        
+
       })
         .done(function() {
           console.log( "second success" );
+          self.countUnreadNews();
+          self.bindEvents();
+          self.getContent();
+          self.getBills();
         })
         .fail(function() {
           console.log( "error" );
@@ -106,7 +110,7 @@ var app = new Vue({
         .always(function() {
           console.log( "complete" );
         });
-      
+
     },
 
     newAlert: function(text) {
@@ -188,6 +192,7 @@ var app = new Vue({
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
           // Save new registration ID
+          // Call update API method
           localStorage.setItem('registrationId', data.registrationId);
           // Post registrationId to your app server as the value has changed
           // NOTE: ONLY SEND DEVICE ID TO SERVER IF THE USER IS LOGGED IN
@@ -272,11 +277,32 @@ var app = new Vue({
         var cursor = evt.target.result;
         if (cursor) {
           self.my = cursor.value;
-          if (self.error_msg) {
-            self.my.view = 'error';
-          } else {
-            self.my.view = 'news';
-          }
+          var myToken = JSON.stringify(self.my.authToken, null, 2);
+          myToken = myToken.replace(/"/g,"");
+          fetch('http://204.232.242.150:8008/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken))
+            .then(function(res){
+              return res.json()
+            })
+            .then(function(verification){
+              if(verification.isValid){
+                if (self.error_msg) {
+                  self.my.view = 'error';
+                } else {
+                  self.countUnreadNews();
+                  self.bindEvents();
+                  self.getContent();
+                  self.getBills();
+                  self.my.view = 'news';
+                }
+              } else{
+                self.loginStatus = 'guest';
+                self.my.userType = 'guest';
+                self.my.view = 'welcome';
+              }
+            })
+            .catch(function(err){
+              console.log("Error" + err)
+            })
         }
       };
     },
@@ -351,11 +377,6 @@ var app = new Vue({
   },
   mounted: function () {
     var self = this;
-    self.countUnreadNews();
-    self.bindEvents();
-    self.getContent();
-    self.getBills();
-
     var request = indexedDB.open("CNIGAApp", 3);
 
     request.onerror = function(event) {
@@ -371,8 +392,6 @@ var app = new Vue({
     request.onupgradeneeded = function(event) {
       var objStore = event.currentTarget.result.createObjectStore('my');
     };
-
-
   },
   updated: function() {
     var self = this;
