@@ -51,61 +51,45 @@ var app = new Vue({
       
       self.loginStatus = "checking";
 
-      $.getJSON(emailURL, function(content) {
+      fetch (emailURL).then(function(res) { return res.json()})
+        .then(function(content){
         console.log(content);
-
         if (content.success) {
           self.loginStatus = 'validating';
         } else {
           self.loginStatus = 'error';
         }
-
       })
-        .done(function() {
+        .then(function() {
           console.log( "second success" );
         })
-        .fail(function() {
-          console.log( "error" );
+        .catch(function(err) {
+          console.log( err );
         })
-        .always(function() {
-          console.log( "complete" );
-        });
-
-
     },
 
     checkLoginCode: function() {
       var self = this
       var m = self.my.loginCode.toUpperCase();
       var verifyURL = 'http://204.232.242.150:8008/api/Registration/VerifyRegistrationCodeAndCreateUser?emailAddress=' + encodeURIComponent(self.my.email) +'&registrationCode=' + encodeURIComponent(m);
-
-      $.getJSON(verifyURL, function(content) {
-        console.log(content);
-
-        if (content.success) {
-          self.loginStatus = 'member';
-          self.my.userType = 'member';
-          self.my.view = 'news';
-          self.my.authToken = content.cnigaAuthToken;
-        } else {
-          self.loginStatus = 'validateError';
-        }
-
-      })
-        .done(function() {
-          console.log( "second success" );
-          self.countUnreadNews();
-          self.bindEvents();
-          self.getContent();
-          self.getBills();
+      fetch (verifyURL).then(function(res){ return res.json()})
+        .then(function(content){
+          if (content.success) {
+            self.loginStatus = 'member';
+            self.my.userType = 'member';
+            self.my.view = 'news';
+            self.my.authToken = content.cnigaAuthToken;
+            self.countUnreadNews();
+            self.bindEvents();
+            self.getContent();
+            self.getBills();
+          } else {
+            self.loginStatus = 'validateError';
+          }
         })
-        .fail(function() {
-          console.log( "error" );
+        .catch(function(error){
+          console.log(error)
         })
-        .always(function() {
-          console.log( "complete" );
-        });
-
     },
 
     newAlert: function(text) {
