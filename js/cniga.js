@@ -189,8 +189,17 @@ var app = new Vue({
       push.on('registration', function(data) {
         console.log('registration event: ' + data.registrationId);
         console.log('Device Type: ' + data.registrationType);
+        var deviceType = data.registrationType === 'FCM' ? 1 : 2
+        fetch('http://204.232.242.150:8008/api/Device/UpdateMemberDeviceInfo?authToken=' + self.my.authToken + '&deviceType=' + deviceType + '&deviceId=' + data.registrationId)
+        .then(function(){
+          console.log('Device added to database')
+        })
+        .catch(function(e){
+          console.log(e)
+        })
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
+
           // Save new registration ID
           // Call update API method
           localStorage.setItem('registrationId', data.registrationId);
