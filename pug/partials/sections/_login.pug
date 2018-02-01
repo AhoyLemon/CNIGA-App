@@ -3,6 +3,10 @@
     .logo-holder
       img.logo(src="svg/cniga.svg")
     .box 
+      .login-text.login-before(v-if="loginStatus=='checking'")
+        p
+          b One moment.
+          span  Checking email address.
       .login-text.login-before(v-if="loginStatus=='guest'")
         p CNIGA members: Use your email address to log in.
       .login-text.login-error(v-if="loginStatus=='error'")
@@ -22,14 +26,20 @@
         p
           | We've send a four letter code to your email address. Please double check.
       form(v-on:submit.prevent="checkEmail" v-if="loginStatus != 'validating' && loginStatus != 'validateError'")
-        label
+        label(v-if="loginStatus == 'checking'")
+          span Email Address
+          input(readonly disabled v-model="my.email")
+        label(v-else)
           span(v-bind:class=" { error: loginStatus=='error' } ") Email Address
           input(type="email" v-model="my.email" v-bind:class=" { error: loginStatus=='error' } ")
+        
         //-label
           span Password
           input(type="password")
         .button-holder
-          button(type="submit") Send Code
+          .checking(v-if="loginStatus == 'checking'" disabled)
+            img.icon(src="svg/svg-loaders/spinning-circles.svg")
+          button(v-else type="submit") Send Code
       form(v-on:submit.prevent="checkLoginCode" v-if="loginStatus == 'validating' || loginStatus == 'validateError'")
         label
           //-span Login Code

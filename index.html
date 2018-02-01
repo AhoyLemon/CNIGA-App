@@ -33,6 +33,9 @@
           <div class="inner">
             <div class="logo-holder"><img class="logo" src="svg/cniga.svg"></div>
             <div class="box"> 
+              <div class="login-text login-before" v-if="loginStatus=='checking'">
+                <p><b>One moment.</b><span> Checking email address.</span></p>
+              </div>
               <div class="login-text login-before" v-if="loginStatus=='guest'">
                 <p>CNIGA members: Use your email address to log in.</p>
               </div>
@@ -52,11 +55,15 @@
                 <p>We've send a four letter code to your email address. Please double check.</p>
               </div>
               <form v-on:submit.prevent="checkEmail" v-if="loginStatus != 'validating' &amp;&amp; loginStatus != 'validateError'">
-                <label><span v-bind:class=" { error: loginStatus=='error' } ">Email Address</span>
+                <label v-if="loginStatus == 'checking'"><span>Email Address</span>
+                  <input readonly disabled v-model="my.email">
+                </label>
+                <label v-else><span v-bind:class=" { error: loginStatus=='error' } ">Email Address</span>
                   <input type="email" v-model="my.email" v-bind:class=" { error: loginStatus=='error' } ">
                 </label>
                 <div class="button-holder">
-                  <button type="submit">Send Code</button>
+                  <div class="checking" v-if="loginStatus == 'checking'" disabled><img class="icon" src="svg/svg-loaders/spinning-circles.svg"></div>
+                  <button v-else type="submit">Send Code</button>
                 </div>
               </form>
               <form v-on:submit.prevent="checkLoginCode" v-if="loginStatus == 'validating' || loginStatus == 'validateError'">

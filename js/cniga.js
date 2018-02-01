@@ -47,14 +47,9 @@ var app = new Vue({
 
     checkEmail: function() {
       var self = this
-
-      //alert(self.my.email);
-
-      //var emailURL = 'http://204.232.242.150:8008/api/Registration/Registration/ValidateEmailAddress?emailAddress='+ encodeURIComponent(self.my.email);
       var emailURL = 'http://204.232.242.150:8008/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress='+ encodeURIComponent(self.my.email);
-
-      //var emailURL = 'http://204.232.242.150:8008/api/Registration/Registration/ValidateEmailAddress?emailAddress=fake%40fake.com';
-      //alert(emailURL);
+      
+      self.loginStatus = "checking";
 
       $.getJSON(emailURL, function(content) {
         console.log(content);
