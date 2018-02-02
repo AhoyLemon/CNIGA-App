@@ -48,7 +48,7 @@ var app = new Vue({
     checkEmail: function() {
       var self = this
       var emailURL = 'http://204.232.242.150:8008/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress='+ encodeURIComponent(self.my.email);
-      
+
       self.loginStatus = "checking";
 
       fetch (emailURL).then(function(res) { return res.json()})
@@ -153,6 +153,8 @@ var app = new Vue({
       console.log('calling push init');
       var push = PushNotification.init({
         "android": {
+          "icon": "cniga",
+          "iconColor": "#e8e8e8",
           "senderID": "1098348384269"
         },
         "browser": {},
