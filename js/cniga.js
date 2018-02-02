@@ -154,7 +154,7 @@ var app = new Vue({
       var push = PushNotification.init({
         "android": {
           "icon": "cniga",
-          "iconColor": "#e8e8e8",
+          "iconColor": "#f26c51",
           "senderID": "1098348384269"
         },
         "browser": {},
