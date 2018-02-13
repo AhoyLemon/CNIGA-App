@@ -8,368 +8,382 @@
     <link rel="stylesheet" href="css/cniga.css?v=undefined">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
   </head>
-  <body class="ios">
+  <body class="android">
     <main id="app">
-      <section class="welcome" v-bind:class="{ visible: my.view == 'welcome' }">
-        <div class="inner">
-          <div class="logo-holder"><img class="logo" src="svg/cniga.svg"></div>
-          <div class="box"> 
-            <div class="welcome-text">
-              <h2> Welcome!</h2>
-              <p>Are you a member of the California Nations Indian Gaming Association?</p>
-            </div>
-            <div class="button-split"><a class="button yes" v-on:click="my.view='login'">Yes</a><a class="button no" v-on:click="my.view='iframe'"> No</a></div>
-            <div class="welcome-text">
-              <p>
-                 (if so, you will be asked to login using the email address we have on file)</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="login" v-bind:class="{ visible: my.view == 'login' }">
-        <div class="inner">
-          <div class="logo-holder"><img class="logo" src="svg/cniga.svg"></div>
-          <div class="box"> 
-            <div class="login-text login-before" v-if="loginStatus=='checking'">
-              <p><b>One moment.</b><span> Checking email address.</span></p>
-            </div>
-            <div class="login-text login-before" v-if="loginStatus=='guest'">
-              <p>CNIGA members: Use your email address to log in.</p>
-            </div>
-            <div class="login-text login-error" v-if="loginStatus=='error'">
-              <p> <b>We don't have that address on file!</b></p>
-              <p>
-                  Please check to see if it was mistyped, or, if you believe you should be in the records, contact <a href="mailto:ambar@cniga.com">ambar@cniga.com</a></p>
-            </div>
-            <div class="login-text login-validating" v-if="loginStatus=='validating'">
-              <p> <b>Check your email!</b></p>
-              <p>
-                <p>We've sent a login code to the email address provided.</p>
-              </p>
-            </div>
-            <div class="login-text login-error" v-if="loginStatus == 'validateError'">
-              <p><b>Incorrect code.</b></p>
-              <p>We've send a four letter code to your email address. Please double check.</p>
-            </div>
-            <form v-on:submit.prevent="checkEmail" v-if="loginStatus != 'validating' &amp;&amp; loginStatus != 'validateError'">
-              <label v-if="loginStatus == 'checking'"><span>Email Address</span>
-                <input readonly disabled v-model="my.email">
-              </label>
-              <label v-else><span v-bind:class=" { error: loginStatus=='error' } ">Email Address</span>
-                <input type="email" v-model="my.email" v-bind:class=" { error: loginStatus=='error' } ">
-              </label>
-              <div class="button-holder">
-                <div class="checking" v-if="loginStatus == 'checking'" disabled><img class="icon" src="svg/svg-loaders/spinning-circles.svg"></div>
-                <button v-else type="submit">Send Code</button>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="welcome" v-if="my.view == 'welcome'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'welcome' }">
+          <div class="inner">
+            <div class="logo-holder"><img class="logo" src="svg/cniga.svg"></div>
+            <div class="box"> 
+              <div class="welcome-text">
+                <h2> Welcome!</h2>
+                <p>Are you a member of the California Nations Indian Gaming Association?</p>
               </div>
-            </form>
-            <form v-on:submit.prevent="checkLoginCode" v-if="loginStatus == 'validating' || loginStatus == 'validateError'">
-              <label>
-                <input class="code" type="text" v-model="my.loginCode" maxlength="4" v-bind:class=" { error: loginStatus=='validateError' } ">
-              </label>
-              <div class="button-holder">
-                <button type="submit">Log In</button>
+              <div class="button-split"><a class="button yes" v-on:click="my.view='login'">Yes</a><a class="button no" v-on:click="my.view='iframe'"> No</a></div>
+              <div class="welcome-text">
+                <p>
+                   (if so, you will be asked to login using the email address we have on file)</p>
               </div>
-            </form>
+            </div>
           </div>
-          <div class="nevermind"><a v-on:click="loginStatus = 'guest'; my.userType = 'guest'; my.view = 'iframe'">Nevermind, continue as guest.  </a></div>
-        </div>
-      </section>
-      <section class="news" v-bind:class="{ visible: my.view == 'news' }">
-        <div class="no-news" v-if="myNews.length &lt; 1">
-          <div class="inside"> 
-            <svg class="icon active" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
-              <path class="outline" d="M25 2.3c12.5 0 22.7 10.2 22.7 22.7S37.5 47.7 25 47.7 2.3 37.5 2.3 25 12.5 2.3 25 2.3m0-2C11.4.3.3 11.4.3 25s11 24.7 24.7 24.7 24.7-11 24.7-24.7S38.6.3 25 .3z"></path>
-              <path d="M15.9 37.8h19c2.1 0 3.9-1.7 3.9-3.9V18.4c0-.4-.3-.8-.8-.8h-5.4V13c0-.4-.3-.8-.8-.8H12c-.4 0-.8.3-.8.8v20.1c0 2.6 2.1 4.7 4.7 4.7zm16.7-18.6h4.6v14.7c0 1.3-1 2.3-2.3 2.3-1.3 0-2.3-1-2.3-2.3V19.2zm-19.8-5.4H31v20.1c0 .8.3 1.7.8 2.3H15.9c-1.7 0-3.1-1.4-3.1-3.1V13.8z"></path>
-              <path d="M13.5 22.1h15.7c.5 0 .9-.4.9-.9v-4.6c0-.5-.4-.9-.9-.9H13.5c-.5 0-.9.4-.9.9v4.6c0 .5.4.9.9.9zm.9-4.6h13.9v2.8H14.4v-2.8zM12.6 28h17.5v1.8H12.6zM12.6 24.4h17.5v1.8H12.6zM12.6 31.6h8.5v1.8h-8.5z"></path>
-            </svg>
-            <h4>No news</h4>
+        </section>
+      </transition></transition>          
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="login" v-if="my.view == 'login'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'login' }">
+          <div class="inner">
+            <div class="logo-holder"><img class="logo" src="svg/cniga.svg"></div>
+            <div class="box"> 
+              <div class="login-text login-before" v-if="loginStatus=='checking'">
+                <p><b>One moment.</b><span> Checking email address.</span></p>
+              </div>
+              <div class="login-text login-before" v-if="loginStatus=='guest'">
+                <p>CNIGA members: Use your email address to log in.</p>
+              </div>
+              <div class="login-text login-error" v-if="loginStatus=='error'">
+                <p> <b>We don't have that address on file!</b></p>
+                <p>
+                    Please check to see if it was mistyped, or, if you believe you should be in the records, contact <a href="mailto:ambar@cniga.com">ambar@cniga.com</a></p>
+              </div>
+              <div class="login-text login-validating" v-if="loginStatus=='validating'">
+                <p> <b>Check your email!</b></p>
+                <p>
+                  <p>We've sent a login code to the email address provided.</p>
+                </p>
+              </div>
+              <div class="login-text login-error" v-if="loginStatus == 'validateError'">
+                <p><b>Incorrect code.</b></p>
+                <p>We've send a four letter code to your email address. Please double check.</p>
+              </div>
+              <form v-on:submit.prevent="checkEmail" v-if="loginStatus != 'validating' &amp;&amp; loginStatus != 'validateError'">
+                <label v-if="loginStatus == 'checking'"><span>Email Address</span>
+                  <input readonly disabled v-model="my.email">
+                </label>
+                <label v-else><span v-bind:class=" { error: loginStatus=='error' } ">Email Address</span>
+                  <input type="email" v-model="my.email" v-bind:class=" { error: loginStatus=='error' } ">
+                </label>
+                <div class="button-holder">
+                  <div class="checking" v-if="loginStatus == 'checking'" disabled><img class="icon" src="svg/svg-loaders/spinning-circles.svg"></div>
+                  <button v-else type="submit">Send Code</button>
+                </div>
+              </form>
+              <form v-on:submit.prevent="checkLoginCode" v-if="loginStatus == 'validating' || loginStatus == 'validateError'">
+                <label>
+                  <input class="code" type="text" v-model="my.loginCode" maxlength="4" v-bind:class=" { error: loginStatus=='validateError' } ">
+                </label>
+                <div class="button-holder">
+                  <button type="submit">Log In</button>
+                </div>
+              </form>
+            </div>
+            <div class="nevermind"><a v-on:click="loginStatus = 'guest'; my.userType = 'guest'; my.view = 'iframe'">Nevermind, continue as guest.  </a></div>
           </div>
-        </div>
-        <div class="inner" v-else>
-          <dl v-for="item in myNews">
-            <dt>
-              <transition leave-active-class="animated bounceOut">
-                <div class="icon-holder"><span class="unread" v-if="!item.read">!</span></div>
+        </section>
+      </transition></transition>     
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="news" v-if="my.view == 'news'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'news' }">
+          <div class="no-news" v-if="myNews.length &lt; 1">
+            <div class="inside"> 
+              <svg class="icon active" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
+                <path class="outline" d="M25 2.3c12.5 0 22.7 10.2 22.7 22.7S37.5 47.7 25 47.7 2.3 37.5 2.3 25 12.5 2.3 25 2.3m0-2C11.4.3.3 11.4.3 25s11 24.7 24.7 24.7 24.7-11 24.7-24.7S38.6.3 25 .3z"></path>
+                <path d="M15.9 37.8h19c2.1 0 3.9-1.7 3.9-3.9V18.4c0-.4-.3-.8-.8-.8h-5.4V13c0-.4-.3-.8-.8-.8H12c-.4 0-.8.3-.8.8v20.1c0 2.6 2.1 4.7 4.7 4.7zm16.7-18.6h4.6v14.7c0 1.3-1 2.3-2.3 2.3-1.3 0-2.3-1-2.3-2.3V19.2zm-19.8-5.4H31v20.1c0 .8.3 1.7.8 2.3H15.9c-1.7 0-3.1-1.4-3.1-3.1V13.8z"></path>
+                <path d="M13.5 22.1h15.7c.5 0 .9-.4.9-.9v-4.6c0-.5-.4-.9-.9-.9H13.5c-.5 0-.9.4-.9.9v4.6c0 .5.4.9.9.9zm.9-4.6h13.9v2.8H14.4v-2.8zM12.6 28h17.5v1.8H12.6zM12.6 24.4h17.5v1.8H12.6zM12.6 31.6h8.5v1.8h-8.5z"></path>
+              </svg>
+              <h4>No news</h4>
+            </div>
+          </div>
+          <div class="inner" v-else>
+            <dl v-for="item in myNews">
+              <dt>
+                <transition leave-active-class="animated bounceOut">
+                  <div class="icon-holder"><span class="unread" v-if="!item.read">!</span></div>
+                </transition>
+                <div class="title-holder"><a class="title link" v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; markNewsRead(item.slug)"><span v-html="item.title"></span></a><span class="title" v-else v-html="item.title" v-on:click="item.read = true; markNewsRead(item.slug)"></span></div>
+                <div class="date-holder">
+                  <time class="stamp" v-html="item.date"></time>
+                </div>
+              </dt>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false">
+                <dd v-if="item.expand" v-html="item.text"></dd>
               </transition>
-              <div class="title-holder"><a class="title link" v-if="item.text" v-on:click="item.expand = !item.expand; item.read = true; markNewsRead(item.slug)"><span v-html="item.title"></span></a><span class="title" v-else v-html="item.title" v-on:click="item.read = true; markNewsRead(item.slug)"></span></div>
-              <div class="date-holder">
-                <time class="stamp" v-html="item.date"></time>
-              </div>
-            </dt>
-            <transition v-on:enter="slideDown" v-on:leave="slideUp" v-bind:css="false">
-              <dd v-if="item.expand" v-html="item.text"></dd>
-            </transition>
-          </dl>
-        </div>
-      </section>
-      <section class="contact" v-bind:class="{ visible: my.view == 'contact' }">
-        <div class="inner">
-          <form>
-            <label><span v-if="!my.contactChoice">What can we do for you?</span>
-              <select v-model="my.contactChoice">
-                <option></option>
-                <option value="question">Ask a question</option>
-                <option value="form">Request a Form</option>
-              </select>
-            </label>
-            <label v-if="my.contactChoice == 'question'">
-              <textarea placeholder="What's your question?"></textarea>
-            </label>
-            <label v-if="my.contactChoice == 'form'">
-              <textarea placeholder="What form would you like?"></textarea>
-            </label>
-            <div class="button-holder" v-if="my.contactChoice">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-        </div>
-        <div class="inner">
-          <div class="links-leadin">
-             Follow us...</div>
-          <div class="links"><a class="link" href="https://twitter.com/_cniga_">
-              <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
-                  <path d="M7.9 1.5c-.3.1-.6.2-.9.2.3-.2.6-.5.7-.9-.3.2-.6.4-1 .4C6.4.9 6 .7 5.5.7c-.9 0-1.6.7-1.6 1.6v.4C2.6 2.6 1.4 2 .6 1c-.2.3-.2.5-.2.8 0 .6.3 1.1.7 1.3-.3.1-.5 0-.7-.1 0 .8.6 1.4 1.3 1.6-.1 0-.3.1-.4.1H1c.2.6.8 1.1 1.5 1.1-.6.4-1.3.7-2 .7H.1c.7.5 1.6.7 2.5.7 3 0 4.6-2.5 4.6-4.6v-.3c.2-.2.5-.5.7-.8z"></path>
-                </svg>
-              </div><span>Twitter</span></a><a class="link" href="https://www.instagram.com/_cniga_/">
-              <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                  <g transform="scale(0.015)">
-                    <path d="m 2519.21,5038.41 c -684.18,0 -769.97,-2.9 -1038.67,-15.16 C 1212.4,5011.02 1029.27,4968.43 869.027,4906.16 703.367,4841.78 562.879,4755.64 422.824,4615.59 282.773,4475.54 196.633,4335.04 132.254,4169.38 69.9805,4009.14 27.3945,3826.01 15.1563,3557.87 2.89844,3289.17 0,3203.38 0,2519.2 0,1835.03 2.89844,1749.24 15.1563,1480.54 27.3945,1212.4 69.9805,1029.27 132.254,869.031 196.633,703.371 282.773,562.879 422.824,422.82 562.879,282.77 703.367,196.629 869.027,132.25 1029.27,69.9805 1212.4,27.3906 1480.54,15.1602 1749.24,2.90234 1835.03,0 2519.21,0 c 684.17,0 769.96,2.90234 1038.66,15.1602 268.14,12.2304 451.27,54.8203 611.51,117.0898 165.66,64.379 306.15,150.52 446.21,290.57 140.05,140.059 226.19,280.551 290.57,446.211 62.27,160.239 104.86,343.369 117.09,611.509 12.26,268.7 15.16,354.49 15.16,1038.66 0,684.18 -2.9,769.97 -15.16,1038.67 -12.23,268.14 -54.82,451.27 -117.09,611.51 -64.38,165.66 -150.52,306.16 -290.57,446.21 -140.06,140.05 -280.55,226.19 -446.21,290.57 -160.24,62.27 -343.37,104.86 -611.51,117.09 -268.7,12.26 -354.49,15.16 -1038.66,15.16 z m 0,-453.91 c 672.65,0 752.33,-2.57 1017.97,-14.69 245.62,-11.2 379.01,-52.24 467.78,-86.74 117.59,-45.7 201.51,-100.29 289.66,-188.44 88.16,-88.16 142.75,-172.08 188.45,-289.67 34.5,-88.77 75.54,-222.16 86.74,-467.78 12.12,-265.64 14.69,-345.32 14.69,-1017.98 0,-672.65 -2.57,-752.33 -14.69,-1017.97 -11.2,-245.62 -52.24,-379.01 -86.74,-467.78 -45.7,-117.591 -100.29,-201.509 -188.45,-289.661 -88.15,-88.16 -172.07,-142.75 -289.66,-188.449 -88.77,-34.5 -222.16,-75.539 -467.78,-86.738 -265.6,-12.122 -345.27,-14.692 -1017.97,-14.692 -672.71,0 -752.37,2.57 -1017.98,14.692 -245.62,11.199 -379.01,52.238 -467.78,86.738 -117.591,45.699 -201.509,100.289 -289.661,188.449 -88.152,88.152 -142.75,172.07 -188.449,289.661 -34.5,88.77 -75.535,222.16 -86.742,467.78 -12.121,265.64 -14.688,345.32 -14.688,1017.97 0,672.66 2.567,752.34 14.688,1017.98 11.207,245.62 52.242,379.01 86.742,467.78 45.699,117.59 100.293,201.51 188.445,289.66 88.156,88.16 172.074,142.75 289.665,188.45 88.77,34.5 222.16,75.54 467.78,86.74 265.64,12.12 345.32,14.69 1017.98,14.69"></path>
-                    <path d="m 2519.21,1679.47 c -463.78,0 -839.74,375.96 -839.74,839.73 0,463.78 375.96,839.74 839.74,839.74 463.77,0 839.73,-375.96 839.73,-839.74 0,-463.77 -375.96,-839.73 -839.73,-839.73 z m 0,2133.38 c -714.47,0 -1293.65,-579.18 -1293.65,-1293.65 0,-714.46 579.18,-1293.64 1293.65,-1293.64 714.46,0 1293.64,579.18 1293.64,1293.64 0,714.47 -579.18,1293.65 -1293.64,1293.65"></path>
-                    <path d="m 4166.27,3863.96 c 0,-166.96 -135.35,-302.3 -302.31,-302.3 -166.95,0 -302.3,135.34 -302.3,302.3 0,166.96 135.35,302.31 302.3,302.31 166.96,0 302.31,-135.35 302.31,-302.31"></path>
-                  </g>
-                </svg>
-              </div><span>Instagram</span></a><a class="link" href="https://www.facebook.com/CAIndianGaming/">
-              <div class="icon">
-                <svg viewBox="0 0 512 512">
-                  <path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path>
-                </svg>
-              </div><span>Facebook</span></a></div>
-        </div>
-      </section>
-      <section class="legislation" v-bind:class="{ visible: my.view == 'legislation' }">
-        <div class="bills" v-if="my.view == 'legislation'" v-cloak v-bind:key="0">
+            </dl>
+          </div>
+        </section>
+      </transition>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="contact" v-if="my.view == 'contact'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'contact' }">
           <div class="inner">
-            <div class="bills-heading" v-on:click="stateSupportShow = !stateSupportShow;">State Legislation we are <span class="support">SUPPORTING</span></div>
-            <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateSupportShow}">
-              <div class="icons">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M81.441,42.45C80.566,40.661 79.529,38.956 78.344,37.356L68.505,44.643C69.246,45.644 69.895,46.712 70.443,47.831L81.441,42.45Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M83.706,65.112C84.413,62.409 84.771,59.626 84.771,56.832L72.527,56.832C72.527,58.581 72.303,60.322 71.861,62.014L83.706,65.112Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M75.186,79.972C78.381,76.778 80.879,72.956 82.524,68.748L71.121,64.29C70.091,66.923 68.528,69.315 66.528,71.314L75.186,79.972Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M55.929,89.326C61.484,88.662 66.775,86.585 71.299,83.294L64.095,73.394C61.264,75.453 57.953,76.753 54.476,77.169L55.929,89.326Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M33.831,84.019C39.22,87.629 45.56,89.557 52.046,89.557L52.046,77.313C47.986,77.313 44.018,76.107 40.646,73.847L33.831,84.019Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M19.562,60.795C20.525,68.69 24.331,75.965 30.268,81.258L38.416,72.119C34.7,68.806 32.318,64.254 31.716,59.312L19.562,60.795Z" fill="black"></path>
-                  </g>
-                </svg>
-                <div class="expand">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
-                    <circle class="circle" cx="25" cy="25" r="23.9"></circle>
-                    <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
-                  </svg>
-                </div>
+            <form>
+              <label><span v-if="!my.contactChoice">What can we do for you?</span>
+                <select v-model="my.contactChoice">
+                  <option></option>
+                  <option value="question">Ask a question</option>
+                  <option value="form">Request a Form</option>
+                </select>
+              </label>
+              <label v-if="my.contactChoice == 'question'">
+                <textarea placeholder="What's your question?"></textarea>
+              </label>
+              <label v-if="my.contactChoice == 'form'">
+                <textarea placeholder="What form would you like?"></textarea>
+              </label>
+              <div class="button-holder" v-if="my.contactChoice">
+                <button type="submit">Submit</button>
               </div>
-            </div>
-            <transition v-on:enter="slideDown" v-on:leave="slideUp">
-              <div class="bill-list" v-if="stateSupportShow">
-                <div class="bill" v-for="bill in stateSupport">
-                  <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
-                        <g class="read">
-                          <path d="M26.2 17v8.3l-6.9-5.9 3.8-3c-.4-.2-.7-.4-1.1-.7l-7.6 5.9-11.7-9.1v-.3h17.4c0-.3-.1-.6-.1-.9V11H2.1c-.3 0-.6.3-.6.6v15.1c0 .3.3.6.6.6h24.7c.3 0 .6-.3.6-.6v-9.9c-.4.1-.8.1-1.2.2zM2.7 14l6.9 5.4-6.9 5.9V14zm1 12l6.9-5.9 3.5 2.7c.2.2.5.2.7 0l3.5-2.7 6.9 5.9H3.7z"></path>
-                          <path d="M25.7 6.6c2.6 0 4.7 2.1 4.7 4.7S28.3 16 25.7 16 21 13.9 21 11.3s2.1-4.7 4.7-4.7m0-1c-3.2 0-5.7 2.6-5.7 5.7s2.6 5.7 5.7 5.7 5.7-2.6 5.7-5.7-2.5-5.7-5.7-5.7z"></path>
-                          <path d="M25 13.7c-.1 0-.3-.1-.4-.1l-1.9-1.9c-.2-.2-.2-.5 0-.7s.5-.2.7 0l1.5 1.5L28.5 9c.2-.2.5-.2.7 0s.2.5 0 .7l-3.8 3.8c-.1.1-.2.2-.4.2z"></path>
-                        </g>
-                        <g class="collapse">
-                          <path d="M2 27c-.3 0-.7-.1-.9-.4-.5-.5-.4-1.3.1-1.8l12.6-11.3c.5-.4 1.2-.4 1.7 0l12.2 11.3c.5.5.5 1.3.1 1.8-.5.5-1.3.5-1.8.1L14.6 16.2 2.9 26.7c-.3.2-.6.3-.9.3z"></path>
-                        </g>
-                      </svg></a></div>
-                  <div class="details" v-if="!my.sentBills.includes(bill.billTitle) || my.expandedBills.includes(bill.billTitle)">
-                    <p class="bill-author"><a class="bill-author--name" v-if="bill.billAuthorLink" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--name" v-else="v-else">{{bill.billAuthorName}}</span><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
-                    <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
-                    <p v-else="v-else">{{bill.description}}</p>
-                    <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
-                    <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
-                        <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                          <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                        </svg></span>I sent an email about this bill</span>
+            </form>
+          </div>
+          <div class="inner">
+            <div class="links-leadin">
+               Follow us...</div>
+            <div class="links"><a class="link" href="https://twitter.com/_cniga_">
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+                    <path d="M7.9 1.5c-.3.1-.6.2-.9.2.3-.2.6-.5.7-.9-.3.2-.6.4-1 .4C6.4.9 6 .7 5.5.7c-.9 0-1.6.7-1.6 1.6v.4C2.6 2.6 1.4 2 .6 1c-.2.3-.2.5-.2.8 0 .6.3 1.1.7 1.3-.3.1-.5 0-.7-.1 0 .8.6 1.4 1.3 1.6-.1 0-.3.1-.4.1H1c.2.6.8 1.1 1.5 1.1-.6.4-1.3.7-2 .7H.1c.7.5 1.6.7 2.5.7 3 0 4.6-2.5 4.6-4.6v-.3c.2-.2.5-.5.7-.8z"></path>
+                  </svg>
+                </div><span>Twitter</span></a><a class="link" href="https://www.instagram.com/_cniga_/">
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+                    <g transform="scale(0.015)">
+                      <path d="m 2519.21,5038.41 c -684.18,0 -769.97,-2.9 -1038.67,-15.16 C 1212.4,5011.02 1029.27,4968.43 869.027,4906.16 703.367,4841.78 562.879,4755.64 422.824,4615.59 282.773,4475.54 196.633,4335.04 132.254,4169.38 69.9805,4009.14 27.3945,3826.01 15.1563,3557.87 2.89844,3289.17 0,3203.38 0,2519.2 0,1835.03 2.89844,1749.24 15.1563,1480.54 27.3945,1212.4 69.9805,1029.27 132.254,869.031 196.633,703.371 282.773,562.879 422.824,422.82 562.879,282.77 703.367,196.629 869.027,132.25 1029.27,69.9805 1212.4,27.3906 1480.54,15.1602 1749.24,2.90234 1835.03,0 2519.21,0 c 684.17,0 769.96,2.90234 1038.66,15.1602 268.14,12.2304 451.27,54.8203 611.51,117.0898 165.66,64.379 306.15,150.52 446.21,290.57 140.05,140.059 226.19,280.551 290.57,446.211 62.27,160.239 104.86,343.369 117.09,611.509 12.26,268.7 15.16,354.49 15.16,1038.66 0,684.18 -2.9,769.97 -15.16,1038.67 -12.23,268.14 -54.82,451.27 -117.09,611.51 -64.38,165.66 -150.52,306.16 -290.57,446.21 -140.06,140.05 -280.55,226.19 -446.21,290.57 -160.24,62.27 -343.37,104.86 -611.51,117.09 -268.7,12.26 -354.49,15.16 -1038.66,15.16 z m 0,-453.91 c 672.65,0 752.33,-2.57 1017.97,-14.69 245.62,-11.2 379.01,-52.24 467.78,-86.74 117.59,-45.7 201.51,-100.29 289.66,-188.44 88.16,-88.16 142.75,-172.08 188.45,-289.67 34.5,-88.77 75.54,-222.16 86.74,-467.78 12.12,-265.64 14.69,-345.32 14.69,-1017.98 0,-672.65 -2.57,-752.33 -14.69,-1017.97 -11.2,-245.62 -52.24,-379.01 -86.74,-467.78 -45.7,-117.591 -100.29,-201.509 -188.45,-289.661 -88.15,-88.16 -172.07,-142.75 -289.66,-188.449 -88.77,-34.5 -222.16,-75.539 -467.78,-86.738 -265.6,-12.122 -345.27,-14.692 -1017.97,-14.692 -672.71,0 -752.37,2.57 -1017.98,14.692 -245.62,11.199 -379.01,52.238 -467.78,86.738 -117.591,45.699 -201.509,100.289 -289.661,188.449 -88.152,88.152 -142.75,172.07 -188.449,289.661 -34.5,88.77 -75.535,222.16 -86.742,467.78 -12.121,265.64 -14.688,345.32 -14.688,1017.97 0,672.66 2.567,752.34 14.688,1017.98 11.207,245.62 52.242,379.01 86.742,467.78 45.699,117.59 100.293,201.51 188.445,289.66 88.156,88.16 172.074,142.75 289.665,188.45 88.77,34.5 222.16,75.54 467.78,86.74 265.64,12.12 345.32,14.69 1017.98,14.69"></path>
+                      <path d="m 2519.21,1679.47 c -463.78,0 -839.74,375.96 -839.74,839.73 0,463.78 375.96,839.74 839.74,839.74 463.77,0 839.73,-375.96 839.73,-839.74 0,-463.77 -375.96,-839.73 -839.73,-839.73 z m 0,2133.38 c -714.47,0 -1293.65,-579.18 -1293.65,-1293.65 0,-714.46 579.18,-1293.64 1293.65,-1293.64 714.46,0 1293.64,579.18 1293.64,1293.64 0,714.47 -579.18,1293.65 -1293.64,1293.65"></path>
+                      <path d="m 4166.27,3863.96 c 0,-166.96 -135.35,-302.3 -302.31,-302.3 -166.95,0 -302.3,135.34 -302.3,302.3 0,166.96 135.35,302.31 302.3,302.31 166.96,0 302.31,-135.35 302.31,-302.31"></path>
+                    </g>
+                  </svg>
+                </div><span>Instagram</span></a><a class="link" href="https://www.facebook.com/CAIndianGaming/">
+                <div class="icon">
+                  <svg viewBox="0 0 512 512">
+                    <path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path>
+                  </svg>
+                </div><span>Facebook</span></a></div>
+          </div>
+        </section>
+      </transition>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="legislation" v-if="my.view == 'legislation'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'legislation' }">
+          <div class="bills" v-if="my.view == 'legislation'" v-cloak v-bind:key="0">
+            <div class="inner">
+              <div class="bills-heading" v-on:click="stateSupportShow = !stateSupportShow;">State Legislation we are <span class="support">SUPPORTING</span></div>
+              <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateSupportShow}">
+                <div class="icons">
+                  <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M81.441,42.45C80.566,40.661 79.529,38.956 78.344,37.356L68.505,44.643C69.246,45.644 69.895,46.712 70.443,47.831L81.441,42.45Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M83.706,65.112C84.413,62.409 84.771,59.626 84.771,56.832L72.527,56.832C72.527,58.581 72.303,60.322 71.861,62.014L83.706,65.112Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M75.186,79.972C78.381,76.778 80.879,72.956 82.524,68.748L71.121,64.29C70.091,66.923 68.528,69.315 66.528,71.314L75.186,79.972Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M55.929,89.326C61.484,88.662 66.775,86.585 71.299,83.294L64.095,73.394C61.264,75.453 57.953,76.753 54.476,77.169L55.929,89.326Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M33.831,84.019C39.22,87.629 45.56,89.557 52.046,89.557L52.046,77.313C47.986,77.313 44.018,76.107 40.646,73.847L33.831,84.019Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M19.562,60.795C20.525,68.69 24.331,75.965 30.268,81.258L38.416,72.119C34.7,68.806 32.318,64.254 31.716,59.312L19.562,60.795Z" fill="black"></path>
+                    </g>
+                  </svg>
+                  <div class="expand">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
+                      <circle class="circle" cx="25" cy="25" r="23.9"></circle>
+                      <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
-            </transition>
-          </div>
-        </div>
-        <div class="bills">
-          <div class="inner">
-            <div class="bills-heading" v-on:click="stateOpposeShow = !stateOpposeShow;">State Legislation we are <span class="oppose">Opposing</span></div>
-            <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateOpposeShow}">
-              <div class="icons">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M81.441,42.45C80.566,40.661 79.529,38.956 78.344,37.356L68.505,44.643C69.246,45.644 69.895,46.712 70.443,47.831L81.441,42.45Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M83.706,65.112C84.413,62.409 84.771,59.626 84.771,56.832L72.527,56.832C72.527,58.581 72.303,60.322 71.861,62.014L83.706,65.112Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M75.186,79.972C78.381,76.778 80.879,72.956 82.524,68.748L71.121,64.29C70.091,66.923 68.528,69.315 66.528,71.314L75.186,79.972Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M55.929,89.326C61.484,88.662 66.775,86.585 71.299,83.294L64.095,73.394C61.264,75.453 57.953,76.753 54.476,77.169L55.929,89.326Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M33.831,84.019C39.22,87.629 45.56,89.557 52.046,89.557L52.046,77.313C47.986,77.313 44.018,76.107 40.646,73.847L33.831,84.019Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M19.562,60.795C20.525,68.69 24.331,75.965 30.268,81.258L38.416,72.119C34.7,68.806 32.318,64.254 31.716,59.312L19.562,60.795Z" fill="black"></path>
-                  </g>
-                </svg>
-                <div class="expand">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
-                    <circle class="circle" cx="25" cy="25" r="23.9"></circle>
-                    <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
-                  </svg>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="bill-list" v-if="stateSupportShow">
+                  <div class="bill" v-for="bill in stateSupport">
+                    <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
+                          <g class="read">
+                            <path d="M26.2 17v8.3l-6.9-5.9 3.8-3c-.4-.2-.7-.4-1.1-.7l-7.6 5.9-11.7-9.1v-.3h17.4c0-.3-.1-.6-.1-.9V11H2.1c-.3 0-.6.3-.6.6v15.1c0 .3.3.6.6.6h24.7c.3 0 .6-.3.6-.6v-9.9c-.4.1-.8.1-1.2.2zM2.7 14l6.9 5.4-6.9 5.9V14zm1 12l6.9-5.9 3.5 2.7c.2.2.5.2.7 0l3.5-2.7 6.9 5.9H3.7z"></path>
+                            <path d="M25.7 6.6c2.6 0 4.7 2.1 4.7 4.7S28.3 16 25.7 16 21 13.9 21 11.3s2.1-4.7 4.7-4.7m0-1c-3.2 0-5.7 2.6-5.7 5.7s2.6 5.7 5.7 5.7 5.7-2.6 5.7-5.7-2.5-5.7-5.7-5.7z"></path>
+                            <path d="M25 13.7c-.1 0-.3-.1-.4-.1l-1.9-1.9c-.2-.2-.2-.5 0-.7s.5-.2.7 0l1.5 1.5L28.5 9c.2-.2.5-.2.7 0s.2.5 0 .7l-3.8 3.8c-.1.1-.2.2-.4.2z"></path>
+                          </g>
+                          <g class="collapse">
+                            <path d="M2 27c-.3 0-.7-.1-.9-.4-.5-.5-.4-1.3.1-1.8l12.6-11.3c.5-.4 1.2-.4 1.7 0l12.2 11.3c.5.5.5 1.3.1 1.8-.5.5-1.3.5-1.8.1L14.6 16.2 2.9 26.7c-.3.2-.6.3-.9.3z"></path>
+                          </g>
+                        </svg></a></div>
+                    <div class="details" v-if="!my.sentBills.includes(bill.billTitle) || my.expandedBills.includes(bill.billTitle)">
+                      <p class="bill-author"><a class="bill-author--name" v-if="bill.billAuthorLink" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--name" v-else="v-else">{{bill.billAuthorName}}</span><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                      <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
+                      <p v-else="v-else">{{bill.description}}</p>
+                      <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
+                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
+                      <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
+                          <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                          </svg></span>I sent an email about this bill</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </transition>
             </div>
-            <transition v-on:enter="slideDown" v-on:leave="slideUp">
-              <div class="bill-list" v-if="stateOpposeShow">
-                <div class="bill" v-for="bill in stateOppose">
-                  <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
-                        <g class="read">
-                          <path d="M26.2 17v8.3l-6.9-5.9 3.8-3c-.4-.2-.7-.4-1.1-.7l-7.6 5.9-11.7-9.1v-.3h17.4c0-.3-.1-.6-.1-.9V11H2.1c-.3 0-.6.3-.6.6v15.1c0 .3.3.6.6.6h24.7c.3 0 .6-.3.6-.6v-9.9c-.4.1-.8.1-1.2.2zM2.7 14l6.9 5.4-6.9 5.9V14zm1 12l6.9-5.9 3.5 2.7c.2.2.5.2.7 0l3.5-2.7 6.9 5.9H3.7z"></path>
-                          <path d="M25.7 6.6c2.6 0 4.7 2.1 4.7 4.7S28.3 16 25.7 16 21 13.9 21 11.3s2.1-4.7 4.7-4.7m0-1c-3.2 0-5.7 2.6-5.7 5.7s2.6 5.7 5.7 5.7 5.7-2.6 5.7-5.7-2.5-5.7-5.7-5.7z"></path>
-                          <path d="M25 13.7c-.1 0-.3-.1-.4-.1l-1.9-1.9c-.2-.2-.2-.5 0-.7s.5-.2.7 0l1.5 1.5L28.5 9c.2-.2.5-.2.7 0s.2.5 0 .7l-3.8 3.8c-.1.1-.2.2-.4.2z"></path>
-                        </g>
-                        <g class="collapse">
-                          <path d="M2 27c-.3 0-.7-.1-.9-.4-.5-.5-.4-1.3.1-1.8l12.6-11.3c.5-.4 1.2-.4 1.7 0l12.2 11.3c.5.5.5 1.3.1 1.8-.5.5-1.3.5-1.8.1L14.6 16.2 2.9 26.7c-.3.2-.6.3-.9.3z"></path>
-                        </g>
-                      </svg></a></div>
-                  <div class="details" v-if="!my.sentBills.includes(bill.billTitle) || my.expandedBills.includes(bill.billTitle)">
-                    <p class="bill-author"><a class="bill-author--name" v-if="bill.billAuthorLink" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--name" v-else="v-else">{{bill.billAuthorName}}</span><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
-                    <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
-                    <p v-else="v-else">{{bill.description}}</p>
-                    <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
-                    <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
-                        <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                          <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                        </svg></span>I sent an email about this bill</span>
+          </div>
+          <div class="bills">
+            <div class="inner">
+              <div class="bills-heading" v-on:click="stateOpposeShow = !stateOpposeShow;">State Legislation we are <span class="oppose">Opposing</span></div>
+              <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateOpposeShow}">
+                <div class="icons">
+                  <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M81.441,42.45C80.566,40.661 79.529,38.956 78.344,37.356L68.505,44.643C69.246,45.644 69.895,46.712 70.443,47.831L81.441,42.45Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M83.706,65.112C84.413,62.409 84.771,59.626 84.771,56.832L72.527,56.832C72.527,58.581 72.303,60.322 71.861,62.014L83.706,65.112Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M75.186,79.972C78.381,76.778 80.879,72.956 82.524,68.748L71.121,64.29C70.091,66.923 68.528,69.315 66.528,71.314L75.186,79.972Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M55.929,89.326C61.484,88.662 66.775,86.585 71.299,83.294L64.095,73.394C61.264,75.453 57.953,76.753 54.476,77.169L55.929,89.326Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M33.831,84.019C39.22,87.629 45.56,89.557 52.046,89.557L52.046,77.313C47.986,77.313 44.018,76.107 40.646,73.847L33.831,84.019Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M19.562,60.795C20.525,68.69 24.331,75.965 30.268,81.258L38.416,72.119C34.7,68.806 32.318,64.254 31.716,59.312L19.562,60.795Z" fill="black"></path>
+                    </g>
+                  </svg>
+                  <div class="expand">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
+                      <circle class="circle" cx="25" cy="25" r="23.9"></circle>
+                      <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
-            </transition>
-          </div>
-        </div>
-        <div class="bills">
-          <div class="inner">
-            <div class="bills-heading" v-on:click="stateMonitorShow = !stateMonitorShow;">State Legislation we are <span class="monitor">Monitoring</span></div>
-            <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateMonitorShow}">
-              <div class="icons">
-                <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M81.441,42.45C80.566,40.661 79.529,38.956 78.344,37.356L68.505,44.643C69.246,45.644 69.895,46.712 70.443,47.831L81.441,42.45Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M83.706,65.112C84.413,62.409 84.771,59.626 84.771,56.832L72.527,56.832C72.527,58.581 72.303,60.322 71.861,62.014L83.706,65.112Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M75.186,79.972C78.381,76.778 80.879,72.956 82.524,68.748L71.121,64.29C70.091,66.923 68.528,69.315 66.528,71.314L75.186,79.972Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M55.929,89.326C61.484,88.662 66.775,86.585 71.299,83.294L64.095,73.394C61.264,75.453 57.953,76.753 54.476,77.169L55.929,89.326Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M33.831,84.019C39.22,87.629 45.56,89.557 52.046,89.557L52.046,77.313C47.986,77.313 44.018,76.107 40.646,73.847L33.831,84.019Z" fill="black"></path>
-                  </g>
-                  <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
-                    <path d="M19.562,60.795C20.525,68.69 24.331,75.965 30.268,81.258L38.416,72.119C34.7,68.806 32.318,64.254 31.716,59.312L19.562,60.795Z" fill="black"></path>
-                  </g>
-                </svg>
-                <div class="expand">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
-                    <circle class="circle" cx="25" cy="25" r="23.9"></circle>
-                    <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
-                  </svg>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="bill-list" v-if="stateOpposeShow">
+                  <div class="bill" v-for="bill in stateOppose">
+                    <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
+                          <g class="read">
+                            <path d="M26.2 17v8.3l-6.9-5.9 3.8-3c-.4-.2-.7-.4-1.1-.7l-7.6 5.9-11.7-9.1v-.3h17.4c0-.3-.1-.6-.1-.9V11H2.1c-.3 0-.6.3-.6.6v15.1c0 .3.3.6.6.6h24.7c.3 0 .6-.3.6-.6v-9.9c-.4.1-.8.1-1.2.2zM2.7 14l6.9 5.4-6.9 5.9V14zm1 12l6.9-5.9 3.5 2.7c.2.2.5.2.7 0l3.5-2.7 6.9 5.9H3.7z"></path>
+                            <path d="M25.7 6.6c2.6 0 4.7 2.1 4.7 4.7S28.3 16 25.7 16 21 13.9 21 11.3s2.1-4.7 4.7-4.7m0-1c-3.2 0-5.7 2.6-5.7 5.7s2.6 5.7 5.7 5.7 5.7-2.6 5.7-5.7-2.5-5.7-5.7-5.7z"></path>
+                            <path d="M25 13.7c-.1 0-.3-.1-.4-.1l-1.9-1.9c-.2-.2-.2-.5 0-.7s.5-.2.7 0l1.5 1.5L28.5 9c.2-.2.5-.2.7 0s.2.5 0 .7l-3.8 3.8c-.1.1-.2.2-.4.2z"></path>
+                          </g>
+                          <g class="collapse">
+                            <path d="M2 27c-.3 0-.7-.1-.9-.4-.5-.5-.4-1.3.1-1.8l12.6-11.3c.5-.4 1.2-.4 1.7 0l12.2 11.3c.5.5.5 1.3.1 1.8-.5.5-1.3.5-1.8.1L14.6 16.2 2.9 26.7c-.3.2-.6.3-.9.3z"></path>
+                          </g>
+                        </svg></a></div>
+                    <div class="details" v-if="!my.sentBills.includes(bill.billTitle) || my.expandedBills.includes(bill.billTitle)">
+                      <p class="bill-author"><a class="bill-author--name" v-if="bill.billAuthorLink" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--name" v-else="v-else">{{bill.billAuthorName}}</span><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                      <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
+                      <p v-else="v-else">{{bill.description}}</p>
+                      <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
+                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
+                      <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
+                          <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                          </svg></span>I sent an email about this bill</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </transition>
             </div>
-            <transition v-on:enter="slideDown" v-on:leave="slideUp">
-              <div class="bill-list" v-if="stateMonitorShow">
-                <div class="bill" v-for="bill in stateMonitor">
-                  <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
-                        <g class="read">
-                          <path d="M26.2 17v8.3l-6.9-5.9 3.8-3c-.4-.2-.7-.4-1.1-.7l-7.6 5.9-11.7-9.1v-.3h17.4c0-.3-.1-.6-.1-.9V11H2.1c-.3 0-.6.3-.6.6v15.1c0 .3.3.6.6.6h24.7c.3 0 .6-.3.6-.6v-9.9c-.4.1-.8.1-1.2.2zM2.7 14l6.9 5.4-6.9 5.9V14zm1 12l6.9-5.9 3.5 2.7c.2.2.5.2.7 0l3.5-2.7 6.9 5.9H3.7z"></path>
-                          <path d="M25.7 6.6c2.6 0 4.7 2.1 4.7 4.7S28.3 16 25.7 16 21 13.9 21 11.3s2.1-4.7 4.7-4.7m0-1c-3.2 0-5.7 2.6-5.7 5.7s2.6 5.7 5.7 5.7 5.7-2.6 5.7-5.7-2.5-5.7-5.7-5.7z"></path>
-                          <path d="M25 13.7c-.1 0-.3-.1-.4-.1l-1.9-1.9c-.2-.2-.2-.5 0-.7s.5-.2.7 0l1.5 1.5L28.5 9c.2-.2.5-.2.7 0s.2.5 0 .7l-3.8 3.8c-.1.1-.2.2-.4.2z"></path>
-                        </g>
-                        <g class="collapse">
-                          <path d="M2 27c-.3 0-.7-.1-.9-.4-.5-.5-.4-1.3.1-1.8l12.6-11.3c.5-.4 1.2-.4 1.7 0l12.2 11.3c.5.5.5 1.3.1 1.8-.5.5-1.3.5-1.8.1L14.6 16.2 2.9 26.7c-.3.2-.6.3-.9.3z"></path>
-                        </g>
-                      </svg></a></div>
-                  <div class="details" v-if="!my.sentBills.includes(bill.billTitle) || my.expandedBills.includes(bill.billTitle)">
-                    <p class="bill-author"><a class="bill-author--name" v-if="bill.billAuthorLink" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--name" v-else="v-else">{{bill.billAuthorName}}</span><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
-                    <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
-                    <p v-else="v-else">{{bill.description}}</p>
-                    <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                    <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
-                    <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
-                        <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                          <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
-                        </svg></span>I sent an email about this bill</span>
+          </div>
+          <div class="bills">
+            <div class="inner">
+              <div class="bills-heading" v-on:click="stateMonitorShow = !stateMonitorShow;">State Legislation we are <span class="monitor">Monitoring</span></div>
+              <div class="indicator" v-bind:class="{loading: billsLoading, loaded: !billsLoading, expanded:stateMonitorShow}">
+                <div class="icons">
+                  <svg class="loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" version="1.1" xml:space="preserve" x="0px" y="0px" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.41421" v-if="billsLoading" v-cloak="v-cloak">
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M84.535,52.91C84.238,50.449 83.662,48.031 82.819,45.7L71.305,49.865C71.833,51.324 72.193,52.837 72.379,54.377L84.535,52.91Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M81.441,42.45C80.566,40.661 79.529,38.956 78.344,37.356L68.505,44.643C69.246,45.644 69.895,46.712 70.443,47.831L81.441,42.45Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M83.706,65.112C84.413,62.409 84.771,59.626 84.771,56.832L72.527,56.832C72.527,58.581 72.303,60.322 71.861,62.014L83.706,65.112Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M75.186,79.972C78.381,76.778 80.879,72.956 82.524,68.748L71.121,64.29C70.091,66.923 68.528,69.315 66.528,71.314L75.186,79.972Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M55.929,89.326C61.484,88.662 66.775,86.585 71.299,83.294L64.095,73.394C61.264,75.453 57.953,76.753 54.476,77.169L55.929,89.326Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M33.831,84.019C39.22,87.629 45.56,89.557 52.046,89.557L52.046,77.313C47.986,77.313 44.018,76.107 40.646,73.847L33.831,84.019Z" fill="black"></path>
+                    </g>
+                    <g transform="matrix(1.20661,0,0,1.20661,-12.7993,-18.5745)">
+                      <path d="M19.562,60.795C20.525,68.69 24.331,75.965 30.268,81.258L38.416,72.119C34.7,68.806 32.318,64.254 31.716,59.312L19.562,60.795Z" fill="black"></path>
+                    </g>
+                  </svg>
+                  <div class="expand">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50">
+                      <circle class="circle" cx="25" cy="25" r="23.9"></circle>
+                      <path class="arrow" fill="#ed1f24" d="M25 26.5L13.7 14.7l-4.9 5L25 36.6l16.3-16.9-4.9-5z"></path>
+                    </svg>
                   </div>
                 </div>
               </div>
-            </transition>
-          </div>
-        </div>
-      </section>
-      <section class="schedule" v-bind:class="{ visible: my.view == 'schedule' }">
-        <div class="inner">
-          <h4 class="schedule-heading">2018 CNIGA Schedule</h4>
-          <div class="schedule-items">
-            <div class="schedule-item" v-for="item in schedule">
-              <h5>{{item.title}}</h5>
-              <time v-if="item.prettyDate &amp;&amp; item.prettyTime">
-                 {{item.prettyDate}} @ {{item.prettyTime}}</time>
-              <time v-else-if="item.prettyDate">{{item.prettyDate}}</time>
-              <address v-if="item.location"><strong class="name">
-                   {{item.location}} <br></strong><span v-if="item.street_address">{{item.street_address}} <br></span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></address>
-              <p v-if="item.description">{{item.description}}</p>
+              <transition v-on:enter="slideDown" v-on:leave="slideUp">
+                <div class="bill-list" v-if="stateMonitorShow">
+                  <div class="bill" v-for="bill in stateMonitor">
+                    <div class="title"><a class="bill-title" v-if="bill.billLink" v-on:click="openLink(bill.billLink, '_system');">{{bill.billTitle}}</a><span class="bill-title" v-else="v-else">{{bill.billTitle}}</span><strong class="bill-custom-name" v-if="bill.billName">{{bill.billName}}</strong><a class="bill-acted" v-if="my.sentBills.includes(bill.billTitle)" v-on:click="toggleBillCollapse(bill.billTitle)" v-bind:class="{ expanded: my.expandedBills.includes(bill.billTitle) }">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
+                          <g class="read">
+                            <path d="M26.2 17v8.3l-6.9-5.9 3.8-3c-.4-.2-.7-.4-1.1-.7l-7.6 5.9-11.7-9.1v-.3h17.4c0-.3-.1-.6-.1-.9V11H2.1c-.3 0-.6.3-.6.6v15.1c0 .3.3.6.6.6h24.7c.3 0 .6-.3.6-.6v-9.9c-.4.1-.8.1-1.2.2zM2.7 14l6.9 5.4-6.9 5.9V14zm1 12l6.9-5.9 3.5 2.7c.2.2.5.2.7 0l3.5-2.7 6.9 5.9H3.7z"></path>
+                            <path d="M25.7 6.6c2.6 0 4.7 2.1 4.7 4.7S28.3 16 25.7 16 21 13.9 21 11.3s2.1-4.7 4.7-4.7m0-1c-3.2 0-5.7 2.6-5.7 5.7s2.6 5.7 5.7 5.7 5.7-2.6 5.7-5.7-2.5-5.7-5.7-5.7z"></path>
+                            <path d="M25 13.7c-.1 0-.3-.1-.4-.1l-1.9-1.9c-.2-.2-.2-.5 0-.7s.5-.2.7 0l1.5 1.5L28.5 9c.2-.2.5-.2.7 0s.2.5 0 .7l-3.8 3.8c-.1.1-.2.2-.4.2z"></path>
+                          </g>
+                          <g class="collapse">
+                            <path d="M2 27c-.3 0-.7-.1-.9-.4-.5-.5-.4-1.3.1-1.8l12.6-11.3c.5-.4 1.2-.4 1.7 0l12.2 11.3c.5.5.5 1.3.1 1.8-.5.5-1.3.5-1.8.1L14.6 16.2 2.9 26.7c-.3.2-.6.3-.9.3z"></path>
+                          </g>
+                        </svg></a></div>
+                    <div class="details" v-if="!my.sentBills.includes(bill.billTitle) || my.expandedBills.includes(bill.billTitle)">
+                      <p class="bill-author"><a class="bill-author--name" v-if="bill.billAuthorLink" v-on:click="openLink(bill.billAuthorLink, '_system');">{{bill.billAuthorName}}</a><span class="bill-author--name" v-else="v-else">{{bill.billAuthorName}}</span><span class="bill-author--party" v-bind:class="bill.billAuthorParty">{{bill.billAuthorParty}}</span></p>
+                      <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
+                      <p v-else="v-else">{{bill.description}}</p>
+                      <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
+                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
+                      <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
+                          <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
+                          </svg></span>I sent an email about this bill</span>
+                    </div>
+                  </div>
+                </div>
+              </transition>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="iframe" v-bind:class="{ visible: my.view == 'iframe' }">
-        <div class="inner">
-          <iframe src="https://cniga.com" id="iframe" scrolling="no"></iframe>
-        </div>
-      </section>
+        </section>
+      </transition>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="schedule" v-if="my.view == 'schedule'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'schedule' }">
+          <div class="inner">
+            <h4 class="schedule-heading">2018 CNIGA Schedule</h4>
+            <div class="schedule-items">
+              <div class="schedule-item" v-for="item in schedule">
+                <h5>{{item.title}}</h5>
+                <time v-if="item.prettyDate &amp;&amp; item.prettyTime">
+                   {{item.prettyDate}} @ {{item.prettyTime}}</time>
+                <time v-else-if="item.prettyDate">{{item.prettyDate}}</time>
+                <address v-if="item.location"><strong class="name">
+                     {{item.location}} <br></strong><span v-if="item.street_address">{{item.street_address}} <br></span><span v-if="item.city">{{item.city}}, </span><span v-if="item.state">{{item.state}} </span><span v-if="item.zip">{{item.zip}}</span></address>
+                <p v-if="item.description">{{item.description}}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </transition>
+      <transition enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutUp">
+        <section class="iframe" v-if="my.view == 'iframe'" v-cloak="v-cloak" v-bind:class="{ visible: my.view == 'iframe' }">
+          <div class="inner">
+            <iframe src="https://cniga.com" id="iframe" scrolling="yes"></iframe>
+          </div>
+        </section>
+      </transition>
       <footer v-if="my.userType == 'member'">
         <nav><a class="news" v-on:click="my.view = 'news'">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 50 50" v-bind:class="{active: my.view == 'news'}">
