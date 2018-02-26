@@ -121,13 +121,13 @@
                 </select>
               </label>
               <label v-if="my.contactChoice == 'question'">
-                <textarea placeholder="What's your question?"></textarea>
+                <textarea placeholder="What's your question?" v-model="my.contactEmail"></textarea>
               </label>
               <label v-if="my.contactChoice == 'form'">
-                <textarea placeholder="What form would you like?"></textarea>
+                <textarea placeholder="What form would you like?" v-model="my.contactEmail"></textarea>
               </label>
               <div class="button-holder" v-if="my.contactChoice">
-                <button type="submit" v-on:click="sendContactEmail()">Submit</button>
+                <button v-on:click="sendContactEmail">Submit</button>
               </div>
             </form>
           </div>

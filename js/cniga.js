@@ -344,7 +344,9 @@ var app = new Vue({
       }
     },
     sendContactEmail: function(e){
+      e.preventDefault()
       var self = this
+      console.log(self.my.contactEmail)
       if(self.my.contactChoice === 'form'){
         var subject = "Form request from " + self.my.email
       } else if(self.my.contactChoice === 'question'){
@@ -360,9 +362,9 @@ var app = new Vue({
       }).catch(function(error) {
         console.error(error)
       })
-      //self.my.contactChoice = false;
-      //self.my.contactEmail = "";
-
+      self.my.contactChoice = false;
+      self.my.contactEmail = "";
+      return false
     }
   },
   mounted: function () {
