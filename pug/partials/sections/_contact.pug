@@ -15,7 +15,7 @@
         textarea(placeholder="What form would you like?")
       //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
       .button-holder(v-if="my.contactChoice")
-        button(type="submit") Submit
+        button(type="submit" v-on:click="sendContactEmail()") Submit
   .inner
     .links-leadin 
       | Follow us...

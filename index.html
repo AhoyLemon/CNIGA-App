@@ -127,7 +127,7 @@
                 <textarea placeholder="What form would you like?"></textarea>
               </label>
               <div class="button-holder" v-if="my.contactChoice">
-                <button type="submit">Submit</button>
+                <button type="submit" v-on:click="sendContactEmail()">Submit</button>
               </div>
             </form>
           </div>
@@ -214,7 +214,7 @@
                       <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
                       <p v-else="v-else">{{bill.description}}</p>
                       <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
+                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Letter</a></div>
                       <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                           <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
@@ -280,7 +280,7 @@
                       <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
                       <p v-else="v-else">{{bill.description}}</p>
                       <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
+                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Letter</a></div>
                       <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                           <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
@@ -346,7 +346,7 @@
                       <p v-if="bill.billDesc" v-html="bill.billDesc"></p>
                       <p v-else="v-else">{{bill.description}}</p>
                       <p v-if="bill.billImpact" v-html="bill.billImpact"> </p>
-                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Legislators</a></div>
+                      <div class="email-congress" v-if="bill.emailBody"><a class="email-button button email-button" :href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)">Email Letter</a></div>
                       <div class="position-paper" v-if="bill.positionPaper"><a class="paper-button button" v-on:click="openLink(bill.positionPaper, '_system')">View CNIGA Position Paper</a></div><span class="email-sent" v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}"> <span class="checkbox"> 
                           <svg aria-hidden="true" data-fa-processed="" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path>
