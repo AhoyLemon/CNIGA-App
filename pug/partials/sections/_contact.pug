@@ -9,13 +9,13 @@
           option(value="form") Request a Form
       //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
       label(v-if="my.contactChoice == 'question'")
-        textarea(placeholder="What's your question?")
+        textarea(placeholder="What's your question?" v-model="my.contactEmail")
       //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
       label(v-if="my.contactChoice == 'form'")
-        textarea(placeholder="What form would you like?")
+        textarea(placeholder="What form would you like?" v-model="my.contactEmail")
       //-transition(enter-active-class="animated animated-entrance zoomIn" leave-active-class="animated zoomOut")
       .button-holder(v-if="my.contactChoice")
-        button(type="submit") Submit
+        button(v-on:click="sendContactEmail") Submit
   .inner
     .links-leadin 
       | Follow us...

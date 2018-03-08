@@ -45,7 +45,7 @@ mixin bills(list)
       p(v-else) {{bill.description}}
       p(v-if="bill.billImpact" v-html="bill.billImpact") 
       .email-congress(v-if="bill.emailBody")
-        a.email-button(:href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)" class="button email-button") Email Legislators
+        a.email-button(:href="emailLink(bill.emailSubject, bill.emailBody)" v-on:click="trackEvent('Email sent', bill.billTitle)" class="button email-button") Email Letter
       .position-paper(v-if="bill.positionPaper")
         a.paper-button(v-on:click="openLink(bill.positionPaper, '_system')" class="button") View CNIGA Position Paper
       span.email-sent(v-on:click="toggleEmailSent(bill.billTitle)" v-bind:class="{checked: my.sentBills.indexOf(bill.billTitle) !== -1}") 
