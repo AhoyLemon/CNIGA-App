@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cniga.rca" version="1.03" versionCode="10003" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.cniga.rca" version="1.04" versionCode="10005" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>CNIGA</name>
     <description>
       App for California Nations Indian Gaming Association.
@@ -7,7 +7,6 @@
     <author email="dev@redcircleagency.com" href="https://www.redcircleagency.com">
       Red Circle Agency
     </author>
-  
     
     <platform name="android">
         <icon density="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
@@ -24,7 +23,7 @@
         <splash platform="android" qualifier="xxhdpi"  src="res/screens/android/drawable-port-xxhdpi-screen.png" />
         <splash platform="android" qualifier="xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
     </platform>
-    
+
     <platform name="ios">
         <icon height="57" platform="ios" src="res/icons/ios/icon.png" width="57" />
         <icon height="114" platform="ios" src="res/icons/ios/icon@2x.png" width="114" />
