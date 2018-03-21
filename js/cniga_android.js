@@ -8,7 +8,7 @@
 function onLoad() {
   document.addEventListener("deviceready", onDeviceReady, false);
   new Audio('audio/ready.mp3').play();
-  alert('this is version 3');
+  alert('this is version 4');
 }
 
 onLoad();
@@ -25,6 +25,7 @@ function onDeviceReady() {
 //
 function onPause() {
   //new Audio('audio/ready.mp3').play();
-  document.getElementById('iFrameAndroid').src = "https://redcircleagency.com";
-  alert('on pause event fired');
+  alert('on pause event start');
+  document.getElementById("iframe").src = "https://redcircleagency.com";
+  alert('on pause event end');
 }
