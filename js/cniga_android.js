@@ -12,6 +12,8 @@ function onLoad() {
 
 onLoad();
 
+//var iFrameAndroid = document.getElementById("#iFrameAndroid"); 
+
 // Cordova is loaded and it is now safe to make calls Cordova methods
 //
 function onDeviceReady() {
@@ -21,6 +23,7 @@ function onDeviceReady() {
 // Handle the pause event
 //
 function onPause() {
-  new Audio('audio/ready.mp3').play();
+  //new Audio('audio/ready.mp3').play();
+  document.getElementById('calendar').src = "https://redcircleagency.com";
   alert('on pause event fired');
 }
