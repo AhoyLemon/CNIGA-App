@@ -4,6 +4,7 @@
 //@prepros-prepend partials/_functions.js
 
 var windowHeight = window.innerHeight;
+var authURL = "http://204.232.242.136:8008";
 
 var app = new Vue({
   el: '#app',
@@ -46,8 +47,8 @@ var app = new Vue({
   methods: {
 
     checkEmail: function() {
-      var self = this
-      var emailURL = 'http://204.232.242.150:8008/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress='+ encodeURIComponent(self.my.email);
+      var self = this;
+      var emailURL = authURL + "/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress="+ encodeURIComponent(self.my.email);
 
       self.loginStatus = "checking";
 
@@ -71,7 +72,7 @@ var app = new Vue({
     checkLoginCode: function() {
       var self = this
       var m = self.my.loginCode.toUpperCase();
-      var verifyURL = 'http://204.232.242.150:8008/api/Registration/VerifyRegistrationCodeAndCreateUser?emailAddress=' + encodeURIComponent(self.my.email) +'&registrationCode=' + encodeURIComponent(m);
+      var verifyURL = authURL + "/api/Registration/VerifyRegistrationCodeAndCreateUser?emailAddress=" + encodeURIComponent(self.my.email) +"&registrationCode=" + encodeURIComponent(m);
       fetch (verifyURL).then(function(res){ return res.json()})
         .then(function(content){
           if (content.success) {
@@ -171,13 +172,13 @@ var app = new Vue({
         console.log('registration event: ' + data.registrationId);
         console.log('Device Type: ' + data.registrationType);
         var deviceType = data.registrationType === 'FCM' ? 1 : 2
-        fetch('http://204.232.242.150:8008/api/Device/UpdateMemberDeviceInfo?authToken=' + self.my.authToken + '&deviceType=' + deviceType + '&deviceId=' + data.registrationId)
+        fetch(authURL+'/api/Device/UpdateMemberDeviceInfo?authToken=' + self.my.authToken + '&deviceType=' + deviceType + '&deviceId=' + data.registrationId)
         .then(function(){
-          console.log('Device added to database')
+          console.log('Device added to database');
         })
         .catch(function(e){
-          console.log(e)
-        })
+          console.log(e);
+        });
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
 
@@ -269,7 +270,7 @@ var app = new Vue({
           self.my = cursor.value;
           var myToken = JSON.stringify(self.my.authToken, null, 2);
           myToken = myToken.replace(/"/g,"");
-          fetch('http://204.232.242.150:8008/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken))
+          fetch(authURL+'/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken))
             .then(function(res){
               return res.json()
             })
