@@ -24,6 +24,7 @@ var app = new Vue({
     },
     loginStatus: 'guest',
     news: [],
+    conference: {},
     billsLoading: true,
     stateSupport: {},
     stateSupportShow: false,
@@ -212,6 +213,7 @@ var app = new Vue({
         .then(function(content){
         self.schedule = content.schedule;
         self.news = content.news;
+        self.conference = content.conference;
         self.countUnreadNews();
       }).catch(function(err){
         console.log(err);
@@ -263,6 +265,7 @@ var app = new Vue({
       var self = this;
       var store = self.getObjectStore('my', 'readonly');
       var req = store.openCursor();
+      self.getContent();
 
       req.onsuccess = function(evt) {
         var cursor = evt.target.result;
