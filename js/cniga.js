@@ -379,10 +379,13 @@ var app = new Vue({
     };
     request.onsuccess = function(event) {
       self.db = this.result;
+
+      self.countUnreadNews();
+      self.bindEvents();
+      self.getContent();
+      self.getBills();
+
       self.getMyData();
-      //self.my.view = "news";
-      //self.my.view = "welcome";
-      //alert(self.my.view);
     };
     request.onupgradeneeded = function(event) {
       var objStore = event.currentTarget.result.createObjectStore('my');
