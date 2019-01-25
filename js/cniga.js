@@ -374,17 +374,16 @@ var app = new Vue({
     var self = this;
     var request = indexedDB.open("CNIGAApp", 3);
 
+    self.countUnreadNews();
+    self.bindEvents();
+    self.getContent();
+    self.getBills();
+
     request.onerror = function(event) {
       self.indexed = "Can't use IndexedDB";
     };
     request.onsuccess = function(event) {
       self.db = this.result;
-
-      self.countUnreadNews();
-      self.bindEvents();
-      self.getContent();
-      self.getBills();
-
       self.getMyData();
     };
     request.onupgradeneeded = function(event) {
