@@ -63,7 +63,7 @@
         <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <preference name="phonegap-version" value="cli-7.1.0" />
-    <preference name="android-minSdkVersion" value="20" />
+    <preference name="android-minSdkVersion" value="28" />
 
     <platform name="winphone" />
     <access origin="*" />
