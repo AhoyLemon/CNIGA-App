@@ -68,7 +68,7 @@
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
-    <engine name="android" spec="^9.0.0" />
+    <engine name="android" spec="^7.0.0" />
     <engine name="ios" spec="^4.5.4" />
     <plugin name="phonegap-plugin-push" spec="^2.1.2">
         <variable name="FCM_VERSION" value="11.0.1" />
