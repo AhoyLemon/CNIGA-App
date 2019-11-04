@@ -58,12 +58,12 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <preference name="phonegap-version" value="cli-9.0.0" />
+    <preference name="android-minSdkVersion" value="28" />
     <platform name="android">
         <allow-intent href="market:*" />
         <resource-file src="google-services.json" target="google-services.json" />
     </platform>
-    <preference name="phonegap-version" value="cli-9.0.0" />
-    <preference name="android-minSdkVersion" value="28" />
     <platform name="winphone" />
     <access origin="*" />
     <allow-intent href="*" />
@@ -72,6 +72,7 @@
     <engine name="ios" spec="^4.5.4" />
     <plugin name="phonegap-plugin-push" spec="^2.1.2">
         <variable name="FCM_VERSION" value="11.0.1" />
+        <resource-file src="google-services.json" target="google-services.json" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
