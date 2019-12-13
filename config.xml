@@ -74,6 +74,9 @@
     <plugin name="phonegap-plugin-push" spec="~2.2.0">
         <variable name="FCM_VERSION" value="15.0.0" />
     </plugin>
+    <platform name="ios">
+        <resource-file src="GoogleService-Info.plist" />
+    </platform>
 
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
