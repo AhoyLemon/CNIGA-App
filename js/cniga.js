@@ -53,10 +53,26 @@ var app = new Vue({
 
       self.loginStatus = "checking";
 
-      fetch (emailURL).then(function(res) { return res.json()})
-        .then(function(content){
+      // need extra then step to transform it to JSON
+      fetch( emailURL ).then( response => response.json() ).then( data => {
+        // data = JSON transformed data
+        // data = { "success":true/false, "emailRecipient": "email@email.com", "errorMessage": "" }
+console.log('DATA', JSON.stringify(data));
+
+        if ( data.success ) {
+          self.loginStatus = 'validating';
+        }
+        else {
+          self.loginStatus = 'error';
+        }
+      });
+
+
+      /* OLD CODE
+      fetch ( emailURL ).then( function(res) { return res.json()}).then( function(content){
         console.log(content);
-        if (content.success) {
+
+        if ( content.success ) {
           self.loginStatus = 'validating';
         } else {
           self.loginStatus = 'error';
@@ -68,6 +84,7 @@ var app = new Vue({
         .catch(function(err) {
           console.log( err );
         })
+      */
     },
 
     checkLoginCode: function() {
@@ -272,7 +289,9 @@ var app = new Vue({
           self.my = cursor.value;
           var myToken = JSON.stringify(self.my.authToken, null, 2);
           myToken = myToken.replace(/"/g,"");
-          fetch(authURL+'/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken))
+
+          if( myToken !== '' ){
+            fetch(authURL+'/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken))
             .then(function(res){
               return res.json()
             })
@@ -296,6 +315,7 @@ var app = new Vue({
             .catch(function(err){
               console.log("Error" + err)
             })
+          }
         }
       };
     },
