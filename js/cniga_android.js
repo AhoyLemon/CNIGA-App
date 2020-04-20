@@ -7,6 +7,13 @@
 
 function onLoad() {
   document.addEventListener("deviceready", onDeviceReady, false);
+
+  var debugURL = authURL + "/api/Device/Debug?param=AndroidDeviceReadyEventListener";
+  fetch( debugURL ).then( response => {
+    console.log( 'API DEBUG RESPONSE: ', response );
+  }).catch(function(err) {
+    console.log( 'API DEBUG ERROR: ', err );
+  });
 }
 
 onLoad();
