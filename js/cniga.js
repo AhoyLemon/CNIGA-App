@@ -1,4 +1,46 @@
 // jshint -W117
+function snap(array, search_term) {
+  for (var i = array.length - 1; i >= 0; i--) {
+    if (array[i] === search_term) {
+      array.splice(i, 1);
+      if (multi === true) {
+        break;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////
+// Event logging
+// This will report events back to Google Analytics, Piwik, or to the console, depending.
+function trackEvent(c, a, l, v) {
+  if (v) {
+    _paq.push(['trackEvent', c, a, l, v]);
+    //ga('send', 'event', { eventCategory: c, eventAction: a, eventLabel: l, eventValue:v });
+    console.log('CATEGORY: '+c+', ACTION:'+a+', LABEL:'+l+', VALUE:'+v);
+  } else if (l) {
+    _paq.push(['trackEvent', c, a, l]);
+    //ga('send', 'event', { eventCategory: c, eventAction: a, eventLabel: l });
+    console.log('CATEGORY: '+c+', ACTION:'+a+', LABEL:'+l);
+  } else {
+    _paq.push(['trackEvent', c, a]);
+    //ga('send', 'event', { eventCategory: c, eventAction: a });
+    console.log('CATEGORY: '+c+', ACTION:'+a);
+  }
+}
+
+var _paq = _paq || [];
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+window.onload =  function() {
+  var u="https://circle.red/stats/";
+  _paq.push(['setTrackerUrl', u+'piwik.php']);
+  _paq.push(['setSiteId', '2']);
+  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+  g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+};
+
+// jshint -W117
 // jshint -W119
 
 //@prepros-prepend partials/_functions.js
@@ -46,33 +88,53 @@ var app = new Vue({
     }
   },
   methods: {
+    debugToApi: function( param ){
+      var debugURL = authURL + "/api/Device/Debug?param="+ encodeURIComponent( param );
+
+      console.log('API DEBUG: ', debugURL);
+
+      // need extra then step to transform it to JSON
+      fetch( debugURL ).then( response => {
+        console.log( 'API DEBUG RESPONSE: ', response );
+      }).catch(function(err) {
+        console.log( 'API DEBUG ERROR: [' + param + ']', err );
+      });
+    },
+
 
     checkEmail: function() {
       var self = this;
       var emailURL = authURL + "/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress="+ encodeURIComponent(self.my.email);
 
+      self.debugToApi( 'CHECK EMAIL - ' + emailURL );
+
+      console.log('VALIDATE EMAIL URL: ', emailURL);
       self.loginStatus = "checking";
+
 
       // need extra then step to transform it to JSON
       fetch( emailURL ).then( response => response.json() ).then( data => {
         // data = JSON transformed data
         // data = { "success":true/false, "emailRecipient": "email@email.com", "errorMessage": "" }
-console.log('DATA', JSON.stringify(data));
-
         if ( data.success ) {
           self.loginStatus = 'validating';
         }
         else {
           self.loginStatus = 'error';
         }
+      }).catch(function(err) {
+        console.log( 'Validate Email Error: ' + err );
+        self.loginStatus = 'error';
+
+        self.debugToApi( 'CHECK EMAIL ERROR' );
       });
 
 
-      /* OLD CODE
-      fetch ( emailURL ).then( function(res) { return res.json()}).then( function(content){
+      /*
+      fetch (emailURL).then(function(res) { return res.json()})
+        .then(function(content){
         console.log(content);
-
-        if ( content.success ) {
+        if (content.success) {
           self.loginStatus = 'validating';
         } else {
           self.loginStatus = 'error';
@@ -84,7 +146,7 @@ console.log('DATA', JSON.stringify(data));
         .catch(function(err) {
           console.log( err );
         })
-      */
+        */
     },
 
     checkLoginCode: function() {
@@ -107,7 +169,10 @@ console.log('DATA', JSON.stringify(data));
           }
         })
         .catch(function(error){
-          console.log(error)
+          console.log(error);
+
+          // set to error
+          self.loginStatus = 'validateError';
         })
     },
 
@@ -157,19 +222,28 @@ console.log('DATA', JSON.stringify(data));
       });*/
     },
     bindEvents: function() {
+      const self = this;
+
       console.log('Bind Events');
       document.addEventListener('deviceready', this.onDeviceReady, false);
+
+      self.debugToApi( 'BIND EVENTS' );
     },
     onDeviceReady: function() {
       var self = this;
       self.deviceready = true;
-      console.log('Received Device Ready Event');
-      console.log('calling setup push');
+
+      console.log('DEVICE READY: Received Device Ready Event');
+      console.log('SETUP PUSH: calling setup push');
+
+      self.debugToApi( 'DEVICE READY' );
+
       app.setupPush();
     },
     setupPush: function() {
       var self = this;
-      console.log('calling push init');
+      console.log('SETUP PUSH: calling push init');
+
       var push = PushNotification.init({
         "android": {
           "icon": "white",
@@ -207,10 +281,14 @@ console.log('DATA', JSON.stringify(data));
           // NOTE: ONLY SEND DEVICE ID TO SERVER IF THE USER IS LOGGED IN
           // I.E. USE THE CHECK LOGIN CODE METHOD
         }
+
+        self.debugToApi( 'PUSH ON REGISTRATION - ' + data.registrationId );
       });
 
       push.on('error', function(e) {
         console.log("push error = " + e.message);
+
+        self.debugToApi( 'PUSH ON ERROR - ' + e.message );
       });
 
       push.on('notification', function(data) {
@@ -233,8 +311,10 @@ console.log('DATA', JSON.stringify(data));
         self.conference = content.conference;
         self.countUnreadNews();
       }).catch(function(err){
-        console.log(err);
+        console.log( 'GET CONTENT ERROR: ' + err);
         self.countUnreadNews();
+
+        self.debugToApi( 'GET CONTENT ERROR' );
       })
     },
     getBills: function(){
@@ -249,7 +329,9 @@ console.log('DATA', JSON.stringify(data));
         self.stateMonitor = content.billsmonitoring
         self.billsLoading = false
       }).catch(function(err){
-        console.log(err)
+        console.log( 'GET BILLS ERROR: ' + err);
+
+        self.debugToApi( 'GET BILLS ERROR' );
       })
 
     },
@@ -283,6 +365,8 @@ console.log('DATA', JSON.stringify(data));
       var store = self.getObjectStore('my', 'readonly');
       var req = store.openCursor();
 
+      self.debugToApi( 'GET MY DATA STARTED' );
+
       req.onsuccess = function(evt) {
         var cursor = evt.target.result;
         if (cursor) {
@@ -290,12 +374,17 @@ console.log('DATA', JSON.stringify(data));
           var myToken = JSON.stringify(self.my.authToken, null, 2);
           myToken = myToken.replace(/"/g,"");
 
+          // failing because token is empty - need to check on API side since it's returning a 500 error
           if( myToken !== '' ){
-            fetch(authURL+'/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken))
-            .then(function(res){
+
+            console.log('TOKEN: ', myToken);
+            console.log('ENCODED TOKEN: ', encodeURIComponent(myToken));
+
+            fetch(authURL+'/api/Registration/VerifyToken?token=' + encodeURIComponent(myToken)).then(function(res){
               return res.json()
-            })
-            .then(function(verification){
+            }).then(function(verification){
+
+              console.log('VERIFY TOKEN RESPONSE: ', verification);
               if(verification.isValid){
                 if (self.error_msg) {
                   self.my.view = 'error';
@@ -313,8 +402,15 @@ console.log('DATA', JSON.stringify(data));
               }
             })
             .catch(function(err){
-              console.log("Error" + err)
-            })
+              self.debugToApi( 'FETCH TOKEN ERROR - ' + myToken );
+
+              console.log("Verify Token Error: " + err);
+              
+              // if there is an API error
+                self.loginStatus = 'guest';
+                self.my.userType = 'guest';
+                self.my.view = 'welcome';
+            });
           }
         }
       };
@@ -383,7 +479,7 @@ console.log('DATA', JSON.stringify(data));
       .then(function(response) {
         console.log(response)
       }).catch(function(error) {
-        console.error(error)
+        console.error( 'SEND CONTACT EMAIL ERROR: ' + error);
       })
       self.my.contactChoice = false;
       self.my.contactEmail = "";
@@ -393,6 +489,9 @@ console.log('DATA', JSON.stringify(data));
   mounted: function () {
     var self = this;
     var request = indexedDB.open("CNIGAApp", 3);
+
+    // DEBUG
+    self.debugToApi( 'MOUNTED' );
 
     self.countUnreadNews();
     self.bindEvents();
@@ -404,6 +503,7 @@ console.log('DATA', JSON.stringify(data));
     };
     request.onsuccess = function(event) {
       self.db = this.result;
+
       self.getMyData();
     };
     request.onupgradeneeded = function(event) {
@@ -426,3 +526,6 @@ console.log('DATA', JSON.stringify(data));
     };
   }
 });
+
+
+//# sourceMappingURL=cniga.min.js.map
