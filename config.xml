@@ -22,6 +22,10 @@
         <splash platform="android" qualifier="xhdpi"   src="res/screens/android/drawable-port-xhdpi-screen.png" />
         <splash platform="android" qualifier="xxhdpi"  src="res/screens/android/drawable-port-xxhdpi-screen.png" />
         <splash platform="android" qualifier="xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
+
+        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/uses-permission" xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </edit-config>
     </platform>
 
     <platform name="ios">
