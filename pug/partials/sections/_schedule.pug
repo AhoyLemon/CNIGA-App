@@ -3,7 +3,12 @@
     h4.schedule-heading Schedule
     .schedule-items
       .schedule-item(v-for="item in schedule")
-        h5 {{item.title}}
+        h5 
+          a(v-if="item.description" @click="item.expand = !item.expand") {{item.title}}
+          span(v-else) {{item.title}}
+        .description(v-if="item.description")
+          transition(v-on:enter="slideDown" v-on:leave="slideUp")
+            .description-text(v-if="item.expand" v-html="item.description" style="padding-bottom:1em; padding-top:1em;")
         time(v-if="item.prettyDate && item.prettyTime") 
           | {{item.prettyDate}} @ {{item.prettyTime}}
         time(v-else-if="item.prettyDate")
@@ -18,4 +23,3 @@
           span(v-if="item.city") {{item.city}}, 
           span(v-if="item.state") {{item.state}} 
           span(v-if="item.zip") {{item.zip}}
-        p(v-if="item.description") {{item.description}}
