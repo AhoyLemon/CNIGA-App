@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cniga.rca" version="1.107" versionCode="10017" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.cniga.rca" version="1.108" versionCode="10017" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>CNIGA</name>
     <description>
       App for California Nations Indian Gaming Association.
@@ -72,6 +72,9 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <resource-file src="google-services.json" target="app/google-services.json" />
+    </platform>
+    <platform name="ios">
+        <resource-file src="GoogleService-Info.plist" />
     </platform>
     <platform name="winphone" />
     <access origin="*" />
