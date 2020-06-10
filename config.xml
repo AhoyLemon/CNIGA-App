@@ -67,8 +67,8 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <preference name="UseLegacySwiftLanguageVersion" value="true" />
-        <preference name="UseSwiftLanguageVersion" value="3.0" />
-        <preference name="SWIFT_VERSION" value="3.0" />
+        <preference name="UseSwiftLanguageVersion" value="4.0" />
+        <preference name="SWIFT_VERSION" value="4.0" />
     </platform>
 
     <preference name="phonegap-version" value="cli-9.0.0" />
