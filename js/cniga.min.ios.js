@@ -215,7 +215,6 @@ var app = new Vue({
       // for ios devices - implement Pushy
       Pushy.listen();
 
-
       try{
         Pushy.register( function( err, deviceToken ){
           if( err ){
@@ -225,12 +224,31 @@ var app = new Vue({
           else{
             // success - get token and set up listeners
             self.debugToApi( 'PUSHY REGISTERED SUCCESSFULLY. TOKEN: ' + deviceToken );
-          }
+
+            // save token to db
+            // deviceType:
+            // 1 = Android
+            // 2 = iOS
+            // 3 = Pushy
+            fetch( authURL+'/api/Device/UpdateMemberDeviceInfo?authToken=' + self.my.authToken + '&deviceType=3&deviceId=' + deviceToken )
+              .then(function(){
+                self.debugToApi( 'PUSHY TOKEN SAVED TO DATABASE. TOKEN: ' + deviceToken );
+              })
+              .catch( function( e ){
+                self.debugToApi( 'PUSHY TOKEN SAVED TO DATABASE ERROR. TOKEN: ' + deviceToken + ' -- ERROR: ' + e );
+              });
+
+              var oldRegId = localStorage.getItem( 'registrationId' );
+              if ( oldRegId !== deviceToken ) {
+                localStorage.setItem( 'registrationId', deviceToken );
+                // Post registrationId to your app server as the value has changed
+                // NOTE: ONLY SEND DEVICE ID TO SERVER IF THE USER IS LOGGED IN
+                // I.E. USE THE CHECK LOGIN CODE METHOD
+              }
+            }
         });
 
         Pushy.setNotificationListener( function ( data ){
-          self.debugToApi( 'PUSHY RECEIVED NOTIFICATION. DATA: ' + data );
-          
           navigator.notification.alert(
             data.message,         // message
             null,                 // callback
