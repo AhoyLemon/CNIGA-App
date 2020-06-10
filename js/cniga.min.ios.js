@@ -227,6 +227,17 @@ var app = new Vue({
             self.debugToApi( 'PUSHY REGISTERED SUCCESSFULLY. TOKEN: ' + deviceToken );
           }
         });
+
+        Pushy.setNotificationListener( function ( data ){
+          self.debugToApi( 'PUSHY RECEIVED NOTIFICATION. DATA: ' + data );
+          
+          navigator.notification.alert(
+            data.message,         // message
+            null,                 // callback
+            data.title,           // title
+            'Ok'                  // buttonName
+          );
+        });
       }
       catch( ex ){
         self.debugToApi( 'PUSHY TRY CATCH ERROR: ' + err );
