@@ -45,6 +45,7 @@ window.onload =  function() {
 
 //@prepros-prepend partials/_functions.js
 
+const axios = require('axios').default;
 var windowHeight = window.innerHeight;
 var authURL = "http://204.232.242.136:8008";
 
@@ -113,10 +114,16 @@ var app = new Vue({
 
       alert('attempt to fetch HTTPS');
       try{
-        cordovaFetch('/users.html').then( function( response ) {
-          return response.text()
-        }).then(function( body ) {
-          alert( 'GOT CORDOVA FETCH: ' + JSON.stringify(body) );
+        axios.get('https://www.google.com').then(function ( response ) {
+          // handle success
+          alert( 'AXIOS RESPONSE ' + JSON.stringify(response));
+        })
+        .catch(function (error) {
+          // handle error
+          alert( 'AXIOS ERROR: ' + JSON.stringify(error));
+        })
+        .finally(function () {
+          // always executed
         });
 
         /*
