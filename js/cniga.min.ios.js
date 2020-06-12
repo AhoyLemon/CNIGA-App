@@ -114,6 +114,7 @@ var app = new Vue({
       // need extra then step to transform it to JSON
       fetch( emailURL ).then( response => response.json() ).then( data => {
         
+        alert( 'GOT FETCH: ' + JSON.stringify(data) );
         // data = JSON transformed data
         // data = { "success":true/false, "emailRecipient": "email@email.com", "errorMessage": "" }
         if ( data.success ) {
@@ -124,13 +125,14 @@ var app = new Vue({
         }
       }).catch(function(err) {
         console.log( 'IOSDEBUG:  Validate Email Error: ' + err );
+        alert( 'FETCH ERROR: ' + JSON.stringify(err) );
         self.loginStatus = 'error';
 
         self.debugToApi( 'CHECK EMAIL ERROR' );
       });
 
       console.log( 'IOSDEBUG: finished check email but nothing: ' + self.loginStatus );
-      console.log( 'IOSDEBUGALERT: finished check email but nothing: ' + self.loginStatus );
+      alert( 'IOSDEBUGALERT: finished check email but nothing: ' + self.loginStatus );
     },
 
     checkLoginCode: function() {
@@ -210,6 +212,7 @@ var app = new Vue({
       self.deviceready = true;
 
       self.debugToApi( 'IOS DEVICE READY' );
+      alert( 'ON DEVICE READY' );
 
       app.setupPush();
     },
