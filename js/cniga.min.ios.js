@@ -226,6 +226,8 @@ var app = new Vue({
       var self = this;
       self.deviceready = true;
 
+      alert('ON DEVICE READY CALLED');
+
       self.debugToApi( 'IOS DEVICE READY' );
       alert( 'ON DEVICE READY' );
 

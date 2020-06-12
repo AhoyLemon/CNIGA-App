@@ -86,6 +86,7 @@
     <engine name="ios" spec="^5.0.1" />
     
 
+    <plugin name="cordova-plugin-device" spec="^2.0.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.1" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
