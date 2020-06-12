@@ -228,14 +228,11 @@ var app = new Vue({
 
       alert('ON DEVICE READY CALLED');
 
-      self.debugToApi( 'IOS DEVICE READY' );
-      alert( 'ON DEVICE READY' );
-
       app.setupPush();
     },
     setupPush: function() {
       var self = this;
-      console.log('IOS SETUP PUSH: calling push init');
+      alert('IOS SETUP PUSH: calling push init');
 
       // for ios devices - implement Pushy
       Pushy.listen();
@@ -243,10 +240,12 @@ var app = new Vue({
       try{
         Pushy.register( function( err, deviceToken ){
           if( err ){
+            alert( 'PUSHY ERROR: ' + JSON.stringify(err));
             // log
             self.debugToApi( 'PUSHY REGISTERED ERROR: ' + err );
           }
           else{
+            alert( 'PUSHY REGISTERED SUCCESSFULLY: ' + deviceToken);
             // success - get token and set up listeners
             self.debugToApi( 'PUSHY REGISTERED SUCCESSFULLY. TOKEN: ' + deviceToken );
 
