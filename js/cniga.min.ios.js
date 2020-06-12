@@ -106,12 +106,13 @@ var app = new Vue({
       var self = this;
       var emailURL = authURL + "/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress="+ encodeURIComponent(self.my.email);
 
-      console.log('VALIDATE EMAIL URL: ', emailURL);
+      console.log('IOSDEBUG:  VALIDATE EMAIL URL: ', emailURL);
       self.loginStatus = "checking";
 
 
       // need extra then step to transform it to JSON
       fetch( emailURL ).then( response => response.json() ).then( data => {
+        
         // data = JSON transformed data
         // data = { "success":true/false, "emailRecipient": "email@email.com", "errorMessage": "" }
         if ( data.success ) {
@@ -121,11 +122,13 @@ var app = new Vue({
           self.loginStatus = 'error';
         }
       }).catch(function(err) {
-        console.log( 'Validate Email Error: ' + err );
+        console.log( 'IOSDEBUG:  Validate Email Error: ' + err );
         self.loginStatus = 'error';
 
         self.debugToApi( 'CHECK EMAIL ERROR' );
       });
+
+      console.log( 'IOSDEBUG: finished check email but nothing: ' + self.loginStatus );
     },
 
     checkLoginCode: function() {
@@ -360,18 +363,17 @@ var app = new Vue({
         self.conference = content.conference;
         self.countUnreadNews();
 
-        console.log('GET CONTENT URL: https://circle.red/cniga/');
-        console.log('GET CONTENT: ' + content);
+        console.log('IOSDEBUG:  GET CONTENT URL: https://circle.red/cniga/');
+        console.log('IOSDEBUG:  GET CONTENT: ' + content);
       }).catch(function(err){
-        console.log( 'GET CONTENT ERROR: ' + err);
+        console.log( 'IOSDEBUG:  GET CONTENT ERROR: ' + err);
         self.countUnreadNews();
 
-        self.debugToApi( 'GET CONTENT ERROR' );
+        self.debugToApi( 'IOSDEBUG:  GET CONTENT ERROR' );
       })
     },
     getBills: function(){
       var self = this;
-      //fetch('http://localhost/cniga/legislation')
 
       fetch('https://circle.red/cniga/legislation')
         .then(function(res){ return res.json()})
@@ -527,12 +529,16 @@ var app = new Vue({
       email.append('subject', subject)
       email.append('message', self.my.contactEmail)
       email.append('sender', self.my.email)
+
+      console.log( 'IOSDEBUG:  Attempt to send contact email to mail.php' );
+
       fetch('https://circle.red/cniga/mail.php', { method: 'POST',body: email,})
       .then(function(response) {
         console.log(response)
       }).catch(function(error) {
-        console.error( 'SEND CONTACT EMAIL ERROR: ' + error);
+        console.error( 'IOSDEBUG:  SEND CONTACT EMAIL ERROR: ' + error);
       })
+
       self.my.contactChoice = false;
       self.my.contactEmail = "";
       return false
