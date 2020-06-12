@@ -216,8 +216,10 @@ var app = new Vue({
       const self = this;
 
       console.log('Bind Events');
+      alert('BIND EVENTS');
       document.addEventListener( 'deviceready', this.onDeviceReady, false );
 
+      alert('FINISHED BINDING DEVICE READY');
       self.debugToApi( 'BIND EVENTS' );
     },
     onDeviceReady: function() {
