@@ -112,9 +112,15 @@ var app = new Vue({
 
 
       alert('attempt to fetch HTTPS');
-      fetch( 'https://wwww.google.com' ).then( response => response.json() ).then( data02 => {
-        alert( 'GOT SSL SITE: ' + JSON.stringify(data02) );
-      });
+      try{
+        fetch( 'https://wwww.google.com' ).then( response => response.json() ).then( data02 => {
+          alert( 'GOT SSL SITE: ' + JSON.stringify(data02) );
+        });
+      }
+      catch( ex ){
+        alert( 'ERROR attempting to fetch: ' + JSON.stringify(ex));
+      }
+      
       alert('finished attempt to fetch HTTPS');
 
 
