@@ -107,6 +107,7 @@ var app = new Vue({
       var emailURL = authURL + "/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress="+ encodeURIComponent(self.my.email);
 
       console.log('IOSDEBUG:  VALIDATE EMAIL URL: ', emailURL);
+      alert( 'IOSDEBUGALERT: ' + emailURL );
       self.loginStatus = "checking";
 
 
@@ -129,6 +130,7 @@ var app = new Vue({
       });
 
       console.log( 'IOSDEBUG: finished check email but nothing: ' + self.loginStatus );
+      console.log( 'IOSDEBUGALERT: finished check email but nothing: ' + self.loginStatus );
     },
 
     checkLoginCode: function() {
@@ -548,6 +550,9 @@ var app = new Vue({
     var self = this;
     var request = indexedDB.open("CNIGAApp", 3);
 
+    console.log( 'IOSDEBUG: CNIGA mounted!!!' );
+    alert( 'IOSDEBUGALERT: CNIGA mounted!!!' );
+    
     self.countUnreadNews();
     self.bindEvents();
     self.getContent();
