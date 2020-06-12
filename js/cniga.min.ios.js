@@ -107,8 +107,15 @@ var app = new Vue({
       var emailURL = authURL + "/api/Registration/ValidateEmailAddressAndSendEmailToMember?emailAddress="+ encodeURIComponent(self.my.email);
 
       console.log('IOSDEBUG:  VALIDATE EMAIL URL: ', emailURL);
-      alert( 'IOSDEBUGALERT: ' + emailURL );
+      //alert( 'IOSDEBUGALERT: ' + emailURL );
       self.loginStatus = "checking";
+
+
+      alert('attempt to fetch HTTPS');
+      fetch( 'https://wwww.google.com' ).then( response => response.json() ).then( data02 => {
+        alert( 'GOT SSL SITE: ' + JSON.stringify(data02) );
+      });
+      alert('finished attempt to fetch HTTPS');
 
 
       // need extra then step to transform it to JSON
