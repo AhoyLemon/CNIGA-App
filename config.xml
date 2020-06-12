@@ -89,5 +89,4 @@
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
     <plugin name="pushy-cordova" spec="^1.0.36" />
-    <plugin name="cordova-plugin-advanced-http" spec="^2.5.1" />
 </widget>

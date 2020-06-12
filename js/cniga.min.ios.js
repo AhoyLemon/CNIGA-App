@@ -113,20 +113,9 @@ var app = new Vue({
 
       alert('attempt to fetch HTTPS');
       try{
-        cordova.plugin.http.post('https://google.com/', {
-          test: 'testString'
-        }, function( response ) {
-          alert('SUCCESS: ' + response.status );
-        },
-        function(response) {
-          alert( 'ERROR: ' + response.error );
-        });
-
-        /*
         fetch( 'https://wwww.google.com' ).then( response => response.json() ).then( data02 => {
           alert( 'GOT SSL SITE: ' + JSON.stringify(data02) );
         });
-        */
       }
       catch( ex ){
         alert( 'ERROR attempting to fetch: ' + JSON.stringify(ex));
